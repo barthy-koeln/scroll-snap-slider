@@ -1,6 +1,6 @@
 # Scroll Snap Slider
 
-[![DeepScan grade](https://deepscan.io/api/teams/11039/projects/14107/branches/253421/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=11039&pid=14107&bid=253421)  
+[![DeepScan grade](https://deepscan.io/api/teams/11039/projects/14107/branches/253421/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=11039&pid=14107&bid=253421)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 Mostly CSS slider with great performance. See an [demo on codepen](https://codepen.io/BarthyB/pen/JjXgzOL).
