@@ -1,4 +1,4 @@
-.scroll-slider {
+.scroll-snap-slider {
   display: flex;
   flex-wrap: nowrap;
   justify-content: normal;
@@ -11,7 +11,7 @@
     display: none;
   }
 
-  .scroll-slide {
+  .scroll-snap-slide {
     align-items: center;
     display: flex;
     flex: 0 0 auto;

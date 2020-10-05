@@ -1,4 +1,4 @@
-export class ScrollSlider {
+export class ScrollSnapSlider {
   /**
    * Bind methods and attach listeners.
    * @param {HTMLElement} element
