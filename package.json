@@ -1,5 +1,5 @@
 {
-  "name": "scroll-smap-slider",
+  "name": "scroll-snap-slider",
   "version": "1.0.0",
   "description": "Mostly CSS slider with great performance.",
   "main": "src/ScrollSnapSlider.js",
