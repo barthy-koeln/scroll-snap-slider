@@ -1,0 +1,29 @@
+{
+  "name": "scroll-smap-slider",
+  "version": "1.0.0",
+  "description": "Mostly CSS slider with great performance.",
+  "main": "src/ScrollSnapSlider.js",
+  "repository": "https://github.com/barthy-koeln/vue-smooth-reveal",
+  "author": "Barthy Bonhomme <post@barthy.koeln>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {},
+  "devDependencies": {
+    "core-js": "^3",
+    "eslint": "^7.9.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "husky": "^4.3.0",
+    "stylelint": "^13.7.2",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-scss": "^3.18.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "bin/pre-commit"
+    }
+  }
+}

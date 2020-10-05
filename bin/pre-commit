@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# We want to use globs to pass multiple files
+# shellcheck disable=SC2046
+
+eslint --fix $(find src -name '*.js')
+stylelint --fix --syntax scss $(find src -name '*.scss')
+
+# Stage only already staged files to prevent committing files prematurely.
+# Premature commitment... Classic Schmosby.
+git update-index --again

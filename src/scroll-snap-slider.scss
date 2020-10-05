@@ -1,0 +1,24 @@
+.scroll-slider {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: normal;
+  -ms-overflow-style: none; // IE and Edge
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none; // Firefox
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scroll-slide {
+    align-items: center;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    justify-content: center;
+    max-width: none;
+    scroll-snap-align: start;
+    width: 100%;
+  }
+}
