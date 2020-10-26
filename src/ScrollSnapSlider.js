@@ -4,11 +4,22 @@ export class ScrollSnapSlider {
    * @param {HTMLElement} element
    */
   constructor (element) {
+    /**
+     * Base element of this slider
+     * @type {HTMLElement}
+     */
     this.element = element
+
+    /**
+     * Active slide
+     * @type {?number}
+     */
+    this.slide = null
 
     this.onScroll = this.onScroll.bind(this)
     this.scrollTo = this.scrollTo.bind(this)
 
+    this.calculateSlide()
     this.attachListeners()
   }
 
@@ -16,7 +27,7 @@ export class ScrollSnapSlider {
    * Attach all necessary listeners
    */
   attachListeners () {
-    this.element.addEventListener('scroll', this.onScroll, {
+    this.addEventListener('scroll', this.onScroll, {
       passive: true
     })
   }
@@ -31,21 +42,29 @@ export class ScrollSnapSlider {
    */
   onScroll () {
     if (this.element.scrollLeft % this.element.offsetWidth === 0) {
-      const slide = this.element.scrollLeft / this.element.offsetWidth
+      this.calculateSlide()
 
       this.element.dispatchEvent(
         new window.CustomEvent('slide-changed', {
-          detail: slide
+          detail: this.slide
         })
       )
     }
   }
 
   /**
+   * Calculates the active slide
+   * @private
+   */
+  calculateSlide () {
+    this.slide = this.element.scrollLeft / this.element.offsetWidth
+  }
+
+  /**
    * Scroll to a slide by index.
    *
-   * @public
    * @param index
+   * @public
    */
   scrollTo (index) {
     this.element.scrollTo({
@@ -59,8 +78,9 @@ export class ScrollSnapSlider {
    * @param {String} event
    * @param {Function} listener
    * @param {AddEventListenerOptions} options
+   * @public
    */
-  addEventListener (event, listener, options) {
+  addEventListener (event, listener, options = undefined) {
     this.element.addEventListener(event, listener, options)
   }
 
@@ -68,6 +88,7 @@ export class ScrollSnapSlider {
    * Remove Listener to the root element
    * @param {String} event
    * @param {Function} listener
+   * @public
    */
   removeEventListener (event, listener) {
     this.element.addEventListener(event, listener)
