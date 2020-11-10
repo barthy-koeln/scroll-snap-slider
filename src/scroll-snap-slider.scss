@@ -4,6 +4,7 @@
   justify-content: normal;
   -ms-overflow-style: none; // IE and Edge
   overflow-x: auto;
+  scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
   scrollbar-width: none; // Firefox
 

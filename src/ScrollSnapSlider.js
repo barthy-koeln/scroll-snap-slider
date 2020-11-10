@@ -68,8 +68,7 @@ export class ScrollSnapSlider {
    */
   scrollTo (index) {
     this.element.scrollTo({
-      left: index * this.element.offsetWidth,
-      behavior: 'smooth'
+      left: index * this.element.offsetWidth
     })
   }
 
