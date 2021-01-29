@@ -32,6 +32,20 @@ export class ScrollSnapSlider {
     this.onScrollEnd = this.onScrollEnd.bind(this)
     this.slideTo = this.slideTo.bind(this)
 
+    /**
+     * Adds event listener to the element
+     * @type {Function}
+     * @public
+     */
+    this.addEventListener = this.element.addEventListener.bind(this.element)
+
+    /**
+     * Removes event listener from the element
+     * @type {Function}
+     * @public
+     */
+    this.removeEventListener = this.element.removeEventListener.bind(this.element)
+
     this.calculateSlide()
     this.attachListeners()
   }
@@ -125,30 +139,6 @@ export class ScrollSnapSlider {
     this.element.scrollTo({
       left: index * this.element.offsetWidth
     })
-  }
-
-  /**
-   * Attach Listener to the root element
-   * @param {String} event
-   * @param {EventListenerOrEventListenerObject} listener
-   * @param {undefined|boolean|AddEventListenerOptions} options
-   * @return {void}
-   * @public
-   */
-  addEventListener (event, listener, options = undefined) {
-    this.element.addEventListener(event, listener, options)
-  }
-
-  /**
-   * Remove Listener to the root element
-   * @param {String} event
-   * @param {EventListenerOrEventListenerObject} listener
-   * @param {undefined|boolean|AddEventListenerOptions} options
-   * @return {void}
-   * @public
-   */
-  removeEventListener (event, listener, options = undefined) {
-    this.element.removeEventListener(event, listener, options)
   }
 
   /**
