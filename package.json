@@ -6,7 +6,7 @@
   "style": "src/scroll-snap-slider.scss",
   "module": "src/ScrollSnapSlider.js",
   "type": "module",
-  "repository": "https://github.com/barthy-koeln/vue-smooth-reveal",
+  "repository": "https://github.com/barthy-koeln/scroll-snap-slider",
   "author": "Barthy Bonhomme <post@barthy.koeln>",
   "license": "MIT",
   "private": false,
