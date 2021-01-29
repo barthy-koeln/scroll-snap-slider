@@ -1,9 +1,11 @@
 {
   "name": "scroll-snap-slider",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Mostly CSS slider with great performance.",
   "main": "src/ScrollSnapSlider.js",
   "style": "src/scroll-snap-slider.scss",
+  "module": "src/ScrollSnapSlider.js",
+  "type": "module",
   "repository": "https://github.com/barthy-koeln/vue-smooth-reveal",
   "author": "Barthy Bonhomme <post@barthy.koeln>",
   "license": "MIT",

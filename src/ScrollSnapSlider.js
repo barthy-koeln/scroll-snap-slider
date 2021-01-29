@@ -1,12 +1,12 @@
 export class ScrollSnapSlider {
   /**
    * Bind methods and attach listeners.
-   * @param {HTMLElement} element
+   * @param {Element} element
    */
   constructor (element) {
     /**
      * Base element of this slider
-     * @type {HTMLElement}
+     * @type {Element}
      */
     this.element = element
 
@@ -16,8 +16,21 @@ export class ScrollSnapSlider {
      */
     this.slide = null
 
+    /**
+     * Active slide's scrollLeft in the containing element
+     * @type {number}
+     */
+    this.slideScrollLeft = 0
+
+    /**
+     * Timestamp when the last scroll started
+     * @type {?number}
+     */
+    this.scrollStarted = null
+
     this.onScroll = this.onScroll.bind(this)
-    this.scrollTo = this.scrollTo.bind(this)
+    this.onScrollEnd = this.onScrollEnd.bind(this)
+    this.slideTo = this.slideTo.bind(this)
 
     this.calculateSlide()
     this.attachListeners()
@@ -25,6 +38,8 @@ export class ScrollSnapSlider {
 
   /**
    * Attach all necessary listeners
+   * @return {void}
+   * @private
    */
   attachListeners () {
     this.addEventListener('scroll', this.onScroll, {
@@ -33,40 +48,80 @@ export class ScrollSnapSlider {
   }
 
   /**
-   * This listener calculates the modulo of the scroll position by the visible width.
-   * Every time the result equals 0, the scroll position is exactly an integer multiple of the width.
-   * This means that the carousel has reached another page.
-   * The scroll-snap-type property makes sure that the container snaps perfectly to integer multiples.
-   *
+   * Act when scrolling starts and stops
+   * @param {Event} event
+   * @return {void}
    * @private
    */
-  onScroll () {
-    if (this.element.scrollLeft % this.element.offsetWidth === 0) {
-      this.calculateSlide()
+  onScroll (event) {
+    if (null === this.scrollStarted) {
+      this.scrollStarted = event.timeStamp
+      this.onScrollStart()
+    }
 
-      this.element.dispatchEvent(
-        new window.CustomEvent('slide-changed', {
-          detail: this.slide
-        })
-      )
+    if (this.element.scrollLeft % this.element.offsetWidth === 0) {
+      this.scrollStarted = null
+      this.onScrollEnd()
     }
   }
 
   /**
-   * Calculates the active slide
+   * Dispatch an event when sliding starts
+   * @return {void}
+   * @private
+   */
+  onScrollStart () {
+    const direction = (this.element.scrollLeft > this.slideScrollLeft) ? 1 : -1
+    this.dispatch('slide-start', this.slide + direction)
+  }
+
+  /**
+   * Calculate all necessary things and dispatch an event when sliding stops
+   * @return {void}
+   * @private
+   */
+  onScrollEnd () {
+    this.calculateSlide()
+    this.dispatch('slide-stop', this.slide)
+  }
+
+  /**
+   * Calculates the active slide.
+   * The scroll-snap-type property makes sure that the container snaps perfectly to integer multiples.
+   * @return {void}
    * @private
    */
   calculateSlide () {
-    this.slide = this.element.scrollLeft / this.element.offsetWidth
+    if (this.element.scrollLeft % this.element.offsetWidth !== 0) {
+      return
+    }
+
+    this.slideScrollLeft = this.element.scrollLeft
+    this.slide = this.slideScrollLeft / this.element.offsetWidth
+  }
+
+  /**
+   * @param {String} event
+   * @param {any} detail
+   * @return {boolean}
+   * @private
+   */
+  dispatch (event, detail) {
+    return this.element.dispatchEvent(
+      new window.CustomEvent(event, {
+        detail: detail
+      })
+    )
   }
 
   /**
    * Scroll to a slide by index.
    *
-   * @param index
+   * @param {Number} index
+   * @return {void}
    * @public
    */
-  scrollTo (index) {
+  slideTo (index) {
     this.element.scrollTo({
       left: index * this.element.offsetWidth
     })
@@ -75,8 +130,9 @@ export class ScrollSnapSlider {
   /**
    * Attach Listener to the root element
    * @param {String} event
-   * @param {Function} listener
-   * @param {AddEventListenerOptions} options
+   * @param {EventListenerOrEventListenerObject} listener
+   * @param {undefined|boolean|AddEventListenerOptions} options
+   * @return {void}
    * @public
    */
   addEventListener (event, listener, options = undefined) {
@@ -86,10 +142,23 @@ export class ScrollSnapSlider {
   /**
    * Remove Listener to the root element
    * @param {String} event
-   * @param {Function} listener
+   * @param {EventListenerOrEventListenerObject} listener
+   * @param {undefined|boolean|AddEventListenerOptions} options
+   * @return {void}
    * @public
    */
-  removeEventListener (event, listener) {
-    this.element.addEventListener(event, listener)
+  removeEventListener (event, listener, options = undefined) {
+    this.element.removeEventListener(event, listener, options)
+  }
+
+  /**
+   * Free resources and listeners
+   * @return {void}
+   * @public
+   */
+  destroy () {
+    this.removeEventListener('scroll', this.onScroll, {
+      passive: true
+    })
   }
 }

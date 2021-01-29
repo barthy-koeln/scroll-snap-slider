@@ -6,6 +6,7 @@
   overflow-x: auto;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
+  scroll-snap-stop: always;
   scrollbar-width: none; // Firefox
 
   &::-webkit-scrollbar {

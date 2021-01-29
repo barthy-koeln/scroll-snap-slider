@@ -29,8 +29,12 @@ import {ScrollSnapSlider} from 'scroll-snap-slider'
 
 const slider = new ScrollSnapSlider(document.querySelector(".example-slider"));
 
+slider.addEventListener('slide-to', function(event){
+  console.info(`Started sliding towards slide ${event.detail}.`)
+})
+
 slider.addEventListener('slide-changed', function(event){
-  console.info(`Slide at Index ${event.detail} selected.`)
+  console.info(`Stopped sliding at slide ${event.detail}.`)
 })
 ```
 
@@ -43,6 +47,26 @@ slider.addEventListener('slide-changed', function(event){
 This library is a shortcut to something I personally have to
 implement in almost every website. To keep it small, there are no fancy
 features, no error handling, and so on.
+
+## API
+
+| method                          | description                                                             |
+|-------------------------------- |-------------------------------------------------------------------------|
+| `slideTo(index: Number): void` | Scrolls to slide with at `index`.                                       |
+| `addEventListener(...)`         | This is a shortcut for `slider.element.addEventListener(...)`           |
+| `removeEventListener(...)`      | This is a shortcut for `slider.element.removeEventListener(...)`        |
+| `destroy()`                     | Free resources and listeners. You should do `slider = null` after this. |
+
+## Events
+
+Events on the slider's `element`:
+
+| event name      | event detail type | description                                                   |
+|-----------------|-------------------|---------------------------------------------------------------|
+| `slide-start`   | `Number`          | Dispatched when sliding starts toward slide at `event.detail` |
+| `slide-stop`    | `NUmber`          | Dispatched when sliding stops at slide at `event.detail`      |
+
+You can use the proxy methods `addEventListener` and `removeEventListener` to listen to them.
 
 ## Support
 
