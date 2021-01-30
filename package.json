@@ -1,22 +1,26 @@
 {
   "name": "scroll-snap-slider",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Mostly CSS slider with great performance.",
-  "keywords": ["slider", "carousel", "scroll", "scroll-snap"],
+  "keywords": [
+    "slider",
+    "carousel",
+    "scroll",
+    "scroll-snap"
+  ],
   "main": "src/ScrollSnapSlider.js",
   "style": "src/scroll-snap-slider.scss",
   "module": "src/ScrollSnapSlider.js",
   "type": "module",
   "sideEffects": false,
-  "browserslist": ["defaults"],
+  "browserslist": [
+    "defaults"
+  ],
   "repository": "https://github.com/barthy-koeln/scroll-snap-slider",
   "author": "Barthy Bonhomme <post@barthy.koeln>",
   "license": "MIT",
   "private": false,
-  "dependencies": {
-    "check-side-effects": "^0.0.23",
-    "global": "^4.4.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "core-js": "^3",
     "eslint": "^7.9.0",
