@@ -59,12 +59,13 @@ features, no error handling, and so on.
 
 ## Events
 
-Events on the slider's `element`:
+Events dispatched on the slider's `element`:
 
 | event name      | event detail type | description                                                   |
 |-----------------|-------------------|---------------------------------------------------------------|
 | `slide-start`   | `Number`          | Dispatched when sliding starts toward slide at `event.detail` |
-| `slide-stop`    | `NUmber`          | Dispatched when sliding stops at slide at `event.detail`      |
+| `slide-stop`    | `Number`          | Dispatched when sliding stopped at index `event.detail`       |
+
 
 You can use the proxy methods `addEventListener` and `removeEventListener` to listen to them.
 
