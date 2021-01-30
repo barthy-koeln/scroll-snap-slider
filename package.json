@@ -2,6 +2,7 @@
   "name": "scroll-snap-slider",
   "version": "2.1.0",
   "description": "Mostly CSS slider with great performance.",
+  "keywords": ["slider", "carousel", "scroll", "scroll-snap"],
   "main": "src/ScrollSnapSlider.js",
   "style": "src/scroll-snap-slider.scss",
   "module": "src/ScrollSnapSlider.js",
