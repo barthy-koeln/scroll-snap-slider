@@ -12,21 +12,27 @@ export class ScrollSnapSlider {
 
     /**
      * Active slide
-     * @type {?number}
+     * @type {?Number}
      */
-    this.slide = null
+    this.slide = this.calculateSlide()
 
     /**
      * Active slide's scrollLeft in the containing element
-     * @type {number}
+     * @type {Number}
      */
-    this.slideScrollLeft = 0
+    this.slideScrollLeft = this.element.scrollLeft
 
     /**
-     * Timestamp when the last scroll started
-     * @type {?number}
+     * Timeout ID used to catch the end of scroll events
+     * @type {?Number}
      */
-    this.scrollStarted = null
+    this.scrollTimeoutId = null
+
+    /**
+     * Timeout delay in milliseconds used to catch the end of scroll events
+     * @type {?Number}
+     */
+    this.scrollTimeout = 100
 
     this.onScroll = this.onScroll.bind(this)
     this.onScrollEnd = this.onScrollEnd.bind(this)
@@ -46,14 +52,13 @@ export class ScrollSnapSlider {
      */
     this.removeEventListener = this.element.removeEventListener.bind(this.element)
 
-    this.calculateSlide()
     this.attachListeners()
   }
 
   /**
    * Attach all necessary listeners
    * @return {void}
-   * @private
+   * @public
    */
   attachListeners () {
     this.addEventListener('scroll', this.onScroll, {
@@ -63,30 +68,24 @@ export class ScrollSnapSlider {
 
   /**
    * Act when scrolling starts and stops
-   * @param {Event} event
    * @return {void}
    * @private
    */
-  onScroll (event) {
-    if (null === this.scrollStarted) {
-      this.scrollStarted = event.timeStamp
-      this.onScrollStart()
+  onScroll () {
+    if (null === this.scrollTimeoutId) {
+      const direction = (this.element.scrollLeft > this.slideScrollLeft) ? 1 : -1
+      this.dispatch('slide-start', this.slide + direction)
     }
 
-    if (this.element.scrollLeft % this.element.offsetWidth === 0) {
-      this.scrollStarted = null
-      this.onScrollEnd()
+    const floored = this.calculateSlide()
+    if (floored !== this.slide) {
+      this.slideScrollLeft = this.element.scrollLeft
+      this.slide = floored
+      this.dispatch('slide-pass', this.slide)
     }
-  }
 
-  /**
-   * Dispatch an event when sliding starts
-   * @return {void}
-   * @private
-   */
-  onScrollStart () {
-    const direction = (this.element.scrollLeft > this.slideScrollLeft) ? 1 : -1
-    this.dispatch('slide-start', this.slide + direction)
+    window.clearTimeout(this.scrollTimeoutId)
+    this.scrollTimeoutId = window.setTimeout(this.onScrollEnd, this.scrollTimeout)
   }
 
   /**
@@ -95,23 +94,20 @@ export class ScrollSnapSlider {
    * @private
    */
   onScrollEnd () {
-    this.calculateSlide()
+    this.scrollTimeoutId = null
+    this.slide = this.calculateSlide()
+    this.slideScrollLeft = this.element.scrollLeft
     this.dispatch('slide-stop', this.slide)
   }
 
   /**
    * Calculates the active slide.
    * The scroll-snap-type property makes sure that the container snaps perfectly to integer multiples.
-   * @return {void}
+   * @return {Number}
    * @private
    */
   calculateSlide () {
-    if (this.element.scrollLeft % this.element.offsetWidth !== 0) {
-      return
-    }
-
-    this.slideScrollLeft = this.element.scrollLeft
-    this.slide = this.slideScrollLeft / this.element.offsetWidth
+    return Math.floor(this.element.scrollLeft / this.element.offsetWidth)
   }
 
   /**

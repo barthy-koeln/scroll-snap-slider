@@ -2,9 +2,28 @@
 # We want to use globs to pass multiple files
 # shellcheck disable=SC2046
 
-eslint --fix $(find src -name '*.js')
-stylelint --fix --syntax scss $(find src -name '*.scss')
+DIR=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
+# shellcheck source=./io.sh
+source "$DIR/io.sh"
 
-# Stage only already staged files to prevent committing files prematurely.
-# Premature commitment... Classic Schmosby.
+info "Removing Console Usage"
+
+DIRECTORIES="src"
+find $DIRECTORIES -type f -name '*.js' -exec sed -i -E '/console\.(info|log|debug|table)/d' {} \;
+
+info "Linting & Fixing JS Code Style"
+
+if ! eslint --fix --quiet $(find "$DIRECTORIES" -type f -name '*.js'); then
+  error "JavaScript Error in JavaScript file. Run ${YELLOW}eslint src/**/*.js${RESET} to check."
+  exit 1
+fi
+
+info "Linting & Fixing SCSS Code Style"
+
+if ! stylelint --fix --quiet --syntax scss $(find "$DIRECTORIES" -type f -name '*.scss'); then
+  error "Error in SCSS file. Run ${YELLOW}stylelint src/**/*.scss${RESET} to check."
+  exit 1
+fi
+
+success "All good, staging additional changes.\n"
 git update-index --again

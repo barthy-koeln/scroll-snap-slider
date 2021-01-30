@@ -29,11 +29,15 @@ import {ScrollSnapSlider} from 'scroll-snap-slider'
 
 const slider = new ScrollSnapSlider(document.querySelector(".example-slider"));
 
-slider.addEventListener('slide-to', function(event){
+slider.addEventListener('slide-start', function(event){
   console.info(`Started sliding towards slide ${event.detail}.`)
 })
 
-slider.addEventListener('slide-changed', function(event){
+slider.addEventListener('slide-pass', function(event){
+  console.info(`Passing slide ${event.detail}.`)
+})
+
+slider.addEventListener('slide-stop', function(event){
   console.info(`Stopped sliding at slide ${event.detail}.`)
 })
 ```
@@ -61,10 +65,11 @@ features, no error handling, and so on.
 
 Events on the slider's `element`:
 
-| event name      | event detail type | description                                                   |
-|-----------------|-------------------|---------------------------------------------------------------|
-| `slide-start`   | `Number`          | Dispatched when sliding starts toward slide at `event.detail` |
-| `slide-stop`    | `NUmber`          | Dispatched when sliding stops at slide at `event.detail`      |
+| event name      | event detail type | description                                                                       |
+|-----------------|-------------------|-----------------------------------------------------------------------------------|
+| `slide-start`   | `Number`          | Dispatched when sliding starts toward slide at `event.detail`                     |
+| `slide-pass`    | `Number`          | Dispatched when sliding passes (crosses the threshold to) slide at `event.detail` |
+| `slide-stop`    | `NUmber`          | Dispatched when sliding stops at slide at `event.detail`                          |
 
 You can use the proxy methods `addEventListener` and `removeEventListener` to listen to them.
 

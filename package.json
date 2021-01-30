@@ -6,15 +6,21 @@
   "style": "src/scroll-snap-slider.scss",
   "module": "src/ScrollSnapSlider.js",
   "type": "module",
+  "sideEffects": false,
+  "browserslist": ["defaults"],
   "repository": "https://github.com/barthy-koeln/scroll-snap-slider",
   "author": "Barthy Bonhomme <post@barthy.koeln>",
   "license": "MIT",
   "private": false,
-  "dependencies": {},
+  "dependencies": {
+    "check-side-effects": "^0.0.23",
+    "global": "^4.4.0"
+  },
   "devDependencies": {
     "core-js": "^3",
     "eslint": "^7.9.0",
     "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-compat": "^3.9.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
