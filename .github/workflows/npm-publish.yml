@@ -1,6 +1,7 @@
 name: publish-to-npm
 
 on:
+  workflow_dispatch:
   release:
     types: [created]
 
@@ -13,6 +14,7 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
+          always-auth: true
       - run: yarn
       - run: yarn publish
         env:
