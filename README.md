@@ -2,11 +2,11 @@
 
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![DeepScan grade](https://badgen.net/deepscan/grade/team/11039/project/14107/branch/253421)](https://deepscan.io/dashboard#view=project&tid=11039&pid=14107&bid=253421)
-[![npm version](https://badgen.net/bundlephobia/tree-shaking/scroll-snap-slider)](https://www.npmjs.com/package/scroll-snap-slider)
+[![Tree Shaking: Supported](https://badgen.net/bundlephobia/tree-shaking/scroll-snap-slider)](https://bundlephobia.com/result?p=scroll-snap-slider)
 <br>
-[![npm version](https://badgen.net/npm/v/scroll-snap-slider)](https://www.npmjs.com/package/scroll-snap-slider)
-[![npm version](https://badgen.net/bundlephobia/dependency-count/scroll-snap-slider)](https://www.npmjs.com/package/scroll-snap-slider)
-[![npm version](https://badgen.net/bundlephobia/minzip/scroll-snap-slider)](https://www.npmjs.com/package/scroll-snap-slider)
+[![npm Version](https://badgen.net/npm/v/scroll-snap-slider)](https://www.npmjs.com/package/scroll-snap-slider)
+[![Dependency Count: 0](https://badgen.net/bundlephobia/dependency-count/scroll-snap-slider)](https://bundlephobia.com/result?p=scroll-snap-slider)
+[![mminzippped Size](https://badgen.net/bundlephobia/minzip/scroll-snap-slider)](https://bundlephobia.com/result?p=scroll-snap-slider)
 
 
 Mostly CSS slider with great performance. See a [demo on codepen](https://codepen.io/BarthyB/full/JjXgzOL).
