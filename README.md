@@ -58,6 +58,26 @@ Slides always have 100% width. You can add whatever markup inside.
 @import '~scroll-snap-slider';
 ```
 
+### Additional Styles
+
+Prevents page navigation on horizontal scrolling, i.E. on MacOS.
+[\[Support tables\]](https://caniuse.com/?search=overscroll-behavior)
+
+```css
+.scroll-snap-slider {
+  overscroll-behavior: none;
+}
+```
+
+Prevents scrolling past elements in the slider:
+[\[Support tables\]](https://caniuse.com/?search=scroll-snap-stop)
+
+```css
+.scroll-snap-slide {
+  scroll-snap-stop: always;
+}
+```
+
 ### JavaScript
 
 ```javascript
