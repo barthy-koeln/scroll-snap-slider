@@ -27,6 +27,18 @@ export class ScrollSnapSlider {
      * @type {?Number}
      */
     this.scrollTimeoutId = null
+    
+    /**
+     * @callback roundingMethod
+     * @param {Number} x - factor indicating th current position (e.g "0" for first slide, "2.5" for third slide and a half)
+     * @return {Number} f(x) - integer factor indicating the currently 'active' slide.
+     */
+    
+    /**
+     * Rounding method used to calculate the current slide (e.g. Math.floor, Math.round, Math.ceil, or totally custom.)
+     * @type {roundingMethod}
+     */
+    this.roundingMethod = Math.round
 
     /**
      * Timeout delay in milliseconds used to catch the end of scroll events
@@ -111,7 +123,7 @@ export class ScrollSnapSlider {
    * @private
    */
   calculateSlide () {
-    return Math.floor(this.element.scrollLeft / this.element.offsetWidth)
+    return this.roundingMethod(this.element.scrollLeft / this.element.offsetWidth)
   }
 
   /**
