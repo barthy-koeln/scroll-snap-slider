@@ -22,18 +22,18 @@ tagged_output() {
   echo -e "$4$(colored_output "$1" "[$2]") $3"
 }
 
-success() {
+e_success() {
   tagged_output "$GREEN" '✔' "$1" "$2"
 }
 
-info() {
+e_info() {
   tagged_output "$BLUE" 'ℹ' "$1" "$2"
 }
 
-warning() {
+e_warning() {
   tagged_output "$YELLOW" '❗' "$1" "$2"
 }
 
-error() {
+e_error() {
   tagged_output "$RED" '✘' "$1" "$2"
 }

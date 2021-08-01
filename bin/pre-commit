@@ -1,29 +1,32 @@
 #!/usr/bin/env bash
 # We want to use globs to pass multiple files
 # shellcheck disable=SC2046
+# shellcheck disable=SC2086
+# SC2046 Quote this to prevent word splitting: https://github.com/koalaman/shellcheck/wiki/SC2046
+# SC2086 Double quote to prevent globbing and word splitting: https://github.com/koalaman/shellcheck/wiki/SC2086
 
 DIR=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
 # shellcheck source=./io.sh
 source "$DIR/io.sh"
 
-info "Removing Console Usage"
+colored_output "$GREEN" "\n[EXECUTING PRE COMMIT HOOK]"
+
+e_info "Removing Console Usage"
 
 DIRECTORIES="src"
 find $DIRECTORIES -type f -name '*.js' -exec sed -i -E '/console\.(info|log|debug|table)/d' {} \;
 
-info "Linting & Fixing JS Code Style"
-
+e_info "Linting & Fixing JS Code Style"
 if ! eslint --fix --quiet $(find "$DIRECTORIES" -type f -name '*.js'); then
-  error "JavaScript Error in JavaScript file. Run ${YELLOW}eslint src/**/*.js${RESET} to check."
+  e_error "JavaScript Error in JavaScript file. Run ${YELLOW}eslint src/**/*.js${RESET} to check."
   exit 1
 fi
 
-info "Linting & Fixing SCSS Code Style"
-
+e_info "Linting & Fixing SCSS Code Style"
 if ! stylelint --fix --quiet --syntax scss $(find "$DIRECTORIES" -type f -name '*.scss'); then
-  error "Error in SCSS file. Run ${YELLOW}stylelint src/**/*.scss${RESET} to check."
+  e_error "Error in SCSS file. Run ${YELLOW}stylelint src/**/*.scss${RESET} to check."
   exit 1
 fi
 
-success "All good, staging additional changes.\n"
+e_info "All good, staging additional changes.\n"
 git update-index --again

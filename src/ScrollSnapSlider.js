@@ -1,50 +1,75 @@
+/**
+ * @classdesc Mostly CSS slider with great performance.
+ */
 export class ScrollSnapSlider {
   /**
    * Bind methods and attach listeners.
-   * @param {Element} element
+   * @param {Element|HTMLElement} element
    */
   constructor (element) {
     /**
      * Base element of this slider
-     * @type {Element}
+     * @name ScrollSnapSlider#element
+     * @type {Element|HTMLElement}
+     * @private
      */
     this.element = element
 
     /**
-     * Active slide
-     * @type {?Number}
-     */
-    this.slide = this.calculateSlide()
-
-    /**
      * Active slide's scrollLeft in the containing element
+     * @name ScrollSnapSlider#slideScrollLeft
      * @type {Number}
+     * @private
      */
     this.slideScrollLeft = this.element.scrollLeft
 
     /**
      * Timeout ID used to catch the end of scroll events
+     * @name ScrollSnapSlider#scrollTimeoutId
      * @type {?Number}
+     * @private
      */
     this.scrollTimeoutId = null
-    
+
     /**
      * @callback roundingMethod
      * @param {Number} x - factor indicating th current position (e.g "0" for first slide, "2.5" for third slide and a half)
      * @return {Number} f(x) - integer factor indicating the currently 'active' slide.
      */
-    
+
     /**
      * Rounding method used to calculate the current slide (e.g. Math.floor, Math.round, Math.ceil, or totally custom.)
+     * @name ScrollSnapSlider#roundingMethod
      * @type {roundingMethod}
+     * @public
      */
     this.roundingMethod = Math.round
 
     /**
-     * Timeout delay in milliseconds used to catch the end of scroll events
+     * Active slide
+     * @name ScrollSnapSlider#slide
      * @type {?Number}
+     * @public
+     */
+    this.slide = this.calculateSlide()
+
+    /**
+     * Timeout delay in milliseconds used to catch the end of scroll events
+     * @name ScrollSnapSlider#scrollTimeout
+     * @type {?Number}
+     * @public
      */
     this.scrollTimeout = 100
+
+    /**
+     * Options for the scroll listener (passive by default, may be overwritten for compatibility or other reasons)
+     * @name ScrollSnapSlider#listenerOptions
+     * @type {AddEventListenerOptions}
+     * @public
+     */
+    this.listenerOptions = {
+      passive: true
+    }
 
     this.onScroll = this.onScroll.bind(this)
     this.onScrollEnd = this.onScrollEnd.bind(this)
@@ -52,14 +77,16 @@ export class ScrollSnapSlider {
 
     /**
      * Adds event listener to the element
-     * @type {Function}
+     * @name ScrollSnapSlider#addEventListener
+     * @method
      * @public
      */
     this.addEventListener = this.element.addEventListener.bind(this.element)
 
     /**
      * Removes event listener from the element
-     * @type {Function}
+     * @name ScrollSnapSlider#removeEventListener
+     * @method
      * @public
      */
     this.removeEventListener = this.element.removeEventListener.bind(this.element)
@@ -73,9 +100,7 @@ export class ScrollSnapSlider {
    * @public
    */
   attachListeners () {
-    this.addEventListener('scroll', this.onScroll, {
-      passive: true
-    })
+    this.addEventListener('scroll', this.onScroll, this.listenerOptions)
   }
 
   /**
@@ -159,8 +184,7 @@ export class ScrollSnapSlider {
    * @public
    */
   destroy () {
-    this.removeEventListener('scroll', this.onScroll, {
-      passive: true
-    })
+    window.clearTimeout(this.scrollTimeoutId)
+    this.removeEventListener('scroll', this.onScroll, this.listenerOptions)
   }
 }
