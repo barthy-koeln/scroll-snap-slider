@@ -3,10 +3,11 @@
  */
 export class ScrollSnapSlider {
   /**
-   * Bind methods and attach listeners.
-   * @param {Element|HTMLElement} element
+   * Bind methods and possibly attach listeners.
+   * @param {Element|HTMLElement} element - element to attach listeners and dispatch events
+   * @param {Boolean} listen - attach scroll listener now
    */
-  constructor (element) {
+  constructor (element, listen = true) {
     /**
      * Base element of this slider
      * @name ScrollSnapSlider#element
@@ -91,7 +92,7 @@ export class ScrollSnapSlider {
      */
     this.removeEventListener = this.element.removeEventListener.bind(this.element)
 
-    this.attachListeners()
+    listen && this.attachListeners()
   }
 
   /**

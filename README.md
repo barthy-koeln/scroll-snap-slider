@@ -82,21 +82,12 @@ Prevents scrolling past elements in the slider:
 
 ### JavaScript
 
+**Default behaviour:**
+
 ```javascript
 import { ScrollSnapSlider } from 'scroll-snap-slider'
 
 const slider = new ScrollSnapSlider(document.querySelector(".example-slider"));
-
-slider.scrollTimeout = 50 // Sets a shorter tiemout to detect scroll end
-
-// Rounding Method
-// Note: These methods depend on the direction of scrolling, hence the "next one" is crucial.
-// When scrolling in the opposite direction, the effects are reversed.
-// I have found this to an edge case, when Math.round timing was slighlty off for the first exploration of a web page.
-slider.roundingMethod = Math.ceil // Trigger 'active' slide changes as soon as the next one is visible
-slider.roundingMethod = Math.floor // Trigger 'active' slide changes only when the next one is fully visible
-
-slider.listenerOptions = supportsPassive ? { passive: true } : false // test support for passive listeners first
 
 slider.addEventListener('slide-start', function(event){
   console.info(`Started sliding towards slide ${event.detail}.`)
@@ -109,6 +100,29 @@ slider.addEventListener('slide-pass', function(event){
 slider.addEventListener('slide-stop', function(event){
   console.info(`Stopped sliding at slide ${event.detail}.`)
 })
+```
+
+**Advanced config:**
+
+```javascript
+import { ScrollSnapSlider } from 'scroll-snap-slider'
+
+// Do not automatically attach scroll listener
+const slider = new ScrollSnapSlider(document.querySelector(".example-slider"), false);
+
+slider.scrollTimeout = 50 // Sets a shorter tiemout to detect scroll end
+
+// Rounding Method
+// Note: These methods depend on the direction of scrolling, hence the "next one" is crucial.
+// When scrolling in the opposite direction, the effects are reversed.
+// I have found this to an edge case, when Math.round timing was slighlty off for the first exploration of a web page.
+slider.roundingMethod = Math.ceil // Trigger 'active' slide changes as soon as the next one is visible
+slider.roundingMethod = Math.floor // Trigger 'active' slide changes only when the next one is fully visible
+
+slider.listenerOptions = supportsPassive ? { passive: true } : false // test support for passive listeners first
+
+// Now that we've set the listenerOptions, we can attach the listener
+slider.attachListeners()
 ```
 
 ## API
