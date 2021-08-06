@@ -1,6 +1,6 @@
 {
   "name": "scroll-snap-slider",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Mostly CSS slider with great performance.",
   "keywords": [
     "slider",
@@ -11,6 +11,9 @@
   "main": "src/ScrollSnapSlider.js",
   "style": "src/scroll-snap-slider.scss",
   "module": "src/ScrollSnapSlider.js",
+  "files": [
+    "src/**/*"
+  ],
   "type": "module",
   "sideEffects": false,
   "browserslist": [
