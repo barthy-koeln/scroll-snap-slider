@@ -1,0 +1,10 @@
+@import "../../src/scroll-snap-slider.css";
+@import "../index.css";
+
+.example-slider.-draggable {
+  cursor: grab;
+}
+
+.example-slider.-draggable.-dragging {
+  cursor: grabbing;
+}

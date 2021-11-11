@@ -1,0 +1,206 @@
+<html lang="en_GB">
+<head>
+  <title>ScrollSnapSlider - Mostly CSS slider with great performance!</title>
+
+  <link
+    rel="dns-prefetch"
+    href="https://buttons.github.io/"
+  >
+
+  <link
+    rel="stylesheet"
+    href="index.css"
+  >
+
+  <script
+    type="module"
+    src="index.js"
+  ></script>
+</head>
+<body>
+<div class="container">
+  <p>Scroll/Swipe horizontally or use the navigation dots...</p>
+
+  <div class="row">
+    <span>Additional feature examples (not part of the library):</span>
+    <label class="feature-toggle">
+      <span>Loop</span>
+      <input
+        type="checkbox"
+        id="loop"
+      />
+    </label>
+    <label class="feature-toggle">
+      <span>Autoplay</span>
+      <input
+        type="checkbox"
+        id="autoplay"
+      />
+    </label>
+  </div>
+
+  <div class="scroll-snap-slider example-slider">
+    <div
+      class="scroll-snap-slide"
+      data-index="0"
+    >
+      <img
+        src="https://picsum.photos/id/1025/400/"
+        width="400"
+        height="300"
+        alt="pug in a blanket"
+      />
+    </div>
+    <div
+      class="scroll-snap-slide"
+      data-index="1"
+    >
+      <img
+        src="https://picsum.photos/id/40/400/300"
+        width="400"
+        height="300"
+        alt="cat's nose up close"
+      />
+    </div>
+    <div
+      class="scroll-snap-slide"
+      data-index="2"
+    >
+      <h4>This one is just text</h4>
+      <p>Lorem ipsum and all that stuff.</p>
+    </div>
+    <div
+      class="scroll-snap-slide"
+      data-index="3"
+    >
+      <img
+        src="https://picsum.photos/id/1062/400/300"
+        width="400"
+        height="300"
+        alt="same pug in another blanket"
+      />
+    </div>
+    <div
+      class="scroll-snap-slide"
+      data-index="4"
+    >
+      <img
+        src="https://picsum.photos/id/237/400/300"
+        width="400"
+        height="300"
+        alt="cute puppy eyes"
+      />
+    </div>
+  </div>
+
+  <!-- EXAMPLE MARKUP -->
+  <div class="example-indicators">
+
+    <div class="example-arrow prev">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="#707070"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/>
+      </svg>
+    </div>
+
+    <input
+      type="radio"
+      name="example-indicators"
+      id="indicator-0"
+      value="0"
+      checked
+    />
+    <label
+      class="example-indicator"
+      for="indicator-0"
+    ></label>
+
+    <input
+      type="radio"
+      name="example-indicators"
+      id="indicator-1"
+      value="1"
+    />
+    <label
+      class="example-indicator"
+      for="indicator-1"
+    ></label>
+
+    <input
+      type="radio"
+      name="example-indicators"
+      id="indicator-2"
+      value="2"
+    />
+    <label
+      class="example-indicator"
+      for="indicator-2"
+    ></label>
+
+    <input
+      type="radio"
+      name="example-indicators"
+      id="indicator-3"
+      value="3"
+    />
+    <label
+      class="example-indicator"
+      for="indicator-3"
+    ></label>
+
+    <input
+      type="radio"
+      name="example-indicators"
+      id="indicator-4"
+      value="3"
+    />
+    <label
+      class="example-indicator"
+      for="indicator-4"
+    ></label>
+
+    <div class="example-arrow next">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="#707070"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="row">
+    <span>Check out the <a href="/draggable/draggable.html">"draggable" demo.</a></span>
+  </div>
+
+  <div class="github-buttons">
+    <a
+      class="github-button"
+      href="https://github.com/barthy-koeln/scroll-snap-slider"
+      data-size="large"
+      aria-label="Star barthy-koeln/scroll-snap-slider on GitHub"
+    >barthy-koeln/scroll-snap-slider
+    </a>
+
+    <a
+      class="github-button"
+      href="https://github.com/sponsors/barthy-koeln"
+      data-icon="octicon-heart"
+      data-size="large"
+      aria-label="Sponsor @barthy-koeln on GitHub"
+    >Sponsor
+    </a>
+
+    <script src="https://buttons.github.io/buttons.js"></script>
+  </div>
+</div>
+</body>
+</html>
