@@ -12,7 +12,6 @@ const loopPlugin = new ScrollSnapLoop()
 const draggablePlugin = new ScrollSnapDraggable()
 
 /** BUTTONS & INDICATORS **/
-
 const buttons = document.querySelectorAll('.example-indicator')
 const prev = document.querySelector('.prev')
 const next = document.querySelector('.next')
