@@ -172,7 +172,7 @@ export class CustomPlugin extends ScrollSnapPlugin {
 
   /**
    * Override this if you need multiple instances of the same plugin on the same slider.
-   * Be default, the id will be the plugin's class name.
+   * By default, the id will be the plugin's class name.
    * @return {String}
    */
   get id () {
