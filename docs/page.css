@@ -1,0 +1,37 @@
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+  gap: 1rem;
+  justify-content: center;
+  margin: auto;
+  min-height: 100%;
+  width: 100%;
+}
+
+.container > * {
+  flex-shrink: 0;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.github-buttons {
+  display: flex;
+  flex-direction: row;
+  margin-top: 2rem;
+}
+
+.github-buttons span {
+  margin: 0 0.5rem;
+}

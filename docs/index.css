@@ -1,0 +1,66 @@
+@import "./page.css";
+@import "./feature_toggle.css";
+@import "../src/scroll-snap-slider.css";
+
+.example-slider {
+  height: 300px;
+  margin: 1rem;
+  overscroll-behavior: none;
+  width: 400px;
+}
+
+.example-slider.-draggable {
+  cursor: grab;
+}
+
+.example-slider.-draggable.-dragging {
+  cursor: grabbing;
+}
+
+.example-slider img {
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+}
+
+.example-indicators {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.example-indicators input[type="radio"] {
+  display: none;
+}
+
+.example-indicator {
+  background-color: #c5c5c5;
+  border-radius: 50%;
+  cursor: pointer;
+  display: block;
+  height: 12px;
+  margin: 0 3px;
+  transition: background-color 0.2s ease;
+  width: 12px;
+}
+
+.example-indicators input[type="radio"]:checked + .example-indicator {
+  background-color: #707070;
+}
+
+.example-arrow {
+  cursor: pointer;
+  height: 24px;
+  margin: 0 0.5rem;
+}
+
+.example-arrow svg {
+  height: 100%;
+  width: auto;
+}
+
+.example-arrow.prev svg {
+  transform: rotate(180deg);
+}
