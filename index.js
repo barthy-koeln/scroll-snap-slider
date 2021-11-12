@@ -1,11 +1,15 @@
-import { ScrollSnapSlider } from '../src/ScrollSnapSlider.js'
-import { ScrollSnapAutoplay } from '../src/ScrollSnapAutoplay.js'
+import { ScrollSnapSlider } from './src/ScrollSnapSlider.js'
+import { ScrollSnapAutoplay } from './src/ScrollSnapAutoplay.js'
+import { ScrollSnapLoop } from './src/ScrollSnapLoop.js'
+import { ScrollSnapDraggable } from './src/ScrollSnapDraggable.js'
 
 const sliderElement = document.querySelector('.example-slider')
 const slides = sliderElement.getElementsByClassName('scroll-snap-slide')
 const slider = new ScrollSnapSlider(sliderElement)
 
 const autoplayPlugin = new ScrollSnapAutoplay()
+const loopPlugin = new ScrollSnapLoop()
+const draggablePlugin = new ScrollSnapDraggable()
 
 /** BUTTONS & INDICATORS **/
 
@@ -42,36 +46,48 @@ slider.addEventListener('slide-pass', setSelected)
 slider.addEventListener('slide-stop', setSelected)
 
 /** AUTOPLAY & LOOP **/
-
 const autoPlayInput = document.querySelector('#autoplay')
 const loopInput = document.querySelector('#loop')
+const draggableInput = document.querySelector('#draggable')
 
-const loopSlides = function () {
-  const lastIndex = slides.length - 1
-
-  if (slider.slide === 0) {
-    sliderElement.prepend(slides[lastIndex])
-    return
-  }
-
-  if (slider.slide === lastIndex) {
-    sliderElement.append(slides[0])
-  }
+const enablePlugin = function (plugin) {
+  plugin.enable(slider)
+  slider.plugins.set(plugin.id, plugin)
 }
 
-const enableLoop = function () {
-  slider.addEventListener('slide-stop', loopSlides)
-  loopSlides()
-}
-
-const disableLoop = function () {
-  slider.removeEventListener('slide-stop', loopSlides)
+const disablePlugin = function (plugin) {
+  plugin.disable()
+  slider.plugins.delete(plugin.id)
 }
 
 autoPlayInput.addEventListener('change', function () {
-  autoPlayInput.checked ? autoplayPlugin.enable(slider) : autoplayPlugin.disable()
+  autoPlayInput.checked ? enablePlugin(autoplayPlugin) : disablePlugin(autoplayPlugin)
 })
 
 loopInput.addEventListener('change', function () {
-  loopInput.checked ? enableLoop() : disableLoop()
+  if (loopInput.disabled) {
+    return
+  }
+
+  loopInput.checked ? enablePlugin(loopPlugin) : disablePlugin(loopPlugin)
+})
+
+draggableInput.addEventListener('change', function () {
+  loopInput.toggleAttribute('disabled', draggableInput.checked)
+
+  if (draggableInput.checked) {
+    enablePlugin(draggablePlugin)
+
+    if (loopInput.checked) {
+      disablePlugin(loopPlugin)
+    }
+
+    return
+  }
+
+  if (loopInput.checked) {
+    enablePlugin(loopPlugin)
+  }
+
+  disablePlugin(draggablePlugin)
 })

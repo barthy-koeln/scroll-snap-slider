@@ -1,6 +1,8 @@
-export class ScrollSnapDraggable {
+import { ScrollSnapPlugin } from './ScrollSnapPlugin.js'
+
+export class ScrollSnapDraggable extends ScrollSnapPlugin {
   constructor () {
-    this.name = 'ScrollSnapDraggable'
+    super()
 
     /**
      * Last drag event position
@@ -19,6 +21,10 @@ export class ScrollSnapDraggable {
     this.stopDragging = this.stopDragging.bind(this)
   }
 
+  /**
+   * @override
+   * @param {ScrollSnapSlider} slider
+   */
   enable (slider) {
     this.slider = slider
     this.element = this.slider.element
@@ -29,11 +35,20 @@ export class ScrollSnapDraggable {
     window.addEventListener('mouseup', this.stopDragging, { capture: true })
   }
 
+  /**
+   * @override
+   */
   disable () {
     this.element.classList.remove('-draggable')
 
+    window.clearTimeout(this.disableTimeout)
     this.slider.removeEventListener('mousedown', this.startDragging)
     window.removeEventListener('mouseup', this.stopDragging, { capture: true })
+
+    this.slider = null
+    this.element = null
+    this.disableTimeout = null
+    this.lastX = null
   }
 
   /**
@@ -52,13 +67,20 @@ export class ScrollSnapDraggable {
    * @param {MouseEvent} event
    */
   startDragging (event) {
-    window.clearTimeout(this.disableTimeout)
     event.preventDefault()
+    window.clearTimeout(this.disableTimeout)
+
     this.lastX = event.clientX
     this.element.style.scrollBehavior = 'auto'
     this.element.style.scrollSnapStop = 'unset'
     this.element.style.scrollSnapType = 'none'
     this.element.classList.add('-dragging')
+
+    const autoplay = this.slider.plugins.get('ScrollSnapAutoplay')
+    if (autoplay) {
+      autoplay.disable()
+    }
+
     window.addEventListener('mousemove', this.mouseMove)
   }
 
@@ -69,11 +91,21 @@ export class ScrollSnapDraggable {
    * @param {MouseEvent} event
    */
   stopDragging (event) {
+    if (this.lastX === null) {
+      return
+    }
+
     event.preventDefault()
+    this.lastX = null
     window.removeEventListener('mousemove', this.mouseMove)
     this.element.style.scrollBehavior = null
     this.element.classList.remove('-dragging')
     this.slider.slideTo(this.slider.slide)
+
+    const autoplay = this.slider.plugins.get('ScrollSnapAutoplay')
+    if (autoplay) {
+      autoplay.enable(this.slider)
+    }
 
     this.disableTimeout = window.setTimeout(() => {
       this.element.style.scrollSnapStop = null

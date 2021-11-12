@@ -5,10 +5,10 @@ export class ScrollSnapSlider {
   /**
    * Bind methods and possibly attach listeners.
    * @param {Element|HTMLElement} element - element to attach listeners and dispatch events
-   * @param {Boolean} listen - attach scroll listener now
-   * @param {Array} plugins - additional behaviour
+   * @param {Boolean} enabled - attach listeners and enable plugins now. If this is false, you will have to call slider.attachListener() once and plugin.enable() for each plugin later.
+   * @param {ScrollSnapPlugin[]} plugins - additional behaviour
    */
-  constructor (element, listen = true, plugins = []) {
+  constructor (element, enabled = true, plugins = []) {
     /**
      * Base element of this slider
      * @name ScrollSnapSlider#element
@@ -94,7 +94,7 @@ export class ScrollSnapSlider {
      */
     this.removeEventListener = this.element.removeEventListener.bind(this.element)
 
-    listen && this.attachListeners()
+    enabled && this.attachListeners()
 
     /**
      * Maps a plugin name to its instance
@@ -102,8 +102,8 @@ export class ScrollSnapSlider {
      */
     this.plugins = new window.Map()
     for (const plugin of plugins) {
-      this.plugins.set(plugin.name, plugin)
-      plugin.enable(this)
+      this.plugins.set(plugin.id, plugin)
+      enabled && plugin.enable(this)
     }
   }
 
