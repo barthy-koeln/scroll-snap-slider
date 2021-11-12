@@ -1,7 +1,7 @@
-import { ScrollSnapSlider } from './src/ScrollSnapSlider.js'
-import { ScrollSnapAutoplay } from './src/ScrollSnapAutoplay.js'
-import { ScrollSnapLoop } from './src/ScrollSnapLoop.js'
-import { ScrollSnapDraggable } from './src/ScrollSnapDraggable.js'
+import { ScrollSnapSlider } from '../src/ScrollSnapSlider.js'
+import { ScrollSnapAutoplay } from '../src/ScrollSnapAutoplay.js'
+import { ScrollSnapLoop } from '../src/ScrollSnapLoop.js'
+import { ScrollSnapDraggable } from '../src/ScrollSnapDraggable.js'
 
 const sliderElement = document.querySelector('.example-slider')
 const slides = sliderElement.getElementsByClassName('scroll-snap-slide')

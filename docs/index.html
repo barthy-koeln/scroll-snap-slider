@@ -3,49 +3,52 @@
   <title>ScrollSnapSlider - Mostly CSS slider with great performance!</title>
 
   <link
-    rel="dns-prefetch"
     href="https://buttons.github.io/"
+    rel="dns-prefetch"
   >
 
   <link
-    rel="stylesheet"
     href="index.css"
+    rel="stylesheet"
   >
 
   <script
-    type="module"
     src="index.js"
+    type="module"
   ></script>
 </head>
 <body>
 <div class="container">
   <p>Scroll/Swipe horizontally or use the navigation dots...</p>
 
-  <div class="row">
+  <div class="column">
     <span>Additional features:</span>
     <label class="feature-toggle">
-      <span>Loop</span>
+      <span class="feature-toggle__label">Loop:</span>
       <input
-        type="checkbox"
+        class="feature-toggle__input"
         id="loop"
+        type="checkbox"
       />
-      <span class="slider"></span>
+      <span class="feature-toggle__slider"></span>
     </label>
     <label class="feature-toggle">
-      <span>Autoplay</span>
+      <span class="feature-toggle__label">Autoplay:</span>
       <input
-        type="checkbox"
+        class="feature-toggle__input"
         id="autoplay"
+        type="checkbox"
       />
-      <span class="slider"></span>
+      <span class="feature-toggle__slider"></span>
     </label>
     <label class="feature-toggle">
-      <span>Draggable</span>
+      <span class="feature-toggle__label">Draggable:</span>
       <input
-        type="checkbox"
+        class="feature-toggle__input"
         id="draggable"
+        type="checkbox"
       />
-      <span class="slider"></span>
+      <span class="feature-toggle__slider"></span>
     </label>
   </div>
 
@@ -55,10 +58,10 @@
       data-index="0"
     >
       <img
+        alt="pug in a blanket"
+        height="300"
         src="https://picsum.photos/id/1025/400/"
         width="400"
-        height="300"
-        alt="pug in a blanket"
       />
     </div>
     <div
@@ -66,10 +69,10 @@
       data-index="1"
     >
       <img
+        alt="cat's nose up close"
+        height="300"
         src="https://picsum.photos/id/40/400/300"
         width="400"
-        height="300"
-        alt="cat's nose up close"
       />
     </div>
     <div
@@ -84,10 +87,10 @@
       data-index="3"
     >
       <img
+        alt="same pug in another blanket"
+        height="300"
         src="https://picsum.photos/id/1062/400/300"
         width="400"
-        height="300"
-        alt="same pug in another blanket"
       />
     </div>
     <div
@@ -95,10 +98,10 @@
       data-index="4"
     >
       <img
+        alt="cute puppy eyes"
+        height="300"
         src="https://picsum.photos/id/237/400/300"
         width="400"
-        height="300"
-        alt="cute puppy eyes"
       />
     </div>
   </div>
@@ -108,10 +111,10 @@
 
     <div class="example-arrow prev">
       <svg
-        width="24"
+        fill="#707070"
         height="24"
         viewBox="0 0 24 24"
-        fill="#707070"
+        width="24"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/>
@@ -119,11 +122,11 @@
     </div>
 
     <input
-      type="radio"
-      name="example-indicators"
-      id="indicator-0"
-      value="0"
       checked
+      id="indicator-0"
+      name="example-indicators"
+      type="radio"
+      value="0"
     />
     <label
       class="example-indicator"
@@ -131,9 +134,9 @@
     ></label>
 
     <input
-      type="radio"
-      name="example-indicators"
       id="indicator-1"
+      name="example-indicators"
+      type="radio"
       value="1"
     />
     <label
@@ -142,9 +145,9 @@
     ></label>
 
     <input
-      type="radio"
-      name="example-indicators"
       id="indicator-2"
+      name="example-indicators"
+      type="radio"
       value="2"
     />
     <label
@@ -153,9 +156,9 @@
     ></label>
 
     <input
-      type="radio"
-      name="example-indicators"
       id="indicator-3"
+      name="example-indicators"
+      type="radio"
       value="3"
     />
     <label
@@ -164,9 +167,9 @@
     ></label>
 
     <input
-      type="radio"
-      name="example-indicators"
       id="indicator-4"
+      name="example-indicators"
+      type="radio"
       value="4"
     />
     <label
@@ -176,10 +179,10 @@
 
     <div class="example-arrow next">
       <svg
-        width="24"
+        fill="#707070"
         height="24"
         viewBox="0 0 24 24"
-        fill="#707070"
+        width="24"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/>
@@ -189,19 +192,19 @@
 
   <div class="github-buttons">
     <a
-      class="github-button"
-      href="https://github.com/barthy-koeln/scroll-snap-slider"
-      data-size="large"
       aria-label="Star barthy-koeln/scroll-snap-slider on GitHub"
+      class="github-button"
+      data-size="large"
+      href="https://github.com/barthy-koeln/scroll-snap-slider"
     >barthy-koeln/scroll-snap-slider
     </a>
 
     <a
+      aria-label="Sponsor @barthy-koeln on GitHub"
       class="github-button"
-      href="https://github.com/sponsors/barthy-koeln"
       data-icon="octicon-heart"
       data-size="large"
-      aria-label="Sponsor @barthy-koeln on GitHub"
+      href="https://github.com/sponsors/barthy-koeln"
     >Sponsor
     </a>
 

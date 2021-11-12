@@ -8,22 +8,21 @@
 [![Dependency Count: 0](https://badgen.net/bundlephobia/dependency-count/scroll-snap-slider)](https://bundlephobia.com/result?p=scroll-snap-slider)
 [![mminzippped Size](https://badgen.net/bundlephobia/minzip/scroll-snap-slider)](https://bundlephobia.com/result?p=scroll-snap-slider)
 
-
-Mostly CSS slider with great performance. See a [demo on codepen](https://codepen.io/BarthyB/full/JjXgzOL).
+Mostly CSS slider with great performance. See a [demo](https://barthy-koeln.github.io/scroll-snap-slider/).
 
 ## Premise
 
-This library is a shortcut to something I personally have to
-implement in almost every website. To keep it small (see badges above), there are no fancy
-features, no error handling.
+This library is a shortcut to something I personally have to implement in almost every website. To keep it small (see
+badges above), there are not many fancy features, no error handling.
 
 However, with a clear API and the use of a ES6 class, it can provide a useful base for custom extensions.
 
 What this module contains:
 
-* Example markup for a scroll-snap slider
-* SCSS default styling for a scroll-snap slider without scrollbars
+* Example markup for a `scroll-snap` slider
+* CSS default styling for a `scroll-snap` slider without scrollbars
 * ES6 class to slightly enhance functionality
+* ES6 class plugins for `loop`, `autoplay`, and `draggable` features
 
 ## Installing
 
@@ -44,20 +43,25 @@ The ES6 class provided in this package augments the slider with a few events and
 Slides always have 100% width. You can add whatever markup inside.
 
 ```html
-  <div class="scroll-snap-slider example-slider">
-    <div class="scroll-snap-slide">
-      <img src="https://picsum.photos/id/1011/400/300" />
-    </div>
-    <div class="scroll-snap-slide">
-      <img src="https://picsum.photos/id/1018/400/300" />
-    </div>
+
+<div class="scroll-snap-slider example-slider">
+  <div class="scroll-snap-slide">
+    <img src="https://picsum.photos/id/1011/400/300"/>
   </div>
+  <div class="scroll-snap-slide">
+    <img src="https://picsum.photos/id/1018/400/300"/>
+  </div>
+</div>
 ```
 
 ### SCSS
 
 ```scss
 @import '~scroll-snap-slider';
+```
+
+```css
+@import '~scroll-snap-slider/src/scroll-snap-slider.css';
 ```
 
 ### Additional Styles
@@ -82,6 +86,9 @@ Prevents scrolling past elements in the slider:
 
 ### JavaScript
 
+If you do not want to add any additional behaviour, the JavaScript instance is not needed. This class dispatches several
+events and exposes a few methods, with which you can enhance your slider's behaviour.
+
 **Default behaviour:**
 
 ```javascript
@@ -89,15 +96,15 @@ import { ScrollSnapSlider } from 'scroll-snap-slider'
 
 const slider = new ScrollSnapSlider(document.querySelector(".example-slider"));
 
-slider.addEventListener('slide-start', function(event){
+slider.addEventListener('slide-start', function (event) {
   console.info(`Started sliding towards slide ${event.detail}.`)
 })
 
-slider.addEventListener('slide-pass', function(event){
+slider.addEventListener('slide-pass', function (event) {
   console.info(`Passing slide ${event.detail}.`)
 })
 
-slider.addEventListener('slide-stop', function(event){
+slider.addEventListener('slide-stop', function (event) {
   console.info(`Stopped sliding at slide ${event.detail}.`)
 })
 ```
@@ -123,6 +130,72 @@ slider.listenerOptions = supportsPassive ? { passive: true } : false // test sup
 
 // Now that we've set the listenerOptions, we can attach the listener
 slider.attachListeners()
+```
+
+**Plugins:**
+
+You can add one or multiple of the available Plugins:
+
+* `ScrollSnapAutoplay`: Automatically slides at a given interval
+* `ScrollSnapLoop`: Sliding past the last element shows the first without sliding to the start (and vice-versa)
+* `ScrollSnapDraggable`: Drag the slider with your mouse. Note: this does not affect mobile behaviour and is not
+  necessary for touch sliding.
+
+Additional Note: The `ScrollSnapDraggable` and `ScrollSnapLoop` do not work well together.
+
+```javascript
+import { ScrollSnapSlider } from '../src/ScrollSnapSlider.js'
+import { ScrollSnapAutoplay } from '../src/ScrollSnapAutoplay.js'
+import { ScrollSnapLoop } from '../src/ScrollSnapLoop.js'
+
+const sliderElement = document.querySelector('.example-slider')
+const slider = new ScrollSnapSlider(sliderElement, true, [
+  new ScrollSnapAutoplay(1200),
+  new ScrollSnapLoop
+])
+```
+
+Creating your own plugin:
+
+```javascript
+export class CustomPlugin extends ScrollSnapPlugin {
+
+  /**
+   * Pass any config here
+   * @param {*} config
+   */
+  constructor (config) {
+    super()
+
+    this.config = config
+  }
+
+  /**
+   * Override this if you need multiple instances of the same plugin on the same slider.
+   * Be default, the id will be the plugin's class name.
+   * @return {String}
+   */
+  get id () {
+    return 'lubba-wubba-dub-dub'
+  }
+
+  /**
+   * Attach listeners, fetch DOM things, save reference to the slider
+   * @param {ScrollSnapSlider} slider
+   * @override
+   */
+  enable (slider) {
+    // TODO methods stub
+  }
+
+  /**
+   * Free resources, remove listeners, ...
+   * @override
+   */
+  disable () {
+    // TODO methods stub
+  }
+}
 ```
 
 ## API
@@ -155,9 +228,10 @@ You can use the proxy methods `addEventListener` and `removeEventListener` to li
 | `element: Element` (read only) | The element passed into the constructor.                              |
 | `slideScrollLeft` (read only)  | the `element.scrollLeft` value of the currently active slide.         |
 | `scrollTimeout: Number`        | Timeout delay in milliseconds used to catch the end of scroll events. |
+| `plugins: Map<String, ScrollSnapPlugin>`  | Map of plugins enabled for this slider |
 
 ## Support
 
 Check out the
-[support tables for CSS scroll snap](https://caniuse.com/css-snappoints).
-Note that it's up to you to inject potential vendor prefixes.
+[support tables for CSS scroll snap](https://caniuse.com/css-snappoints). Note that it's up to you to inject potential
+vendor prefixes.
