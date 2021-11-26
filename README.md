@@ -144,9 +144,9 @@ You can add one or multiple of the available Plugins:
 Additional Note: The `ScrollSnapDraggable` and `ScrollSnapLoop` do not work well together.
 
 ```javascript
-import { ScrollSnapSlider } from '../src/ScrollSnapSlider.js'
-import { ScrollSnapAutoplay } from '../src/ScrollSnapAutoplay.js'
-import { ScrollSnapLoop } from '../src/ScrollSnapLoop.js'
+import { ScrollSnapSlider } from 'scroll-snap-slider/src/ScrollSnapSlider.js'
+import { ScrollSnapAutoplay } from 'scroll-snap-slider/src/ScrollSnapAutoplay.js'
+import { ScrollSnapLoop } from 'scroll-snap-slider/src/ScrollSnapLoop.js'
 
 const sliderElement = document.querySelector('.example-slider')
 const slider = new ScrollSnapSlider(sliderElement, true, [
