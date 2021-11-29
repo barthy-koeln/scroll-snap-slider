@@ -14,7 +14,7 @@
   display: none;
 }
 
-.scroll-snap-slider .scroll-snap-slide {
+.scroll-snap-slide {
   align-items: center;
   display: flex;
   flex: 0 0 auto;
