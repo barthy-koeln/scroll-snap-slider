@@ -1,7 +1,7 @@
 import { ScrollSnapPlugin } from './ScrollSnapPlugin.js'
 
 export class ScrollSnapDraggable extends ScrollSnapPlugin {
-  constructor (minimalDragDistance = null) {
+  constructor (quickSwipeDistance = null) {
     super()
 
     /**
@@ -25,7 +25,7 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
      *
      * @type {?Number}
      */
-    this.minimalDragDistance = minimalDragDistance
+    this.quickSwipeDistance = quickSwipeDistance
 
     /**
      * Timeout ID for a smooth drag release
@@ -135,12 +135,12 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
   }
 
   getFinalSlide () {
-    if (!this.minimalDragDistance) {
+    if (!this.quickSwipeDistance) {
       return this.slider.slide
     }
 
     const distance = Math.abs(this.startX - this.lastX)
-    const minimumNotReached = this.minimalDragDistance > distance
+    const minimumNotReached = this.quickSwipeDistance > distance
     const halfPointCrossed = distance > (this.element.offsetWidth / 2)
 
     if (minimumNotReached || halfPointCrossed) {
