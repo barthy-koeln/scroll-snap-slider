@@ -7,9 +7,27 @@ const sliderElement = document.querySelector('.example-slider')
 const slides = sliderElement.getElementsByClassName('scroll-snap-slide')
 const slider = new ScrollSnapSlider(sliderElement)
 
+slider.roundingMethod = function (x) {
+  const direction = x <= slider.slide ? -1 : 1
+
+  if (direction < 0) {
+    return Math.floor(x)
+  }
+
+  return Math.ceil(x)
+}
+
+/**
+ * @param {Number} x the current slide position as a decimal (e.g. 1,5 = slide at index 1 has been slided by 50%)
+ */
+slider.roundingMethod = function (x) {
+  // TODO return an integer that will be the the slider.slide
+  return Math.round(x)
+}
+
 const autoplayPlugin = new ScrollSnapAutoplay()
 const loopPlugin = new ScrollSnapLoop()
-const draggablePlugin = new ScrollSnapDraggable()
+const draggablePlugin = new ScrollSnapDraggable(50)
 
 /** BUTTONS & INDICATORS **/
 const buttons = document.querySelectorAll('.example-indicator')
