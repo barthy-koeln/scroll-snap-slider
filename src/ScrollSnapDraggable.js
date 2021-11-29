@@ -11,14 +11,18 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
     this.lastX = null
 
     /**
-     * When the dragging started
+     * Where the dragging started
      * @type {?Number}
      */
     this.startX = null
 
     /**
-     * If this is null, the next/previous slide will not be reached unless the scroll-snap offset has been reached.
-     * If this is a number, dragging any slide for more than this distance in pixels will slide to the next slide in the desired direction.
+     * If this is null:
+     *  The next/previous slide will not be reached unless you drag for more than half the slider's width.
+     *
+     * If this is a number:
+     *  Dragging any slide for more than this distance in pixels will slide to the next slide in the desired direction.
+     *
      * @type {?Number}
      */
     this.minimalDragDistance = minimalDragDistance
