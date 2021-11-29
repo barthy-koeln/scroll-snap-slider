@@ -8,7 +8,7 @@
 [![Dependency Count: 0](https://badgen.net/bundlephobia/dependency-count/scroll-snap-slider)](https://bundlephobia.com/result?p=scroll-snap-slider)
 [![mminzippped Size](https://badgen.net/bundlephobia/minzip/scroll-snap-slider)](https://bundlephobia.com/result?p=scroll-snap-slider)
 
-Mostly CSS slider with great performance. See a [demo](https://barthy-koeln.github.io/scroll-snap-slider/docs/).
+Mostly CSS slider with great performance. See a [demo](https://barthy-koeln.github.io/scroll-snap-slider/).
 
 ## Premise
 
