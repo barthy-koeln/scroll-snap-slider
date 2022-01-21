@@ -1,7 +1,7 @@
 import { ScrollSnapPlugin } from './ScrollSnapPlugin.js'
 
 export class ScrollSnapDraggable extends ScrollSnapPlugin {
-  constructor () {
+  constructor (quickSwipeDistance = null) {
     super()
 
     /**
@@ -9,6 +9,23 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
      * @type {?Number}
      */
     this.lastX = null
+
+    /**
+     * Where the dragging started
+     * @type {?Number}
+     */
+    this.startX = null
+
+    /**
+     * If this is null:
+     *  The next/previous slide will not be reached unless you drag for more than half the slider's width.
+     *
+     * If this is a number:
+     *  Dragging any slide for more than this distance in pixels will slide to the next slide in the desired direction.
+     *
+     * @type {?Number}
+     */
+    this.quickSwipeDistance = quickSwipeDistance
 
     /**
      * Timeout ID for a smooth drag release
@@ -70,7 +87,7 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
     event.preventDefault()
     window.clearTimeout(this.disableTimeout)
 
-    this.lastX = event.clientX
+    this.startX = this.lastX = event.clientX
     this.element.style.scrollBehavior = 'auto'
     this.element.style.scrollSnapStop = 'unset'
     this.element.style.scrollSnapType = 'none'
@@ -96,11 +113,15 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
     }
 
     event.preventDefault()
-    this.lastX = null
+
+    const finalSlide = this.getFinalSlide()
+
     window.removeEventListener('mousemove', this.mouseMove)
+    this.lastX = null
     this.element.style.scrollBehavior = null
     this.element.classList.remove('-dragging')
-    this.slider.slideTo(this.slider.slide)
+
+    this.slider.slideTo(finalSlide)
 
     const autoplay = this.slider.plugins.get('ScrollSnapAutoplay')
     if (autoplay) {
@@ -111,5 +132,25 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
       this.element.style.scrollSnapStop = null
       this.element.style.scrollSnapType = null
     }, 300)
+  }
+
+  getFinalSlide () {
+    if (!this.quickSwipeDistance) {
+      return this.slider.slide
+    }
+
+    const distance = Math.abs(this.startX - this.lastX)
+    const minimumNotReached = this.quickSwipeDistance > distance
+    const halfPointCrossed = distance > (this.element.offsetWidth / 2)
+
+    if (minimumNotReached || halfPointCrossed) {
+      return this.slider.slide
+    }
+
+    if (this.startX < this.lastX) {
+      return this.slider.slide - 1
+    }
+
+    return this.slider.slide + 1
   }
 }
