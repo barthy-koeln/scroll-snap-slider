@@ -14,7 +14,7 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
   enable (slider) {
     this.slider = slider
     this.element = this.slider.element
-    this.slides = this.slider.element.getElementsByClassName('scroll-snap-slide')
+    this.slides = this.element.getElementsByClassName('scroll-snap-slide')
 
     this.slider.addEventListener('slide-stop', this.loopSlides)
     this.loopSlides()
@@ -25,6 +25,12 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
    */
   disable () {
     this.slider.removeEventListener('slide-stop', this.loopSlides)
+
+    const sortedSlides = Array.prototype.slice
+      .call(this.slides)
+      .sort((a, b) => parseInt(a.dataset.index, 10) - parseInt(b.dataset.index, 10))
+
+    Element.prototype.append.apply(this.element, sortedSlides)
 
     this.slider = null
     this.element = null
