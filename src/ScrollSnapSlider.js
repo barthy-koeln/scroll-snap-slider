@@ -19,6 +19,13 @@ export class ScrollSnapSlider {
     this.element = element
 
     /**
+     * Width of each slide
+     * @type {Number}
+     * @public
+     */
+    this.slideWidth = this.element.firstElementChild.offsetWidth
+
+    /**
      * Active slide's scrollLeft in the containing element
      * @name ScrollSnapSlider#slideScrollLeft
      * @type {Number}
@@ -144,7 +151,7 @@ export class ScrollSnapSlider {
    * @private
    */
   onScrollEnd () {
-    if (this.element.scrollLeft % this.element.offsetWidth !== 0) {
+    if (this.element.scrollLeft % this.slideWidth !== 0) {
       return
     }
 
@@ -161,7 +168,7 @@ export class ScrollSnapSlider {
    * @private
    */
   calculateSlide () {
-    return this.roundingMethod(this.element.scrollLeft / this.element.offsetWidth)
+    return this.roundingMethod(this.element.scrollLeft / this.slideWidth)
   }
 
   /**
@@ -187,7 +194,7 @@ export class ScrollSnapSlider {
    */
   slideTo (index) {
     this.element.scrollTo({
-      left: index * this.element.offsetWidth
+      left: index * this.slideWidth
     })
   }
 

@@ -7,13 +7,6 @@ const sliderElement = document.querySelector('.example-slider')
 const slides = sliderElement.getElementsByClassName('scroll-snap-slide')
 const slider = new ScrollSnapSlider(sliderElement)
 
-/**
- * @param {Number} x the current slide position as a decimal (e.g. 1,5 = slide at index 1 has been slided by 50%)
- */
-slider.roundingMethod = function (x) {
-  return Math.round(x)
-}
-
 const autoplayPlugin = new ScrollSnapAutoplay()
 const loopPlugin = new ScrollSnapLoop()
 const draggablePlugin = new ScrollSnapDraggable(50)
@@ -26,7 +19,10 @@ const next = document.querySelector('.next')
 const setSelected = function (event) {
   const slideElementIndex = event.detail
   const slideElement = slides[slideElementIndex]
-  const slideIndex = slideElement.dataset.index
+  const slideIndex = parseInt(slideElement.dataset.index, 10)
+
+  prev.classList.toggle('-disabled', slideIndex === 0)
+  next.classList.toggle('-disabled', slideIndex === slides.length - 1)
 
   buttons[slideIndex].control.checked = true
 }
@@ -101,4 +97,4 @@ draggableInput.addEventListener('change', function () {
   disablePlugin(draggablePlugin)
 })
 
-window.slider = slider
+slider.slideTo(2)

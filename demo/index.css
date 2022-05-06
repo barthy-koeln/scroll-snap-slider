@@ -6,7 +6,9 @@
   height: 300px;
   margin: 1rem;
   overscroll-behavior: none;
-  width: 400px;
+  width: 100%;
+  padding: 0 200px;
+  box-sizing: border-box;
 }
 
 .example-slider.-draggable {
@@ -15,6 +17,11 @@
 
 .example-slider.-draggable.-dragging {
   cursor: grabbing;
+}
+
+.example-slider .scroll-snap-slide {
+  width: 400px;
+  scroll-snap-align: center;
 }
 
 .example-slider img {
@@ -54,6 +61,11 @@
   cursor: pointer;
   height: 24px;
   margin: 0 0.5rem;
+}
+
+.example-arrow.-disabled {
+  cursor: not-allowed;
+  opacity: 0.3;
 }
 
 .example-arrow svg {
