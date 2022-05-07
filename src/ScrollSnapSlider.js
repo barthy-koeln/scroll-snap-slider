@@ -159,10 +159,6 @@ export class ScrollSnapSlider {
    * @private
    */
   onScrollEnd () {
-    if (this.element.scrollLeft % this.sizingMethod() !== 0) {
-      return
-    }
-
     this.scrollTimeoutId = null
     this.slide = this.calculateSlide()
     this.slideScrollLeft = this.element.scrollLeft

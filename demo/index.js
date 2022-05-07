@@ -1,7 +1,6 @@
 import { ScrollSnapSlider } from '../src/ScrollSnapSlider.js'
 
 const sliderElement = document.querySelector('.example-slider')
-const slides = sliderElement.getElementsByClassName('scroll-snap-slide')
 const slider = new ScrollSnapSlider(sliderElement)
 
 const prev = document.querySelector('.prev')
@@ -9,13 +8,9 @@ const next = document.querySelector('.next')
 
 const setSelected = function (event) {
   const slideElementIndex = event.detail
-  const slideElement = slides[slideElementIndex]
-
-  const targetedScrollLeft = slideElementIndex * slideElement.offsetWidth
-  const maximumScrollLeft = sliderElement.scrollWidth - sliderElement.offsetWidth
 
   prev.classList.toggle('-disabled', slideElementIndex === 0)
-  next.classList.toggle('-disabled', targetedScrollLeft > maximumScrollLeft)
+  next.classList.toggle('-disabled', sliderElement.scrollLeft + sliderElement.offsetWidth === sliderElement.scrollWidth)
 }
 
 prev.addEventListener('click', function () {
@@ -30,3 +25,5 @@ slider.addEventListener('slide-pass', setSelected)
 slider.addEventListener('slide-stop', setSelected)
 
 slider.slideTo(2)
+
+window.slider = slider
