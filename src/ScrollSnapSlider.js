@@ -2,6 +2,7 @@
  * @classdesc Mostly CSS slider with great performance.
  */
 export class ScrollSnapSlider {
+
   /**
    * Bind methods and possibly attach listeners.
    * @param {Element|HTMLElement} element - element to attach listeners and dispatch events
@@ -19,13 +20,6 @@ export class ScrollSnapSlider {
     this.element = element
 
     /**
-     * Width of each slide
-     * @type {Number}
-     * @public
-     */
-    this.slideWidth = this.element.firstElementChild.offsetWidth
-
-    /**
      * Active slide's scrollLeft in the containing element
      * @name ScrollSnapSlider#slideScrollLeft
      * @type {Number}
@@ -40,6 +34,20 @@ export class ScrollSnapSlider {
      * @private
      */
     this.scrollTimeoutId = null
+
+    /**
+     * @callback sizingMethod
+     * @return {Number} integer size of a slide in pixels
+     */
+
+    /**
+     * Width of each slide
+     * @type {sizingMethod}
+     * @public
+     */
+    this.sizingMethod = () => {
+      return this.element.firstElementChild.offsetWidth
+    }
 
     /**
      * @callback roundingMethod
@@ -151,7 +159,7 @@ export class ScrollSnapSlider {
    * @private
    */
   onScrollEnd () {
-    if (this.element.scrollLeft % this.slideWidth !== 0) {
+    if (this.element.scrollLeft % this.sizingMethod() !== 0) {
       return
     }
 
@@ -168,7 +176,7 @@ export class ScrollSnapSlider {
    * @private
    */
   calculateSlide () {
-    return this.roundingMethod(this.element.scrollLeft / this.slideWidth)
+    return this.roundingMethod(this.element.scrollLeft / this.sizingMethod())
   }
 
   /**
@@ -194,7 +202,7 @@ export class ScrollSnapSlider {
    */
   slideTo (index) {
     this.element.scrollTo({
-      left: index * this.slideWidth
+      left: index * this.sizingMethod()
     })
   }
 
