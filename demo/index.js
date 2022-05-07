@@ -6,10 +6,8 @@ const slider = new ScrollSnapSlider(sliderElement)
 const prev = document.querySelector('.prev')
 const next = document.querySelector('.next')
 
-const setSelected = function (event) {
-  const slideElementIndex = event.detail
-
-  prev.classList.toggle('-disabled', slideElementIndex === 0)
+const setSelected = function () {
+  prev.classList.toggle('-disabled', sliderElement.scrollLeft === 0)
   next.classList.toggle('-disabled', sliderElement.scrollLeft + sliderElement.offsetWidth === sliderElement.scrollWidth)
 }
 
