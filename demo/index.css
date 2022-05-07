@@ -7,7 +7,6 @@
   margin: 1rem;
   overscroll-behavior: none;
   width: 100%;
-  padding: 0 calc(50vw - 200px);
   box-sizing: border-box;
 }
 
@@ -21,7 +20,7 @@
 
 .example-slider .scroll-snap-slide {
   width: 400px;
-  scroll-snap-align: center;
+  scroll-snap-align: start;
 }
 
 .example-slider img {

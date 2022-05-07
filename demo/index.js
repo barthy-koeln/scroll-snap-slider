@@ -1,42 +1,21 @@
 import { ScrollSnapSlider } from '../src/ScrollSnapSlider.js'
-import { ScrollSnapAutoplay } from '../src/ScrollSnapAutoplay.js'
-import { ScrollSnapLoop } from '../src/ScrollSnapLoop.js'
-import { ScrollSnapDraggable } from '../src/ScrollSnapDraggable.js'
 
 const sliderElement = document.querySelector('.example-slider')
 const slides = sliderElement.getElementsByClassName('scroll-snap-slide')
 const slider = new ScrollSnapSlider(sliderElement)
 
-const autoplayPlugin = new ScrollSnapAutoplay()
-const loopPlugin = new ScrollSnapLoop()
-const draggablePlugin = new ScrollSnapDraggable(50)
-
-/** BUTTONS & INDICATORS **/
-const buttons = document.querySelectorAll('.example-indicator')
 const prev = document.querySelector('.prev')
 const next = document.querySelector('.next')
 
 const setSelected = function (event) {
   const slideElementIndex = event.detail
   const slideElement = slides[slideElementIndex]
-  const slideIndex = parseInt(slideElement.dataset.index, 10)
 
-  prev.classList.toggle('-disabled', slideIndex === 0)
-  next.classList.toggle('-disabled', slideIndex === slides.length - 1)
+  const targetedScrollLeft = slideElementIndex * slideElement.offsetWidth
+  const maximumScrollLeft = sliderElement.scrollWidth - sliderElement.offsetWidth
 
-  buttons[slideIndex].control.checked = true
-}
-
-for (const button of buttons) {
-  button.addEventListener('click', function (event) {
-    event.preventDefault()
-
-    const slideElementIndex = Array.prototype.slice
-      .call(slides)
-      .findIndex(item => item.dataset.index === button.control.value)
-
-    slider.slideTo(slideElementIndex)
-  })
+  prev.classList.toggle('-disabled', slideElementIndex === 0)
+  next.classList.toggle('-disabled', targetedScrollLeft > maximumScrollLeft)
 }
 
 prev.addEventListener('click', function () {
@@ -49,52 +28,5 @@ next.addEventListener('click', function () {
 
 slider.addEventListener('slide-pass', setSelected)
 slider.addEventListener('slide-stop', setSelected)
-
-/** AUTOPLAY & LOOP **/
-const autoPlayInput = document.querySelector('#autoplay')
-const loopInput = document.querySelector('#loop')
-const draggableInput = document.querySelector('#draggable')
-
-const enablePlugin = function (plugin) {
-  plugin.enable(slider)
-  slider.plugins.set(plugin.id, plugin)
-}
-
-const disablePlugin = function (plugin) {
-  plugin.disable()
-  slider.plugins.delete(plugin.id)
-}
-
-autoPlayInput.addEventListener('change', function () {
-  autoPlayInput.checked ? enablePlugin(autoplayPlugin) : disablePlugin(autoplayPlugin)
-})
-
-loopInput.addEventListener('change', function () {
-  if (loopInput.disabled) {
-    return
-  }
-
-  loopInput.checked ? enablePlugin(loopPlugin) : disablePlugin(loopPlugin)
-})
-
-draggableInput.addEventListener('change', function () {
-  loopInput.toggleAttribute('disabled', draggableInput.checked)
-
-  if (draggableInput.checked) {
-    enablePlugin(draggablePlugin)
-
-    if (loopInput.checked) {
-      disablePlugin(loopPlugin)
-    }
-
-    return
-  }
-
-  if (loopInput.checked) {
-    enablePlugin(loopPlugin)
-  }
-
-  disablePlugin(draggablePlugin)
-})
 
 slider.slideTo(2)
