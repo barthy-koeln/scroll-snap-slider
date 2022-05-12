@@ -2,15 +2,18 @@
   display: flex;
   flex-wrap: nowrap;
   justify-content: normal;
-  -ms-overflow-style: none; /* IE and Edge */
   overflow-x: auto;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
   scroll-snap-stop: always;
-  scrollbar-width: none; /* Firefox */
 }
 
-.scroll-snap-slider::-webkit-scrollbar {
+.scroll-snap-slider:not(.-show-scroll-bar) {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.scroll-snap-slider:not(.-show-scroll-bar)::-webkit-scrollbar {
   display: none;
 }
 

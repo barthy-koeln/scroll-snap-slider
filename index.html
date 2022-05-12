@@ -19,140 +19,394 @@
   </head>
   <body>
     <div class="container">
-      <div class="scroll-snap-slider example-slider">
-        <div
-          class="scroll-snap-slide"
-          data-index="0"
-        >
-          <img
-            alt="pug in a blanket"
-            height="300"
-            src="https://picsum.photos/id/1025/400/"
-            width="400"
-          />
-        </div>
-        <div
-          class="scroll-snap-slide"
-          data-index="1"
-        >
-          <img
-            alt="cat's nose up close"
-            height="300"
-            src="https://picsum.photos/id/40/400/300"
-            width="400"
-          />
-        </div>
-        <div
-          class="scroll-snap-slide"
-          data-index="2"
-        >
-          <h4>This one is just text</h4>
-          <p>Lorem ipsum and all that stuff.</p>
-        </div>
-        <div
-          class="scroll-snap-slide"
-          data-index="3"
-        >
-          <img
-            alt="same pug in another blanket"
-            height="300"
-            src="https://picsum.photos/id/1062/400/300"
-            width="400"
-          />
-        </div>
-        <div
-          class="scroll-snap-slide"
-          data-index="4"
-        >
-          <img
-            alt="cute puppy eyes"
-            height="300"
-            src="https://picsum.photos/id/237/400/300"
-            width="400"
-          />
-        </div>
-        <div
-          class="scroll-snap-slide"
-          data-index="5"
-        >
-          <img
-            alt="cute puppy eyes"
-            height="300"
-            src="https://picsum.photos/id/238/400/300"
-            width="400"
-          />
-        </div>
-        <div
-          class="scroll-snap-slide"
-          data-index="6"
-        >
-          <img
-            alt="cute puppy eyes"
-            height="300"
-            src="https://picsum.photos/id/239/400/300"
-            width="400"
-          />
-        </div>
-        <div
-          class="scroll-snap-slide"
-          data-index="7"
-        >
-          <img
-            alt="cute puppy eyes"
-            height="300"
-            src="https://picsum.photos/id/240/400/300"
-            width="400"
-          />
+      <div class="column">
+        <h1>Scroll Snap Slider</h1>
+        <p><em>Mostly CSS Slider with great performance</em></p>
+        <p>
+          These demos include some additional UI. The Arrows and dots are not included in the library, but code samples
+          can be copied from the demo code.
+        </p>
+      </div>
+
+      <div class="column">
+        <div class="github-buttons">
+          <a
+            aria-label="Star barthy-koeln/scroll-snap-slider on GitHub"
+            class="github-button"
+            data-size="large"
+            href="https://github.com/barthy-koeln/scroll-snap-slider"
+          >barthy-koeln/scroll-snap-slider
+          </a>
+
+          <a
+            aria-label="Sponsor @barthy-koeln on GitHub"
+            class="github-button"
+            data-icon="octicon-heart"
+            data-size="large"
+            href="https://github.com/sponsors/barthy-koeln"
+          >Sponsor
+          </a>
+
+          <script src="https://buttons.github.io/buttons.js"></script>
         </div>
       </div>
 
-      <!-- EXAMPLE MARKUP -->
-      <div class="example-indicators">
+      <div class="column">
+        <h2>Simple Slider</h2>
+        <p>Scroll/Swipe horizontally or use the navigation dots...</p>
 
-        <div class="example-arrow prev">
-          <svg
-            fill="#707070"
-            height="24"
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/>
-          </svg>
+        <div class="column">
+          <span>Additional features:</span>
+          <label class="feature-toggle">
+            <span class="feature-toggle__label">Loop:</span>
+            <input
+              class="feature-toggle__input"
+              id="loop"
+              type="checkbox"
+            />
+            <span class="feature-toggle__slider"></span>
+          </label>
+          <label class="feature-toggle">
+            <span class="feature-toggle__label">Autoplay:</span>
+            <input
+              class="feature-toggle__input"
+              id="autoplay"
+              type="checkbox"
+            />
+            <span class="feature-toggle__slider"></span>
+          </label>
+          <label class="feature-toggle">
+            <span class="feature-toggle__label">Draggable:</span>
+            <input
+              class="feature-toggle__input"
+              id="draggable"
+              type="checkbox"
+            />
+            <span class="feature-toggle__slider"></span>
+          </label>
         </div>
 
-        <div class="example-arrow next">
-          <svg
-            fill="#707070"
-            height="24"
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
+        <div class="scroll-snap-slider -simple">
+          <div
+            class="scroll-snap-slide"
+            data-index="0"
           >
-            <path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/>
-          </svg>
+            <img
+              alt="pug in a blanket"
+              height="300"
+              src="https://picsum.photos/id/1025/400/"
+              width="400"
+            />
+          </div>
+          <div
+            class="scroll-snap-slide"
+            data-index="1"
+          >
+            <img
+              alt="cat's nose up close"
+              height="300"
+              src="https://picsum.photos/id/40/400/300"
+              width="400"
+            />
+          </div>
+          <div
+            class="scroll-snap-slide"
+            data-index="2"
+          >
+            <h4>This one is just text</h4>
+            <p>Lorem ipsum and all that stuff.</p>
+          </div>
+          <div
+            class="scroll-snap-slide"
+            data-index="3"
+          >
+            <img
+              alt="same pug in another blanket"
+              height="300"
+              src="https://picsum.photos/id/1062/400/300"
+              width="400"
+            />
+          </div>
+          <div
+            class="scroll-snap-slide"
+            data-index="4"
+          >
+            <img
+              alt="cute puppy eyes"
+              height="300"
+              src="https://picsum.photos/id/237/400/300"
+              width="400"
+            />
+          </div>
+        </div>
+
+        <div class="indicators -simple">
+
+          <button
+            type="button"
+            class="arrow -prev"
+          >
+            <svg
+              fill="#707070"
+              height="24"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/>
+            </svg>
+          </button>
+
+          <input
+            checked
+            id="indicator-simple-0"
+            name="indicators-simple"
+            type="radio"
+            value="0"
+          />
+          <label
+            class="indicator"
+            for="indicator-simple-0"
+          ></label>
+
+          <input
+            id="indicator-simple-1"
+            name="indicators-simple"
+            type="radio"
+            value="1"
+          />
+          <label
+            class="indicator"
+            for="indicator-simple-1"
+          ></label>
+
+          <input
+            id="indicator-simple-2"
+            name="indicators-simple"
+            type="radio"
+            value="2"
+          />
+          <label
+            class="indicator"
+            for="indicator-simple-2"
+          ></label>
+
+          <input
+            id="indicator-simple-3"
+            name="indicators-simple"
+            type="radio"
+            value="3"
+          />
+          <label
+            class="indicator"
+            for="indicator-simple-3"
+          ></label>
+
+          <input
+            id="indicator-simple-4"
+            name="indicators-simple"
+            type="radio"
+            value="4"
+          />
+          <label
+            class="indicator"
+            for="indicator-simple-4"
+          ></label>
+
+          <button
+            type="button"
+            class="arrow -next"
+          >
+            <svg
+              fill="#707070"
+              height="24"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/>
+            </svg>
+          </button>
         </div>
       </div>
 
-      <div class="github-buttons">
-        <a
-          aria-label="Star barthy-koeln/scroll-snap-slider on GitHub"
-          class="github-button"
-          data-size="large"
-          href="https://github.com/barthy-koeln/scroll-snap-slider"
-        >barthy-koeln/scroll-snap-slider
-        </a>
+      <div class="column">
+        <h2>Multiple Slides Visible</h2>
+        <div class="scroll-snap-slider -multi">
+          <div
+            class="scroll-snap-slide"
+            data-index="0"
+          >
+            <img
+              alt="pug in a blanket"
+              height="300"
+              src="https://picsum.photos/id/1025/400/"
+              width="400"
+            />
+          </div>
+          <div
+            class="scroll-snap-slide"
+            data-index="1"
+          >
+            <img
+              alt="cat's nose up close"
+              height="300"
+              src="https://picsum.photos/id/40/400/300"
+              width="400"
+            />
+          </div>
+          <div
+            class="scroll-snap-slide"
+            data-index="2"
+          >
+            <h4>This one is just text</h4>
+            <p>Lorem ipsum and all that stuff.</p>
+          </div>
+          <div
+            class="scroll-snap-slide"
+            data-index="3"
+          >
+            <img
+              alt="same pug in another blanket"
+              height="300"
+              src="https://picsum.photos/id/1062/400/300"
+              width="400"
+            />
+          </div>
+          <div
+            class="scroll-snap-slide"
+            data-index="4"
+          >
+            <img
+              alt="cute puppy eyes"
+              height="300"
+              src="https://picsum.photos/id/237/400/300"
+              width="400"
+            />
+          </div>
+          <div
+            class="scroll-snap-slide"
+            data-index="5"
+          >
+            <img
+              alt="cute puppy eyes"
+              height="300"
+              src="https://picsum.photos/id/238/400/300"
+              width="400"
+            />
+          </div>
+          <div
+            class="scroll-snap-slide"
+            data-index="6"
+          >
+            <img
+              alt="cute puppy eyes"
+              height="300"
+              src="https://picsum.photos/id/239/400/300"
+              width="400"
+            />
+          </div>
+          <div
+            class="scroll-snap-slide"
+            data-index="7"
+          >
+            <img
+              alt="cute puppy eyes"
+              height="300"
+              src="https://picsum.photos/id/240/400/300"
+              width="400"
+            />
+          </div>
+        </div>
+        <div class="indicators -multi">
+          <button
+            type="button"
+            class="arrow -prev -multi"
+          >
+            <svg
+              fill="#707070"
+              height="24"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/>
+            </svg>
+          </button>
 
-        <a
-          aria-label="Sponsor @barthy-koeln on GitHub"
-          class="github-button"
-          data-icon="octicon-heart"
-          data-size="large"
-          href="https://github.com/sponsors/barthy-koeln"
-        >Sponsor
-        </a>
+          <button
+            type="button"
+            class="arrow -next -multi"
+          >
+            <svg
+              fill="#707070"
+              height="24"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
 
-        <script src="https://buttons.github.io/buttons.js"></script>
+      <div class="column">
+        <h2>Pure CSS Slider</h2>
+        <p>It's not pretty but it works. Click the scrollbar arrows, scroll, or drag the scrollbar.</p>
+        <div class="scroll-snap-slider -pure -show-scroll-bar">
+          <div
+            class="scroll-snap-slide"
+            data-index="0"
+          >
+            <img
+              alt="pug in a blanket"
+              height="300"
+              src="https://picsum.photos/id/1025/400/"
+              width="400"
+            />
+          </div>
+          <div
+            class="scroll-snap-slide"
+            data-index="1"
+          >
+            <img
+              alt="cat's nose up close"
+              height="300"
+              src="https://picsum.photos/id/40/400/300"
+              width="400"
+            />
+          </div>
+          <div
+            class="scroll-snap-slide"
+            data-index="2"
+          >
+            <h4>This one is just text</h4>
+            <p>Lorem ipsum and all that stuff.</p>
+          </div>
+          <div
+            class="scroll-snap-slide"
+            data-index="3"
+          >
+            <img
+              alt="same pug in another blanket"
+              height="300"
+              src="https://picsum.photos/id/1062/400/300"
+              width="400"
+            />
+          </div>
+          <div
+            class="scroll-snap-slide"
+            data-index="4"
+          >
+            <img
+              alt="cute puppy eyes"
+              height="300"
+              src="https://picsum.photos/id/237/400/300"
+              width="400"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </body>

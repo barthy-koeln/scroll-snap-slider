@@ -3,11 +3,12 @@
   display: flex;
   flex-direction: column;
   font-family: sans-serif;
-  gap: 1rem;
+  gap: 4rem;
   justify-content: center;
   margin: auto;
   min-height: 100%;
   width: 100%;
+  padding: 4rem 0;
 }
 
 .container > * {
@@ -29,9 +30,14 @@
 .github-buttons {
   display: flex;
   flex-direction: row;
-  margin-top: 2rem;
 }
 
 .github-buttons span {
   margin: 0 0.5rem;
+}
+
+h1,
+h2,
+p {
+  text-align: center;
 }

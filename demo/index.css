@@ -2,46 +2,55 @@
 @import "./feature_toggle.css";
 @import "../src/scroll-snap-slider.css";
 
-.example-slider {
+.scroll-snap-slider {
   height: 300px;
-  margin: 1rem;
+  margin: 1rem auto;
   overscroll-behavior: none;
-  width: 100%;
   box-sizing: border-box;
 }
 
-.example-slider.-draggable {
+.scroll-snap-slider.-simple,
+.scroll-snap-slider.-pure {
+  width: 400px;
+}
+
+.scroll-snap-slider.-multi {
+  width: 100%;
+  max-width: 1200px;
+}
+
+.scroll-snap-slider.-draggable {
   cursor: grab;
 }
 
-.example-slider.-draggable.-dragging {
+.scroll-snap-slider.-draggable.-dragging {
   cursor: grabbing;
 }
 
-.example-slider .scroll-snap-slide {
+.scroll-snap-slider .scroll-snap-slide {
   width: 400px;
   scroll-snap-align: start;
 }
 
-.example-slider img {
+.scroll-snap-slider img {
   height: 100%;
   object-fit: cover;
   object-position: center;
   width: 100%;
 }
 
-.example-indicators {
+.indicators {
   align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
-.example-indicators input[type="radio"] {
+.indicators input[type="radio"] {
   display: none;
 }
 
-.example-indicator {
+.indicator {
   background-color: #c5c5c5;
   border-radius: 50%;
   cursor: pointer;
@@ -52,26 +61,28 @@
   width: 12px;
 }
 
-.example-indicators input[type="radio"]:checked + .example-indicator {
+.indicators input[type="radio"]:checked + .indicator {
   background-color: #707070;
 }
 
-.example-arrow {
+.arrow {
   cursor: pointer;
   height: 24px;
   margin: 0 0.5rem;
+  border: 0;
+  background: transparent;
 }
 
-.example-arrow.-disabled {
+.arrow.-disabled {
   cursor: not-allowed;
   opacity: 0.3;
 }
 
-.example-arrow svg {
+.arrow svg {
   height: 100%;
   width: auto;
 }
 
-.example-arrow.prev svg {
+.arrow.-prev svg {
   transform: rotate(180deg);
 }
