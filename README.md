@@ -47,7 +47,7 @@ Slides always have 100% width. You can add whatever markup inside.
 
 ```html
 
-<div class="scroll-snap-slider example-slider">
+<div class="scroll-snap-slider">
   <div class="scroll-snap-slide">
     <img src="https://picsum.photos/id/1011/400/300"/>
   </div>
@@ -128,6 +128,11 @@ slider.scrollTimeout = 50 // Sets a shorter tiemout to detect scroll end
 // I have found this to an edge case, when Math.round timing was slighlty off for the first exploration of a web page.
 slider.roundingMethod = Math.ceil // Trigger 'active' slide changes as soon as the next one is visible
 slider.roundingMethod = Math.floor // Trigger 'active' slide changes only when the next one is fully visible
+
+slider.sizingMethod = function (slider) {
+  return slider.element.firstElementChild.offsetWidth // with padding?
+  return slider.element.firstElementChild.clientWidth // without padding..
+}
 
 slider.listenerOptions = supportsPassive ? { passive: true } : false // test support for passive listeners first
 

@@ -37,6 +37,7 @@ export class ScrollSnapSlider {
 
     /**
      * @callback sizingMethod
+     * @param {ScrollSnapSlider} slider
      * @return {Number} integer size of a slide in pixels
      */
 
@@ -45,8 +46,8 @@ export class ScrollSnapSlider {
      * @type {sizingMethod}
      * @public
      */
-    this.sizingMethod = () => {
-      return this.element.firstElementChild.offsetWidth
+    this.sizingMethod = function (slider) {
+      return slider.element.firstElementChild.offsetWidth
     }
 
     /**
@@ -172,7 +173,7 @@ export class ScrollSnapSlider {
    * @private
    */
   calculateSlide () {
-    return this.roundingMethod(this.element.scrollLeft / this.sizingMethod())
+    return this.roundingMethod(this.element.scrollLeft / this.sizingMethod(this))
   }
 
   /**
@@ -198,7 +199,7 @@ export class ScrollSnapSlider {
    */
   slideTo (index) {
     this.element.scrollTo({
-      left: index * this.sizingMethod()
+      left: index * this.sizingMethod(this)
     })
   }
 
