@@ -24,6 +24,9 @@ What this module contains:
 * ES6 class to slightly enhance functionality
 * ES6 class plugins for `loop`, `autoplay`, and `draggable` features
 
+For a more "fully-featured" implementation, go
+to [Tanner Hodges' snap-slider](https://tannerhodges.github.io/snap-slider/)
+
 ## Installing
 
 ```shell

@@ -6,7 +6,7 @@ const sliderMulti = new ScrollSnapSlider(sliderMultiElement)
 const prev = document.querySelector('.indicators.-multi .arrow.-prev')
 const next = document.querySelector('.indicators.-multi .arrow.-next')
 
-const setSelected = function () {
+const updateArrows = function () {
   prev.classList.toggle('-disabled', sliderMultiElement.scrollLeft === 0)
   next.classList.toggle(
     '-disabled',
@@ -22,7 +22,7 @@ next.addEventListener('click', function () {
   sliderMulti.slideTo(sliderMulti.slide + 1)
 })
 
-sliderMulti.addEventListener('slide-pass', setSelected)
-sliderMulti.addEventListener('slide-stop', setSelected)
+sliderMulti.addEventListener('slide-pass', updateArrows)
+sliderMulti.addEventListener('slide-stop', updateArrows)
 
 sliderMulti.slideTo(2)

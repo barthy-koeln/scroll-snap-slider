@@ -19,12 +19,51 @@
   </head>
   <body>
     <div class="container">
-      <div class="column">
+      <div class="column -intro">
         <h1>Scroll Snap Slider</h1>
         <p><em>Mostly CSS Slider with great performance</em></p>
         <p>
           These demos include some additional UI. The Arrows and dots are not included in the library, but code samples
           can be copied from the demo code.
+        </p>
+        <h2>Premise</h2>
+        <p>
+          This library is a shortcut to something I personally have to implement in almost every website. To keep it
+          small, there are not many fancy features, no error handling.
+        </p>
+        <p>
+          However, with a clear API and the use of a ES6 class, it can provide a useful base for custom extensions.
+        </p>
+        <p>
+          What this module contains:
+        </p>
+        <ul>
+          <li>Example markup for a
+            <code>scroll-snap</code>
+              slider
+          </li>
+          <li>CSS default styling for a
+            <code>scroll-snap</code>
+              slider without scrollbars
+          </li>
+          <li>ES6 class to slightly enhance functionality</li>
+          <li>ES6 class plugins for
+            <code>loop</code>
+              ,
+            <code>autoplay</code>
+              , and
+            <code>draggable</code>
+              features
+          </li>
+        </ul>
+        <p>
+          For a more "fully-featured" implementation, go to
+          <a
+            href="https://tannerhodges.github.io/snap-slider/"
+            target="_blank"
+          >
+            Tanner Hodges' snap-slider
+          </a>
         </p>
       </div>
 
@@ -55,7 +94,7 @@
         <h2>Simple Slider</h2>
         <p>Scroll/Swipe horizontally or use the navigation dots...</p>
 
-        <div class="column">
+        <div class="features">
           <span>Additional features:</span>
           <label class="feature-toggle">
             <span class="feature-toggle__label">Loop:</span>
@@ -110,7 +149,7 @@
             />
           </div>
           <div
-            class="scroll-snap-slide"
+            class="scroll-snap-slide -text"
             data-index="2"
           >
             <h4>This one is just text</h4>
@@ -232,6 +271,7 @@
 
       <div class="column">
         <h2>Multiple Slides Visible</h2>
+        <p>The arrows tell you if you can go the next/prev slide.</p>
         <div class="scroll-snap-slider -multi">
           <div
             class="scroll-snap-slide"
@@ -256,7 +296,7 @@
             />
           </div>
           <div
-            class="scroll-snap-slide"
+            class="scroll-snap-slide -text"
             data-index="2"
           >
             <h4>This one is just text</h4>
@@ -350,6 +390,72 @@
           </button>
         </div>
       </div>
+      <div class="column">
+        <h2>Responsiveness Example</h2>
+        <p>These arrows disappear if there's nothing to scroll.</p>
+        <div class="scroll-snap-slider -responsive">
+          <div
+            class="scroll-snap-slide"
+            data-index="0"
+          >
+            <img
+              alt="pug in a blanket"
+              height="300"
+              src="https://picsum.photos/id/1025/400/"
+              width="400"
+            />
+          </div>
+          <div
+            class="scroll-snap-slide"
+            data-index="1"
+          >
+            <img
+              alt="cat's nose up close"
+              height="300"
+              src="https://picsum.photos/id/40/400/300"
+              width="400"
+            />
+          </div>
+          <div
+            class="scroll-snap-slide -text"
+            data-index="2"
+          >
+            <h4>This one is just text</h4>
+            <p>Lorem ipsum and all that stuff.</p>
+          </div>
+        </div>
+        <div class="indicators -responsive">
+          <button
+            type="button"
+            class="arrow -prev -responsive"
+          >
+            <svg
+              fill="#707070"
+              height="24"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/>
+            </svg>
+          </button>
+
+          <button
+            type="button"
+            class="arrow -next -responsive"
+          >
+            <svg
+              fill="#707070"
+              height="24"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
 
       <div class="column">
         <h2>Pure CSS Slider</h2>
@@ -378,7 +484,7 @@
             />
           </div>
           <div
-            class="scroll-snap-slide"
+            class="scroll-snap-slide -text"
             data-index="2"
           >
             <h4>This one is just text</h4>

@@ -5,7 +5,6 @@
 .scroll-snap-slider {
   height: 300px;
   margin: 1rem auto;
-  overscroll-behavior: none;
   box-sizing: border-box;
 }
 
@@ -14,7 +13,8 @@
   width: 400px;
 }
 
-.scroll-snap-slider.-multi {
+.scroll-snap-slider.-multi,
+.scroll-snap-slider.-responsive {
   width: 100%;
   max-width: 1200px;
 }
@@ -32,6 +32,11 @@
   scroll-snap-align: start;
 }
 
+.scroll-snap-slider .scroll-snap-slide.-text {
+  background: #181818;
+  color: #ffffff;
+}
+
 .scroll-snap-slider img {
   height: 100%;
   object-fit: cover;
@@ -39,11 +44,25 @@
   width: 100%;
 }
 
+.features {
+  width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: auto;
+}
+
 .indicators {
   align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: center;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+.indicators.-hidden {
+  opacity: 0;
 }
 
 .indicators input[type="radio"] {

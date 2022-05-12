@@ -19,7 +19,7 @@
 }
 
 .feature-toggle__slider {
-  background-color: #ccc;
+  background-color: #cccccc;
   border-radius: var(--toggle-height);
   cursor: pointer;
   height: calc(var(--toggle-height));
