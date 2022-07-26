@@ -24,8 +24,10 @@ What this module contains:
 * ES6 class to slightly enhance functionality
 * ES6 class plugins for `loop`, `autoplay`, and `draggable` features
 
-For a more "fully-featured" implementation, go
-to [Tanner Hodges' snap-slider](https://tannerhodges.github.io/snap-slider/)
+For more "fully-featured" implementations, go to:
+
+* [Nick Piscitelli's Glider.js](https://github.com/NickPiscitelli/Glider.js)
+* [Tanner Hodges' snap-slider](https://tannerhodges.github.io/snap-slider/)
 
 ## Installing
 
@@ -74,7 +76,8 @@ Prevents page navigation on horizontal scrolling, i.E. on MacOS.
 
 ```css
 .scroll-snap-slider {
-  overscroll-behavior: none;
+  overscroll-behavior-x: none;
+  overscroll-behavior-y: auto;
 }
 ```
 
