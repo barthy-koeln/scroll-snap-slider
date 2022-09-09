@@ -45,7 +45,7 @@ The ES6 class provided in this package augments the slider with a few events and
 
 ### Markup
 
-Slides always have 100% width. You can add whatever markup inside.
+You can add whatever markup inside the slides.
 
 ```html
 
@@ -123,21 +123,31 @@ import { ScrollSnapSlider } from 'scroll-snap-slider'
 // Do not automatically attach scroll listener
 const slider = new ScrollSnapSlider(document.querySelector(".example-slider"), false);
 
-slider.scrollTimeout = 50 // Sets a shorter tiemout to detect scroll end
+slider.scrollTimeout = 50 // Sets a shorter timeout to detect scroll end
 
-// Rounding Method
-// Note: These methods depend on the direction of scrolling, hence the "next one" is crucial.
+// Dispatch 'slide-pass' events as around the center of each slide
+slider.roundingMethod = Math.round 
+
+// Dispatch 'slide-pass' events as soon as the next one is visible
+slider.roundingMethod = Math.ceil
+
+// Dispatch 'slide-pass' events only when the next one is fully visible
+slider.roundingMethod = Math.floor
+
+// Note: The roundingMethod depend on the direction of scrolling.
 // When scrolling in the opposite direction, the effects are reversed.
-// I have found this to an edge case, when Math.round timing was slighlty off for the first exploration of a web page.
-slider.roundingMethod = Math.ceil // Trigger 'active' slide changes as soon as the next one is visible
-slider.roundingMethod = Math.floor // Trigger 'active' slide changes only when the next one is fully visible
 
 slider.sizingMethod = function (slider) {
-  return slider.element.firstElementChild.offsetWidth // with padding?
-  return slider.element.firstElementChild.clientWidth // without padding..
+
+  // with padding
+  return slider.element.firstElementChild.offsetWidth 
+  
+  // without padding
+  return slider.element.firstElementChild.clientWidth
 }
 
-slider.listenerOptions = supportsPassive ? { passive: true } : false // test support for passive listeners first
+// test support for passive listeners first
+slider.listenerOptions = supportsPassive ? { passive: true } : false
 
 // Now that we've set the listenerOptions, we can attach the listener
 slider.attachListeners()
@@ -152,7 +162,7 @@ You can add one or multiple of the available Plugins:
 * `ScrollSnapDraggable`: Drag the slider with your mouse. Note: this does not affect mobile behaviour and is not
   necessary for touch sliding.
 
-Additional Note: The `ScrollSnapDraggable` and `ScrollSnapLoop` do not work well together.
+Additional Note: The `ScrollSnapDraggable` and `ScrollSnapLoop` **do not** work well together.
 
 ```javascript
 import { ScrollSnapSlider } from 'scroll-snap-slider/src/ScrollSnapSlider.js'
