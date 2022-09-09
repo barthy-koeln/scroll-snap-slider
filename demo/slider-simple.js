@@ -12,15 +12,20 @@ const loopPlugin = new ScrollSnapLoop()
 const draggablePlugin = new ScrollSnapDraggable(50)
 
 const buttons = document.querySelectorAll('.indicators.-simple .indicator')
+const currentIndicator = document.querySelector('.indicators.-simple .current-indicator')
 const prev = document.querySelector('.indicators.-simple .arrow.-prev')
 const next = document.querySelector('.indicators.-simple .arrow.-next')
 
 const setSelected = function (event) {
   const slideElementIndex = event.detail
   const slideElement = slides[slideElementIndex]
-  const slideIndex = slideElement.dataset.index
 
-  buttons[slideIndex].control.checked = true
+  for(const button of buttons){
+    const isActive = button.classList.toggle('-active', button.dataset.index === slideElement.dataset.index)
+    if(isActive){
+      button.appendChild(currentIndicator)
+    }
+  }
 }
 
 for (const button of buttons) {
@@ -29,7 +34,7 @@ for (const button of buttons) {
 
     const slideElementIndex = Array.prototype.slice
       .call(slides)
-      .findIndex(item => item.dataset.index === button.control.value)
+      .findIndex(item => item.dataset.index === button.dataset.index)
 
     sliderSimple.slideTo(slideElementIndex)
   })

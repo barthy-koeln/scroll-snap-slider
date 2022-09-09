@@ -6,6 +6,7 @@
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
   scroll-snap-stop: always;
+  padding-inline: 0;
 }
 
 .scroll-snap-slider:not(.-show-scroll-bar) {

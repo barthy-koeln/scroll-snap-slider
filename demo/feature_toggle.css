@@ -1,5 +1,8 @@
 :root {
-  --toggle-height: 2rem;
+  --border-width: .18rem;
+  --toggle-height: calc(2rem - var(--border-width));
+  --togle-width: calc(2 * var(--toggle-height));
+  --inner-height: calc(var(--toggle-height) - 4 * var(--border-width));
 }
 
 .feature-toggle {
@@ -8,7 +11,7 @@
   display: flex;
   flex-direction: row;
   gap: 5px;
-  justify-content: space-between;
+  justify-content: flex-end;
   position: relative;
 }
 
@@ -19,29 +22,33 @@
 }
 
 .feature-toggle__slider {
+  border: 3px solid #cccccc;
   background-color: #cccccc;
   border-radius: var(--toggle-height);
   cursor: pointer;
   height: calc(var(--toggle-height));
   position: relative;
-  transition: 0.4s;
+  transition-duration: 0.4s;
+  transition-property: border-color, background-color;
   width: calc(2 * var(--toggle-height));
+  box-sizing: border-box;
 }
 
 .feature-toggle__slider::before {
   background-color: white;
   border-radius: 50%;
-  bottom: calc(0.1 * var(--toggle-height));
-  content: "";
-  height: calc(0.8 * var(--toggle-height));
-  left: calc(0.1 * var(--toggle-height));
+  bottom: var(--border-width);
+  content: '';
+  height: var(--inner-height);
+  left: var(--border-width);
   position: absolute;
   -webkit-transition: 0.4s;
   transition: 0.4s;
-  width: calc(0.8 * var(--toggle-height));
+  width: var(--inner-height);
 }
 
 .feature-toggle__input:checked + .feature-toggle__slider {
+  border-color: #2196f3;
   background-color: #2196f3;
 }
 
@@ -52,9 +59,13 @@
 }
 
 .feature-toggle__input:focus + .feature-toggle__slider {
-  box-shadow: 0 0 1px #2196f3;
+  border-color: #2196f3;
+}
+
+.feature-toggle__input:checked:focus + .feature-toggle__slider {
+  border-color: #1766a6;
 }
 
 .feature-toggle__input:checked + .feature-toggle__slider::before {
-  transform: translateX(calc(1.8 * var(--toggle-height) - 100%));
+  transform: translateX(calc(var(--togle-width) - 4 * var(--border-width) - 100%));
 }

@@ -25,7 +25,32 @@ body {
   gap: 1rem;
 }
 
+details p {
+  text-align: start;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 1024px;
+  margin: auto;
+}
+
+.row .column {
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .row .column {
+    width: auto;
+    flex-shrink: 1;
+    flex-grow: 1;
+  }
+}
+
 .column {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 1rem;
