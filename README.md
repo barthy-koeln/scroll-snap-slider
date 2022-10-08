@@ -125,7 +125,7 @@ const slider = new ScrollSnapSlider(document.querySelector(".example-slider"), f
 
 slider.scrollTimeout = 50 // Sets a shorter timeout to detect scroll end
 
-// Dispatch 'slide-pass' events as around the center of each slide
+// Dispatch 'slide-pass' events around the center of each slide
 slider.roundingMethod = Math.round 
 
 // Dispatch 'slide-pass' events as soon as the next one is visible
