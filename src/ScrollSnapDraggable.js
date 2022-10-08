@@ -141,7 +141,7 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
 
     const distance = Math.abs(this.startX - this.lastX)
     const minimumNotReached = this.quickSwipeDistance > distance
-    const halfPointCrossed = distance > (this.element.offsetWidth / 2)
+    const halfPointCrossed = distance > (this.slider.sizingMethod(this.slider) / 2)
 
     if (minimumNotReached || halfPointCrossed) {
       return this.slider.slide
