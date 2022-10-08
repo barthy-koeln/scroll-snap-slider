@@ -1,6 +1,6 @@
 {
   "name": "scroll-snap-slider",
-  "version": "2.5.1",
+  "version": "2.5.2",
   "description": "Mostly CSS slider with great performance.",
   "keywords": [
     "slider",
@@ -37,6 +37,7 @@
     "stylelint-config-standard": "^28.0.0"
   },
   "scripts": {
+    "postinstall": "git config core.hooksPath hooks",
     "doc": "jsdoc ./src/ScrollSnapSlider.js"
   }
 }
