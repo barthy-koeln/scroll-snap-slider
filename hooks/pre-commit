@@ -6,25 +6,23 @@
 # SC2086 Double quote to prevent globbing and word splitting: https://github.com/koalaman/shellcheck/wiki/SC2086
 
 DIR=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
-# shellcheck source=./io.sh
-source "$DIR/io.sh"
+source "$DIR/../node_modules/.bin/echolorized"
 
 colored_output "$GREEN" "\n[EXECUTING PRE COMMIT HOOK]"
 
 e_info "Removing Console Usage"
 
 DIRECTORIES="src"
-find $DIRECTORIES -type f -name '*.js' -exec sed -i -E '/console\.(info|log|debug|table)/d' {} \;
 
 e_info "Linting & Fixing JS Code Style"
-if ! eslint --fix --quiet $(find "$DIRECTORIES" -type f -name '*.js'); then
+if ! eslint --fix $(find "$DIRECTORIES" -type f -name '*.js'); then
   e_error "JavaScript Error in JavaScript file. Run ${YELLOW}eslint src/**/*.js${RESET} to check."
   exit 1
 fi
 
 e_info "Linting & Fixing SCSS Code Style"
-if ! stylelint --fix --quiet --syntax scss $(find "$DIRECTORIES" -type f -name '*.scss'); then
-  e_error "Error in SCSS file. Run ${YELLOW}stylelint src/**/*.scss${RESET} to check."
+if ! stylelint --fix $(find "$DIRECTORIES" -type f -name '*.css'); then
+  e_error "Error in SCSS file. Run ${YELLOW}stylelint *.css${RESET} to check."
   exit 1
 fi
 

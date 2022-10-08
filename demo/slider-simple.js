@@ -20,9 +20,9 @@ const setSelected = function (event) {
   const slideElementIndex = event.detail
   const slideElement = slides[slideElementIndex]
 
-  for(const button of buttons){
+  for (const button of buttons) {
     const isActive = button.classList.toggle('-active', button.dataset.index === slideElement.dataset.index)
-    if(isActive){
+    if (isActive) {
       button.appendChild(currentIndicator)
     }
   }

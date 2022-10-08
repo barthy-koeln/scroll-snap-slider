@@ -3,15 +3,15 @@
   flex-wrap: nowrap;
   justify-content: normal;
   overflow-x: auto;
-  scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
-  scroll-snap-stop: always;
   padding-inline: 0;
+  scroll-behavior: smooth;
+  scroll-snap-stop: always;
+  scroll-snap-type: x mandatory;
 }
 
 .scroll-snap-slider:not(.-show-scroll-bar) {
-  scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .scroll-snap-slider:not(.-show-scroll-bar)::-webkit-scrollbar {

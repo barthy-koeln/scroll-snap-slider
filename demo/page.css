@@ -2,6 +2,12 @@ body {
   margin: 1rem;
 }
 
+h1,
+h2,
+p {
+  text-align: center;
+}
+
 .container {
   align-items: center;
   display: flex;
@@ -23,22 +29,13 @@ body {
   display: flex;
   flex-direction: row;
   gap: 1rem;
-}
-
-details p {
-  text-align: start;
-}
-
-.row {
-  display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
   max-width: 1024px;
   margin: auto;
 }
 
-.row .column {
-  width: 100%;
+details p {
+  text-align: start;
 }
 
 @media (min-width: 1024px) {
@@ -61,6 +58,10 @@ details p {
   max-width: 512px;
 }
 
+.row .column {
+  width: 100%;
+}
+
 .github-buttons {
   display: flex;
   flex-direction: row;
@@ -69,10 +70,4 @@ details p {
 
 .github-buttons span {
   margin: 0 0.5rem;
-}
-
-h1,
-h2,
-p {
-  text-align: center;
 }

@@ -1,8 +1,8 @@
 :root {
-  --border-width: .18rem;
-  --toggle-height: calc(2rem - var(--border-width));
-  --togle-width: calc(2 * var(--toggle-height));
   --inner-height: calc(var(--toggle-height) - 4 * var(--border-width));
+  --toggle-height: calc(2rem - var(--border-width));
+  --border-width: 0.18rem;
+  --togle-width: calc(2 * var(--toggle-height));
 }
 
 .feature-toggle {
@@ -22,16 +22,16 @@
 }
 
 .feature-toggle__slider {
-  border: 3px solid #cccccc;
-  background-color: #cccccc;
+  background-color: #ccc;
+  border: 3px solid #ccc;
   border-radius: var(--toggle-height);
+  box-sizing: border-box;
   cursor: pointer;
   height: calc(var(--toggle-height));
   position: relative;
   transition-duration: 0.4s;
   transition-property: border-color, background-color;
   width: calc(2 * var(--toggle-height));
-  box-sizing: border-box;
 }
 
 .feature-toggle__slider::before {
@@ -48,8 +48,8 @@
 }
 
 .feature-toggle__input:checked + .feature-toggle__slider {
-  border-color: #2196f3;
   background-color: #2196f3;
+  border-color: #2196f3;
 }
 
 .feature-toggle__input:disabled + .feature-toggle__slider {

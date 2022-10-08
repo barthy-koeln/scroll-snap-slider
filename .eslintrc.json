@@ -10,5 +10,16 @@
   "env": {
     "browser": true,
     "node": true
+  },
+  "rules": {
+    "no-console": [
+      "error",
+      {
+        "allow": [
+          "warn",
+          "error"
+        ]
+      }
+    ]
   }
 }
