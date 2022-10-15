@@ -1,7 +1,7 @@
 # Scroll Snap Slider
 
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
-[![DeepScan grade](https://badgen.net/deepscan/grade/team/11039/project/14107/branch/253421)](https://deepscan.io/dashboard#view=project&tid=11039&pid=14107&bid=253421)
+[![Maintainability](https://api.codeclimate.com/v1/badges/c4c7edd819ca59e9f5e2/maintainability)](https://codeclimate.com/github/barthy-koeln/scroll-snap-slider/maintainability)
 [![Tree Shaking: Supported](https://badgen.net/bundlephobia/tree-shaking/scroll-snap-slider)](https://bundlephobia.com/result?p=scroll-snap-slider)
 <br>
 [![npm Version](https://badgen.net/npm/v/scroll-snap-slider)](https://www.npmjs.com/package/scroll-snap-slider)
