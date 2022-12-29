@@ -50,7 +50,8 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
       return
     }
 
-    const isLastSlide = this.slider.slide === this.slides.length - 1
+    const { scrollLeft, offsetWidth, scrollWidth } = this.slider.element
+    const isLastSlide = scrollLeft + offsetWidth === scrollWidth
     const target = isLastSlide ? 0 : this.slider.slide + 1
 
     this.slider.slideTo(target)

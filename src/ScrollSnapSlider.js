@@ -133,6 +133,16 @@ export class ScrollSnapSlider {
   }
 
   /**
+   * Detach all listeners
+   * @return {void}
+   * @public
+   */
+  detachListeners () {
+    this.removeEventListener('scroll', this.onScroll, this.listenerOptions)
+    window.clearTimeout(this.scrollTimeoutId)
+  }
+
+  /**
    * Act when scrolling starts and stops
    * @return {void}
    * @private
@@ -210,7 +220,7 @@ export class ScrollSnapSlider {
    */
   destroy () {
     window.clearTimeout(this.scrollTimeoutId)
-    this.removeEventListener('scroll', this.onScroll, this.listenerOptions)
+    this.detachListeners()
 
     for (const plugin of this.plugins.values()) {
       plugin.disable()

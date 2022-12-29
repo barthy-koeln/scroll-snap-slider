@@ -15,7 +15,7 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
     this.slider = slider
     this.element = this.slider.element
     this.slides = this.element.getElementsByClassName('scroll-snap-slide')
-
+    this.slider.addEventListener('slide-pass', this.loopSlides)
     this.slider.addEventListener('slide-stop', this.loopSlides)
     this.loopSlides()
   }
@@ -24,6 +24,7 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
    * @override
    */
   disable () {
+    this.slider.removeEventListener('slide-pass', this.loopSlides)
     this.slider.removeEventListener('slide-stop', this.loopSlides)
 
     const sortedSlides = Array.prototype.slice
@@ -38,15 +39,15 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
   }
 
   loopSlides () {
-    const lastIndex = this.slides.length - 1
+    this.slider.detachListeners()
 
-    if (this.slider.slide === 0) {
-      this.element.prepend(this.slides[lastIndex])
-      return
-    }
-
-    if (this.slider.slide === lastIndex) {
+    const { scrollLeft, offsetWidth, scrollWidth } = this.element
+    if (scrollLeft < 5) {
+      this.element.prepend(this.slides[this.slides.length - 1])
+    } else if (scrollWidth - scrollLeft - offsetWidth < 5) {
       this.element.append(this.slides[0])
     }
+
+    this.slider.attachListeners()
   }
 }
