@@ -126,7 +126,7 @@ const slider = new ScrollSnapSlider(document.querySelector(".example-slider"), f
 slider.scrollTimeout = 50 // Sets a shorter timeout to detect scroll end
 
 // Dispatch 'slide-pass' events around the center of each slide
-slider.roundingMethod = Math.round 
+slider.roundingMethod = Math.round
 
 // Dispatch 'slide-pass' events as soon as the next one is visible
 slider.roundingMethod = Math.ceil
@@ -140,8 +140,8 @@ slider.roundingMethod = Math.floor
 slider.sizingMethod = function (slider) {
 
   // with padding
-  return slider.element.firstElementChild.offsetWidth 
-  
+  return slider.element.firstElementChild.offsetWidth
+
   // without padding
   return slider.element.firstElementChild.clientWidth
 }
@@ -221,35 +221,36 @@ export class CustomPlugin extends ScrollSnapPlugin {
 
 ## API
 
-| Method                          | Description                                                                 |
-|-------------------------------- |-----------------------------------------------------------------------------|
-| `slideTo(index: Number): void`  | Scrolls to slide with at `index`.                                           |
-| `addEventListener(...)`         | This is a shortcut for `slider.element.addEventListener(...)`.              |
-| `removeEventListener(...)`      | This is a shortcut for `slider.element.removeEventListener(...)`.           |
-| `attachEventListeners()`        | Enables the JS behaviour of this plugin. This is called in the constructor. |
-| `destroy()`                     | Free resources and listeners. You can/should do `slider = null` after this. |
+| Method                         | Description                                                                 |
+|--------------------------------|-----------------------------------------------------------------------------|
+| `slideTo(index: Number): void` | Scrolls to slide with at `index`.                                           |
+| `addEventListener(...)`        | This is a shortcut for `slider.element.addEventListener(...)`.              |
+| `removeEventListener(...)`     | This is a shortcut for `slider.element.removeEventListener(...)`.           |
+| `attachEventListeners()`       | Enables the JS behaviour of this plugin. This is called in the constructor. |
+| `detachEventListeners()`       | Disables the JS behaviour of this plugin.                                   |
+| `destroy()`                    | Free resources and listeners. You can/should do `slider = null` after this. |
 
 ## Events
 
 Events dispatched on the slider's `element`:
 
-| Event Name      | Event Detail Type | Description                                                                                                                                  |
-|-----------------|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
-| `slide-start`   | `Number`          | Dispatched when sliding starts toward slide at `event.detail`.                                                                               |
-| `slide-pass`    | `Number`          | Dispatched when sliding passes (crosses the threshold to) slide at `event.detail`. The threshold is defined/altered by the `roundingMethod`. |
-| `slide-stop`    | `Number`          | Dispatched when sliding stopped at index `event.detail`, i.e. the last scroll event happened before `scrollTimeout` ms.                      |
+| Event Name    | Event Detail Type | Description                                                                                                                                  |
+|---------------|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| `slide-start` | `Number`          | Dispatched when sliding starts toward slide at `event.detail`.                                                                               |
+| `slide-pass`  | `Number`          | Dispatched when sliding passes (crosses the threshold to) slide at `event.detail`. The threshold is defined/altered by the `roundingMethod`. |
+| `slide-stop`  | `Number`          | Dispatched when sliding stopped at index `event.detail`, i.e. the last scroll event happened before `scrollTimeout` ms.                      |
 
 You can use the proxy methods `addEventListener` and `removeEventListener` to listen to them.
 
 ## Public Properties
 
-| Property                       | Description                                                           |
-|--------------------------------|-----------------------------------------------------------------------|
-| `slide: Number` (read only)    | Currently active slide.                                               |
-| `element: Element` (read only) | The element passed into the constructor.                              |
-| `slideScrollLeft` (read only)  | the `element.scrollLeft` value of the currently active slide.         |
-| `scrollTimeout: Number`        | Timeout delay in milliseconds used to catch the end of scroll events. |
-| `plugins: Map<String, ScrollSnapPlugin>`  | Map of plugins enabled for this slider |
+| Property                                 | Description                                                           |
+|------------------------------------------|-----------------------------------------------------------------------|
+| `slide: Number` (read only)              | Currently active slide.                                               |
+| `element: Element` (read only)           | The element passed into the constructor.                              |
+| `slideScrollLeft` (read only)            | the `element.scrollLeft` value of the currently active slide.         |
+| `scrollTimeout: Number`                  | Timeout delay in milliseconds used to catch the end of scroll events. |
+| `plugins: Map<String, ScrollSnapPlugin>` | Map of plugins enabled for this slider                                |
 
 ## Support
 
