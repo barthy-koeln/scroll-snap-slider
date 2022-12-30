@@ -1,6 +1,9 @@
 import { ScrollSnapPlugin } from './ScrollSnapPlugin.js'
 
 export class ScrollSnapLoop extends ScrollSnapPlugin {
+  element: any;
+  slider: any;
+  slides: any;
   constructor () {
     super()
 
@@ -11,7 +14,7 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
    * @override
    * @param {ScrollSnapSlider} slider
    */
-  enable (slider) {
+  enable (slider: any) {
     this.slider = slider
     this.element = this.slider.element
     this.slides = this.element.getElementsByClassName('scroll-snap-slide')

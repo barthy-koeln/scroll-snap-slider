@@ -1,6 +1,10 @@
 import { ScrollSnapPlugin } from './ScrollSnapPlugin.js'
 
 export class ScrollSnapAutoplay extends ScrollSnapPlugin {
+  interval: any;
+  intervalDuration: any;
+  slider: any;
+  slides: any;
   constructor (intervalDuration = 3141) {
     super()
 
@@ -23,7 +27,7 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
    * @override
    * @param {ScrollSnapSlider} slider
    */
-  enable (slider) {
+  enable (slider: any) {
     if (this.slider) {
       return
     }

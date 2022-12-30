@@ -14,7 +14,7 @@ export class ScrollSnapPlugin {
    * @param {ScrollSnapSlider} slider
    * @public
    */
-  enable (slider) {
+  enable (slider: any) {
     console.error(`${this.id}: implementation of enable() method missing.`, slider)
   }
 
