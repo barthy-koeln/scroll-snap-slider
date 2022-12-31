@@ -13,11 +13,10 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
         this.loopSlides();
     }
     disable() {
-        this.slider?.removeEventListener('slide-pass', this.loopSlides);
-        this.slider?.removeEventListener('slide-stop', this.loopSlides);
-        const sortedSlides = Array.prototype.slice
-            .call(this.slider.element.children)
-            .sort((a, b) => parseInt(a.dataset.index, 10) - parseInt(b.dataset.index, 10));
+        this.slider.removeEventListener('slide-pass', this.loopSlides);
+        this.slider.removeEventListener('slide-stop', this.loopSlides);
+        const slides = this.slider.element.querySelectorAll('[data-index]');
+        const sortedSlides = Array.from(slides).sort(this.sortFunction);
         Element.prototype.append.apply(this.slider.element, sortedSlides);
     }
     loopSlides() {
@@ -30,5 +29,8 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
             this.slider.element.append(this.slider.element.children[0]);
         }
         this.slider.attachListeners();
+    }
+    sortFunction(a, b) {
+        return parseInt(a.dataset.index, 10) - parseInt(b.dataset.index, 10);
     }
 }

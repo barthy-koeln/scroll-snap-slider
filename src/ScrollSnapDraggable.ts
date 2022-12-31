@@ -68,7 +68,7 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
     this.lastX = null
   }
 
-  getFinalSlide () {
+  private getFinalSlide (): number {
     if (!this.quickSwipeDistance) {
       return this.slider!.slide
     }
