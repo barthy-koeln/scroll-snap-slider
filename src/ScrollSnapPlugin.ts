@@ -1,29 +1,25 @@
-export class ScrollSnapPlugin {
+import type { ScrollSnapSlider } from './ScrollSnapSlider'
+
+export abstract class ScrollSnapPlugin {
+  public slider: ScrollSnapSlider | null
+
+  protected constructor () {
+    this.slider = null
+  }
 
   /**
    * Unique Plugin ID
-   * @public
-   * @return {string}
    */
-  get id () {
-    return this.constructor.name
-  }
+  public abstract get id (): string
 
   /**
    * Override this with custom behaviour.
-   * @param {ScrollSnapSlider} slider
-   * @public
    */
-  enable (slider: any) {
-    console.error(`${this.id}: implementation of enable() method missing.`, slider)
-  }
+  public abstract enable (): void
 
   /**
    * Override this with custom behaviour.
-   * @public
    */
-  disable () {
-    console.error(`${this.id}: implementation of disable() method missing.`)
-  }
+  public abstract disable (): void
 
 }

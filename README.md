@@ -49,24 +49,20 @@ You can add whatever markup inside the slides.
 
 ```html
 
-<div class="scroll-snap-slider">
-  <div class="scroll-snap-slide">
+<ul class="scroll-snap-slider">
+  <li class="scroll-snap-slide">
     <img src="https://picsum.photos/id/1011/400/300"/>
-  </div>
-  <div class="scroll-snap-slide">
+  </li>
+  <li class="scroll-snap-slide">
     <img src="https://picsum.photos/id/1018/400/300"/>
-  </div>
-</div>
+  </li>
+</ul>
 ```
 
-### SCSS
-
-```scss
-@import '~scroll-snap-slider';
-```
+### CSS
 
 ```css
-@import '~scroll-snap-slider/src/scroll-snap-slider.css';
+@import '~scroll-snap-slider';
 ```
 
 ### Additional Styles
@@ -100,7 +96,7 @@ events and exposes a few methods, with which you can enhance your slider's behav
 ```javascript
 import { ScrollSnapSlider } from 'scroll-snap-slider'
 
-const slider = new ScrollSnapSlider(document.querySelector(".example-slider"));
+const slider = new ScrollSnapSlider({ element: document.querySelector('.example-slider') });
 
 slider.addEventListener('slide-start', function (event) {
   console.info(`Started sliding towards slide ${event.detail}.`)
@@ -121,36 +117,21 @@ slider.addEventListener('slide-stop', function (event) {
 import { ScrollSnapSlider } from 'scroll-snap-slider'
 
 // Do not automatically attach scroll listener
-const slider = new ScrollSnapSlider(document.querySelector(".example-slider"), false);
+const slider = new ScrollSnapSlider({
+  element: document.querySelector('.example-slider'),
+  scrollTimeout: 50, // Sets a shorter timeout to detect scroll end
+  roundingMethod: Math.round, // Dispatch 'slide-pass' events around the center of each slide
+  // roundingMethod: Math.ceil, // Dispatch 'slide-pass' events as soon as the next one is visible
+  // roundingMethod: Math.floor, // Dispatch 'slide-pass' events only when the next one is fully visible
+  sizingMethod (slider) {
 
-slider.scrollTimeout = 50 // Sets a shorter timeout to detect scroll end
+    // with padding
+    return slider.element.firstElementChild.offsetWidth
 
-// Dispatch 'slide-pass' events around the center of each slide
-slider.roundingMethod = Math.round
-
-// Dispatch 'slide-pass' events as soon as the next one is visible
-slider.roundingMethod = Math.ceil
-
-// Dispatch 'slide-pass' events only when the next one is fully visible
-slider.roundingMethod = Math.floor
-
-// Note: The roundingMethod depend on the direction of scrolling.
-// When scrolling in the opposite direction, the effects are reversed.
-
-slider.sizingMethod = function (slider) {
-
-  // with padding
-  return slider.element.firstElementChild.offsetWidth
-
-  // without padding
-  return slider.element.firstElementChild.clientWidth
-}
-
-// test support for passive listeners first
-slider.listenerOptions = supportsPassive ? { passive: true } : false
-
-// Now that we've set the listenerOptions, we can attach the listener
-slider.attachListeners()
+    // without padding
+    // return slider.element.firstElementChild.clientWidth
+  }
+});
 ```
 
 **Plugins:**
@@ -170,7 +151,7 @@ import { ScrollSnapAutoplay } from 'scroll-snap-slider/src/ScrollSnapAutoplay.js
 import { ScrollSnapLoop } from 'scroll-snap-slider/src/ScrollSnapLoop.js'
 
 const sliderElement = document.querySelector('.example-slider')
-const slider = new ScrollSnapSlider(sliderElement, true, [
+const slider = new ScrollSnapSlider({ element: sliderElement }).with([
   new ScrollSnapAutoplay(1200),
   new ScrollSnapLoop
 ])

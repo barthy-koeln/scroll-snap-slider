@@ -1,6 +1,6 @@
 {
   "name": "scroll-snap-slider",
-  "version": "2.6.0",
+  "version": "3.0.0",
   "description": "Mostly CSS slider with great performance.",
   "keywords": [
     "slider",
@@ -8,11 +8,11 @@
     "scroll",
     "scroll-snap"
   ],
-  "main": "src/ScrollSnapSlider.js",
-  "style": "src/scroll-snap-slider.scss",
-  "module": "src/ScrollSnapSlider.js",
+  "main": "build/ScrollSnapSlider.js",
+  "style": "build/scroll-snap-slider.css",
+  "module": "build/ScrollSnapSlider.js",
   "files": [
-    "src/**/*"
+    "build/**/*"
   ],
   "type": "module",
   "sideEffects": false,
@@ -24,20 +24,28 @@
   "license": "MIT",
   "private": false,
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.47.1",
+    "@typescript-eslint/parser": "^5.47.1",
     "bash-echolorized": "^1.0.1",
     "core-js": "^3.25",
-    "eslint": "^8.25.0",
+    "eslint": "^8.30.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-compat": "^4.0.2",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.3.0",
     "eslint-plugin-promise": "^6.0.1",
     "eslint-plugin-standard": "^5.0.0",
+    "sass": "^1.57.1",
     "stylelint": "^14.13.0",
-    "stylelint-config-standard": "^28.0.0"
+    "stylelint-config-standard": "^28.0.0",
+    "typedoc": "^0.23.23",
+    "typescript": "^4.9.4"
   },
   "scripts": {
     "setup-git-hooks": "git config core.hooksPath hooks",
-    "doc": "jsdoc ./src/ScrollSnapSlider.js"
+    "build-css": "sass --style expanded src/scroll-snap-slider.scss > build/scroll-snap-slider.css",
+    "build-js": "tsc",
+    "build": "@build-js && @build-css",
+    "doc": "typedoc src"
   }
 }
