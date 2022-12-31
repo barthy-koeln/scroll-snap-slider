@@ -36,18 +36,27 @@ export class ScrollSnapSlider {
   public scrollTimeout: number
 
   /**
+   * Calculated size of a single item
+   */
+  public itemSize: number
+
+  /**
    * Gets the width of each child, assuming all children have the same size
    *
    * @param {ScrollSnapSlider} slider - current slider
    * @return {number} integer size of a slide in pixels
    */
-  public sizingMethod: (slider: ScrollSnapSlider) => number
+  public sizingMethod: (slider: ScrollSnapSlider, entries?: ResizeObserverEntry[] | undefined) => number
 
   /**
    * Active slide
    */
   public slide: number
 
+  /**
+   * Resize observer used to update item size
+   */
+  private resizeObserver: ResizeObserver
   /**
    * Timeout ID used to catch the end of scroll events
    */
@@ -72,15 +81,23 @@ export class ScrollSnapSlider {
     this.slideScrollLeft = this.element.scrollLeft
     this.scrollTimeoutId = null
 
+    this.itemSize = this.sizingMethod(this)
     this.slide = this.calculateSlide()
 
     this.onScroll = this.onScroll.bind(this)
     this.onScrollEnd = this.onScrollEnd.bind(this)
     this.slideTo = this.slideTo.bind(this)
+    this.onSlideResize = this.onSlideResize.bind(this)
 
     this.addEventListener = this.element.addEventListener.bind(this.element)
     this.removeEventListener = this.element.removeEventListener.bind(this.element)
     this.plugins = new window.Map()
+    this.resizeObserver = new ResizeObserver(this.onSlideResize)
+    this.resizeObserver.observe(this.element)
+    for (const child of this.element.children) {
+      this.resizeObserver.observe(child)
+    }
+
     this.attachListeners()
   }
 
@@ -110,23 +127,11 @@ export class ScrollSnapSlider {
   }
 
   /**
-   * Calculate all necessary things and dispatch an event when sliding stops
-   * @return {void}
-   * @private
-   */
-  onScrollEnd () {
-    this.scrollTimeoutId = null
-    this.slide = this.calculateSlide()
-    this.slideScrollLeft = this.element.scrollLeft
-    this.dispatch('slide-stop', this.slide)
-  }
-
-  /**
    * Scroll to a slide by index.
    */
   public slideTo (index: number): void {
     this.element.scrollTo({
-      left: index * this.sizingMethod(this)
+      left: index * this.itemSize
     })
   }
 
@@ -145,11 +150,25 @@ export class ScrollSnapSlider {
   }
 
   /**
+   * Calculate all necessary things and dispatch an event when sliding stops
+   */
+  private onScrollEnd (): void {
+    this.scrollTimeoutId = null
+    this.slide = this.calculateSlide()
+    this.slideScrollLeft = this.element.scrollLeft
+    this.dispatch('slide-stop', this.slide)
+  }
+
+  /**
    * Calculates the active slide.
    * The scroll-snap-type property makes sure that the container snaps perfectly to integer multiples.
    */
   private calculateSlide (): number {
-    return this.roundingMethod(this.element.scrollLeft / this.sizingMethod(this))
+    return this.roundingMethod(this.element.scrollLeft / this.itemSize)
+  }
+
+  private onSlideResize (entries: ResizeObserverEntry[]) {
+    this.itemSize = this.sizingMethod(this, entries)
   }
 
   /**

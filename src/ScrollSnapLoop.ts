@@ -1,7 +1,7 @@
 import { ScrollSnapPlugin } from './ScrollSnapPlugin.js'
 
 export class ScrollSnapLoop extends ScrollSnapPlugin {
-  constructor () {
+  public constructor () {
     super()
 
     this.loopSlides = this.loopSlides.bind(this)
@@ -24,17 +24,16 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
    * @override
    */
   public disable (): void {
-    this.slider?.removeEventListener('slide-pass', this.loopSlides)
-    this.slider?.removeEventListener('slide-stop', this.loopSlides)
+    this.slider!.removeEventListener('slide-pass', this.loopSlides)
+    this.slider!.removeEventListener('slide-stop', this.loopSlides)
 
-    const sortedSlides = Array.prototype.slice
-      .call(this.slider!.element.children)
-      .sort((a: HTMLOrSVGElement, b: HTMLOrSVGElement) => parseInt(a.dataset.index!, 10) - parseInt(b.dataset.index!, 10))
+    const slides = this.slider!.element.querySelectorAll<HTMLOrSVGElement & Element>('[data-index]')
+    const sortedSlides = Array.from(slides).sort(this.sortFunction)
 
     Element.prototype.append.apply(this.slider!.element, sortedSlides)
   }
 
-  loopSlides () {
+  private loopSlides (): void {
     this.slider!.detachListeners()
 
     const { scrollLeft, offsetWidth, scrollWidth } = this.slider!.element
@@ -45,5 +44,9 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
     }
 
     this.slider!.attachListeners()
+  }
+
+  private sortFunction (a: HTMLOrSVGElement, b: HTMLOrSVGElement): number {
+    return parseInt(a.dataset.index!, 10) - parseInt(b.dataset.index!, 10)
   }
 }
