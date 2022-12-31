@@ -1,63 +1,85 @@
 import { ScrollSnapPlugin } from './ScrollSnapPlugin.js'
+import type { ScrollSnapSlider } from './ScrollSnapSlider'
 
 export class ScrollSnapAutoplay extends ScrollSnapPlugin {
-  interval: any;
-  intervalDuration: any;
-  slider: any;
-  slides: any;
-  constructor (intervalDuration = 3141) {
+  /**
+   * Duration in milliseconds between slide changes
+   */
+  public intervalDuration: number
+
+  /**
+   * Duration in milliseconds after human interaction where the slider will not autoplay
+   */
+  public timeoutDuration: number
+
+  private originalSlideTo: ScrollSnapSlider['slideTo']
+
+  private debounceId: number | null
+
+  /**
+   * Interval ID
+   */
+  private interval: number | null
+
+  public constructor (intervalDuration = 3141, timeoutDuration = 6282) {
     super()
 
-    /**
-     * Duration in milliseconds between slide changes
-     * @type {Number}
-     */
     this.intervalDuration = intervalDuration
-
-    /**
-     * Interval ID
-     * @type {?Number}
-     */
+    this.timeoutDuration = timeoutDuration
     this.interval = null
 
     this.onInterval = this.onInterval.bind(this)
+    this.disableTemporarily = this.disableTemporarily.bind(this)
+    this.enable = this.enable.bind(this)
+  }
+
+  public get id (): string {
+    return 'ScrollSnapAutoplay'
   }
 
   /**
    * @override
-   * @param {ScrollSnapSlider} slider
    */
-  enable (slider: any) {
-    if (this.slider) {
-      return
-    }
-
-    this.slider = slider
-    this.slides = this.slider.element.getElementsByClassName('scroll-snap-slide')
+  public enable (): void {
+    this.debounceId && window.clearTimeout(this.debounceId)
+    this.debounceId = null
     this.interval = window.setInterval(this.onInterval, this.intervalDuration)
+    this.slider.addEventListener('touchstart', this.disableTemporarily, { passive: true })
+    this.slider.addEventListener('wheel', this.disableTemporarily, { passive: true })
   }
 
   /**
    * @override
    */
-  disable () {
-    window.clearInterval(this.interval)
-
-    this.slider = null
-    this.slides = null
+  public disable (): void {
+    this.slider.removeEventListener('touchstart', this.disableTemporarily)
+    this.slider.removeEventListener('wheel', this.disableTemporarily)
+    this.interval && window.clearInterval(this.interval)
     this.interval = null
   }
 
-  onInterval () {
-    if (this.slider.plugins.has('ScrollSnapLoop')) {
-      this.slider.slideTo(this.slider.slide + 1)
+  public disableTemporarily (): void {
+    if (!this.interval) {
       return
     }
 
-    const { scrollLeft, offsetWidth, scrollWidth } = this.slider.element
-    const isLastSlide = scrollLeft + offsetWidth === scrollWidth
-    const target = isLastSlide ? 0 : this.slider.slide + 1
+    window.clearInterval(this.interval)
+    this.interval = null
 
-    this.slider.slideTo(target)
+    this.debounceId && window.clearTimeout(this.debounceId)
+    this.debounceId = window.setTimeout(this.enable, this.timeoutDuration)
+  }
+
+  public onInterval (): void {
+    if (this.slider!.plugins.has('ScrollSnapLoop')) {
+      this.slider!.slideTo(this.slider!.slide + 1)
+      return
+    }
+
+    const { scrollLeft, offsetWidth, scrollWidth } = this.slider!.element
+    const isLastSlide = scrollLeft + offsetWidth === scrollWidth
+    const target = isLastSlide ? 0 : this.slider!.slide + 1
+
+    this.slider!.slideTo(target)
   }
 }

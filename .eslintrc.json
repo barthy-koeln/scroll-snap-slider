@@ -1,17 +1,37 @@
 {
-  "extends": [
-    "eslint:recommended",
-    "plugin:compat/recommended"
-  ],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 6,
+    "ecmaVersion": 2022,
     "sourceType": "module"
   },
+  "root": true,
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:compat/recommended"
+  ],
+  "plugins": [
+    "@typescript-eslint"
+  ],
   "env": {
     "browser": true,
     "node": true
   },
   "rules": {
+    "@typescript-eslint/no-non-null-assertion": [
+      "off",
+      {
+        "comment": "This is a concious decision. The enable/disable flow makes sure that everything is set up properly."
+      }
+    ],
+    "object-property-newline": "error",
+    "object-curly-newline": [
+      "error",
+      {
+        "multiline": true,
+        "consistent": true
+      }
+    ],
     "no-console": [
       "error",
       {

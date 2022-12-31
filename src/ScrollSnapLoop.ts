@@ -1,56 +1,49 @@
 import { ScrollSnapPlugin } from './ScrollSnapPlugin.js'
 
 export class ScrollSnapLoop extends ScrollSnapPlugin {
-  element: any;
-  slider: any;
-  slides: any;
   constructor () {
     super()
 
     this.loopSlides = this.loopSlides.bind(this)
   }
 
+  public get id (): string {
+    return 'ScrollSnapLoop'
+  }
+
   /**
    * @override
-   * @param {ScrollSnapSlider} slider
    */
-  enable (slider: any) {
-    this.slider = slider
-    this.element = this.slider.element
-    this.slides = this.element.getElementsByClassName('scroll-snap-slide')
-    this.slider.addEventListener('slide-pass', this.loopSlides)
-    this.slider.addEventListener('slide-stop', this.loopSlides)
+  public enable (): void {
+    this.slider!.addEventListener('slide-pass', this.loopSlides)
+    this.slider!.addEventListener('slide-stop', this.loopSlides)
     this.loopSlides()
   }
 
   /**
    * @override
    */
-  disable () {
-    this.slider.removeEventListener('slide-pass', this.loopSlides)
-    this.slider.removeEventListener('slide-stop', this.loopSlides)
+  public disable (): void {
+    this.slider?.removeEventListener('slide-pass', this.loopSlides)
+    this.slider?.removeEventListener('slide-stop', this.loopSlides)
 
     const sortedSlides = Array.prototype.slice
-      .call(this.slides)
-      .sort((a, b) => parseInt(a.dataset.index, 10) - parseInt(b.dataset.index, 10))
+      .call(this.slider!.element.children)
+      .sort((a: HTMLOrSVGElement, b: HTMLOrSVGElement) => parseInt(a.dataset.index!, 10) - parseInt(b.dataset.index!, 10))
 
-    Element.prototype.append.apply(this.element, sortedSlides)
-
-    this.slider = null
-    this.element = null
-    this.slides = null
+    Element.prototype.append.apply(this.slider!.element, sortedSlides)
   }
 
   loopSlides () {
-    this.slider.detachListeners()
+    this.slider!.detachListeners()
 
-    const { scrollLeft, offsetWidth, scrollWidth } = this.element
+    const { scrollLeft, offsetWidth, scrollWidth } = this.slider!.element
     if (scrollLeft < 5) {
-      this.element.prepend(this.slides[this.slides.length - 1])
+      this.slider!.element.prepend(this.slider!.element.children[this.slider!.element.children.length - 1])
     } else if (scrollWidth - scrollLeft - offsetWidth < 5) {
-      this.element.append(this.slides[0])
+      this.slider!.element.append(this.slider!.element.children[0])
     }
 
-    this.slider.attachListeners()
+    this.slider!.attachListeners()
   }
 }

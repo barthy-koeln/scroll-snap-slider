@@ -1,7 +1,7 @@
-import { ScrollSnapSlider } from '../src/ScrollSnapSlider.js'
+import { ScrollSnapSlider } from '../build/ScrollSnapSlider.js'
 
 const sliderResponsiveElement = document.querySelector('.scroll-snap-slider.-responsive')
-const sliderResponsive = new ScrollSnapSlider(sliderResponsiveElement)
+const sliderResponsive = new ScrollSnapSlider({ element: sliderResponsiveElement })
 
 const arrows = document.querySelector('.indicators.-responsive')
 const prev = document.querySelector('.indicators.-responsive .arrow.-prev')

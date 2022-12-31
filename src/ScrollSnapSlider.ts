@@ -1,242 +1,185 @@
+import { ScrollSnapPlugin } from './ScrollSnapPlugin'
+
+export type ScrollSnapSliderOptions = Partial<ScrollSnapSlider> & {
+  element: HTMLElement
+}
+
 /**
  * @classdesc Mostly CSS slider with great performance.
  */
 export class ScrollSnapSlider {
- addEventListener: any;
- element: any;
- listenerOptions: any;
- plugins: any;
- removeEventListener: any;
- roundingMethod: any;
- scrollTimeout: any;
- scrollTimeoutId: any;
- sizingMethod: any;
- slide: any;
- slideScrollLeft: any;
+  /**
+   * Base element of this slider
+   */
+  public element: HTMLElement
 
- /**
-  * Bind methods and possibly attach listeners.
-  * @param {Element|HTMLElement} element - element to attach listeners and dispatch events
-  * @param {Boolean} enabled - attach listeners and enable plugins now. If this is false, you will have to call slider.attachListener() once and plugin.enable() for each plugin later.
-  * @param {ScrollSnapPlugin[]} plugins - additional behaviour
-  */
- constructor (element: any, enabled = true, plugins = []) {
-   /**
-    * Base element of this slider
-    * @name ScrollSnapSlider#element
-    * @type {Element|HTMLElement}
-    * @readonly
-    * @public
-    */
-   this.element = element
+  /**
+   * additional behaviour
+   */
+  public plugins: Map<string, ScrollSnapPlugin>
 
-   /**
-    * Active slide's scrollLeft in the containing element
-    * @name ScrollSnapSlider#slideScrollLeft
-    * @type {Number}
-    * @private
-    */
-   this.slideScrollLeft = this.element.scrollLeft
+  public removeEventListener: HTMLElement['removeEventListener']
 
-   /**
-    * Timeout ID used to catch the end of scroll events
-    * @name ScrollSnapSlider#scrollTimeoutId
-    * @type {?Number}
-    * @private
-    */
-   this.scrollTimeoutId = null
+  public addEventListener: HTMLElement['addEventListener']
 
-   /**
-    * @callback sizingMethod
-    * @param {ScrollSnapSlider} slider
-    * @return {Number} integer size of a slide in pixels
-    */
+  /**
+   * Rounding method used to calculate the current slide (e.g. Math.floor, Math.round, Math.ceil, or totally custom.)
+   *
+   * @param {number} value - factor indicating th current position (e.g "0" for first slide, "2.5" for third slide and a half)
+   * @return {number} f(x) - integer factor indicating the currently 'active' slide.
+   */
+  public roundingMethod: (value: number) => number
 
-   /**
-    * Width of each slide
-    * @type {sizingMethod}
-    * @public
-    */
-   this.sizingMethod = function (slider: any) {
-     return slider.element.firstElementChild.offsetWidth
-   }
+  /**
+   * Timeout delay in milliseconds used to catch the end of scroll events
+   */
+  public scrollTimeout: number
 
-   /**
-    * @callback roundingMethod
-    * @param {Number} x - factor indicating th current position (e.g "0" for first slide, "2.5" for third slide and a half)
-    * @return {Number} f(x) - integer factor indicating the currently 'active' slide.
-    */
+  /**
+   * Gets the width of each child, assuming all children have the same size
+   *
+   * @param {ScrollSnapSlider} slider - current slider
+   * @return {number} integer size of a slide in pixels
+   */
+  public sizingMethod: (slider: ScrollSnapSlider) => number
 
-   /**
-    * Rounding method used to calculate the current slide (e.g. Math.floor, Math.round, Math.ceil, or totally custom.)
-    * @name ScrollSnapSlider#roundingMethod
-    * @type {roundingMethod}
-    * @public
-    */
-   this.roundingMethod = Math.round
+  /**
+   * Active slide
+   */
+  public slide: number
 
-   /**
-    * Active slide
-    * @name ScrollSnapSlider#slide
-    * @type {?Number}
-    * @public
-    */
-   this.slide = this.calculateSlide()
+  /**
+   * Timeout ID used to catch the end of scroll events
+   */
+  private scrollTimeoutId: null | number
 
-   /**
-    * Timeout delay in milliseconds used to catch the end of scroll events
-    * @name ScrollSnapSlider#scrollTimeout
-    * @type {?Number}
-    * @public
-    */
-   this.scrollTimeout = 100
+  /**
+   * Active slide's scrollLeft in the containing element
+   */
+  private slideScrollLeft: number
 
-   /**
-    * Options for the scroll listener (passive by default, may be overwritten for compatibility or other reasons)
-    * @name ScrollSnapSlider#listenerOptions
-    * @type {AddEventListenerOptions}
-    * @public
-    */
-   this.listenerOptions = {
-     passive: true
-   }
+  /**
+   * Bind methods and possibly attach listeners.
+   */
+  constructor (options: ScrollSnapSliderOptions) {
+    Object.assign(this, {
+      scrollTimeout: 100,
+      roundingMethod: Math.round,
+      sizingMethod: (slider: ScrollSnapSlider) => (slider.element.firstElementChild as HTMLElement).offsetWidth,
+      ...options
+    })
 
-   this.onScroll = this.onScroll.bind(this)
-   this.onScrollEnd = this.onScrollEnd.bind(this)
-   this.slideTo = this.slideTo.bind(this)
+    this.slideScrollLeft = this.element.scrollLeft
+    this.scrollTimeoutId = null
 
-   /**
-    * Adds event listener to the element
-    * @name ScrollSnapSlider#addEventListener
-    * @method
-    * @public
-    */
-   this.addEventListener = this.element.addEventListener.bind(this.element)
+    this.slide = this.calculateSlide()
 
-   /**
-    * Removes event listener from the element
-    * @name ScrollSnapSlider#removeEventListener
-    * @method
-    * @public
-    */
-   this.removeEventListener = this.element.removeEventListener.bind(this.element)
+    this.onScroll = this.onScroll.bind(this)
+    this.onScrollEnd = this.onScrollEnd.bind(this)
+    this.slideTo = this.slideTo.bind(this)
 
-   enabled && this.attachListeners()
+    this.addEventListener = this.element.addEventListener.bind(this.element)
+    this.removeEventListener = this.element.removeEventListener.bind(this.element)
+    this.plugins = new window.Map()
+    this.attachListeners()
+  }
 
-   /**
-    * Maps a plugin name to its instance
-    * @type {Map<String, Object>}
-    */
-   this.plugins = new window.Map()
-   for (const plugin of plugins) {
-     // @ts-expect-error TS(2339): Property 'id' does not exist on type 'never'.
-     this.plugins.set(plugin.id, plugin)
-     // @ts-expect-error TS(2339): Property 'enable' does not exist on type 'never'.
-     enabled && plugin.enable(this)
-   }
- }
+  public with (plugins: ScrollSnapPlugin[], enabled = true): ScrollSnapSlider {
+    for (const plugin of plugins) {
+      plugin.slider = this
+      this.plugins.set(plugin.id, plugin)
+      enabled && plugin.enable()
+    }
 
- /**
-  * Attach all necessary listeners
-  * @return {void}
-  * @public
-  */
- attachListeners () {
-   this.addEventListener('scroll', this.onScroll, this.listenerOptions)
- }
+    return this
+  }
 
- /**
-  * Detach all listeners
-  * @return {void}
-  * @public
-  */
- detachListeners () {
-   this.removeEventListener('scroll', this.onScroll, this.listenerOptions)
-   window.clearTimeout(this.scrollTimeoutId)
- }
+  /**
+   * Attach all necessary listeners
+   */
+  public attachListeners (): void {
+    this.addEventListener('scroll', this.onScroll, { passive: true })
+  }
 
- /**
-  * Act when scrolling starts and stops
-  * @return {void}
-  * @private
-  */
- onScroll () {
-   if (null === this.scrollTimeoutId) {
-     const direction = (this.element.scrollLeft > this.slideScrollLeft) ? 1 : -1
-     this.dispatch('slide-start', this.slide + direction)
-   }
+  /**
+   * Detach all listeners
+   */
+  public detachListeners (): void {
+    this.removeEventListener('scroll', this.onScroll)
+    this.scrollTimeoutId && window.clearTimeout(this.scrollTimeoutId)
+  }
 
-   const floored = this.calculateSlide()
-   if (floored !== this.slide) {
-     this.slideScrollLeft = this.element.scrollLeft
-     this.slide = floored
-     this.dispatch('slide-pass', this.slide)
-   }
+  /**
+   * Calculate all necessary things and dispatch an event when sliding stops
+   * @return {void}
+   * @private
+   */
+  onScrollEnd () {
+    this.scrollTimeoutId = null
+    this.slide = this.calculateSlide()
+    this.slideScrollLeft = this.element.scrollLeft
+    this.dispatch('slide-stop', this.slide)
+  }
 
-   window.clearTimeout(this.scrollTimeoutId)
-   this.scrollTimeoutId = window.setTimeout(this.onScrollEnd, this.scrollTimeout)
- }
+  /**
+   * Scroll to a slide by index.
+   */
+  public slideTo (index: number): void {
+    this.element.scrollTo({
+      left: index * this.sizingMethod(this)
+    })
+  }
 
- /**
-  * Calculate all necessary things and dispatch an event when sliding stops
-  * @return {void}
-  * @private
-  */
- onScrollEnd () {
-   this.scrollTimeoutId = null
-   this.slide = this.calculateSlide()
-   this.slideScrollLeft = this.element.scrollLeft
-   this.dispatch('slide-stop', this.slide)
- }
+  /**
+   * Free resources and listeners, disable plugins
+   */
+  public destroy (): void {
+    this.scrollTimeoutId && window.clearTimeout(this.scrollTimeoutId)
+    this.detachListeners()
 
- /**
-  * Calculates the active slide.
-  * The scroll-snap-type property makes sure that the container snaps perfectly to integer multiples.
-  * @return {Number}
-  * @private
-  */
- calculateSlide () {
-   return this.roundingMethod(this.element.scrollLeft / this.sizingMethod(this))
- }
+    for (const [id, plugin] of this.plugins) {
+      plugin.disable()
+      plugin.slider = null
+      this.plugins.delete(id)
+    }
+  }
 
- /**
-  * @param {String} event
-  * @param {any} detail
-  * @return {boolean}
-  * @private
-  */
- dispatch (event: any, detail: any) {
-   return this.element.dispatchEvent(
-     new window.CustomEvent(event, {
-       detail: detail
-     })
-   )
- }
+  /**
+   * Calculates the active slide.
+   * The scroll-snap-type property makes sure that the container snaps perfectly to integer multiples.
+   */
+  private calculateSlide (): number {
+    return this.roundingMethod(this.element.scrollLeft / this.sizingMethod(this))
+  }
 
- /**
-  * Scroll to a slide by index.
-  *
-  * @param {Number} index
-  * @return {void}
-  * @public
-  */
- slideTo (index: any) {
-   this.element.scrollTo({
-     left: index * this.sizingMethod(this)
-   })
- }
+  /**
+   * Dispatches an event on the slider's element
+   */
+  private dispatch (event: string, detail: unknown): boolean {
+    return this.element.dispatchEvent(
+      new window.CustomEvent(event, {
+        detail
+      })
+    )
+  }
 
- /**
-  * Free resources and listeners, disable plugins
-  * @return {void}
-  * @public
-  */
- destroy () {
-   window.clearTimeout(this.scrollTimeoutId)
-   this.detachListeners()
+  /**
+   * Act when scrolling starts and stops
+   */
+  private onScroll (): void {
+    if (null === this.scrollTimeoutId) {
+      const direction = (this.element.scrollLeft > this.slideScrollLeft) ? 1 : -1
+      this.dispatch('slide-start', this.slide + direction)
+    }
 
-   for (const plugin of this.plugins.values()) {
-     plugin.disable()
-   }
- }
+    const floored = this.calculateSlide()
+    if (floored !== this.slide) {
+      this.slideScrollLeft = this.element.scrollLeft
+      this.slide = floored
+      this.dispatch('slide-pass', this.slide)
+    }
+
+    this.scrollTimeoutId && window.clearTimeout(this.scrollTimeoutId)
+    this.scrollTimeoutId = window.setTimeout(this.onScrollEnd, this.scrollTimeout)
+  }
 }

@@ -1,15 +1,19 @@
-import { ScrollSnapSlider } from '../src/ScrollSnapSlider.js'
-import { ScrollSnapAutoplay } from '../src/ScrollSnapAutoplay.js'
-import { ScrollSnapLoop } from '../src/ScrollSnapLoop.js'
-import { ScrollSnapDraggable } from '../src/ScrollSnapDraggable.js'
+import { ScrollSnapSlider } from '../build/ScrollSnapSlider.js'
+import { ScrollSnapAutoplay } from '../build/ScrollSnapAutoplay.js'
+import { ScrollSnapLoop } from '../build/ScrollSnapLoop.js'
+import { ScrollSnapDraggable } from '../build/ScrollSnapDraggable.js'
 
 const sliderSimpleElement = document.querySelector('.scroll-snap-slider.-simple')
 const slides = sliderSimpleElement.getElementsByClassName('scroll-snap-slide')
-const sliderSimple = new ScrollSnapSlider(sliderSimpleElement)
+const sliderSimple = new ScrollSnapSlider({ element: sliderSimpleElement })
 
 const autoplayPlugin = new ScrollSnapAutoplay()
 const loopPlugin = new ScrollSnapLoop()
 const draggablePlugin = new ScrollSnapDraggable(50)
+
+autoplayPlugin.slider = sliderSimple
+loopPlugin.slider = sliderSimple
+draggablePlugin.slider = sliderSimple
 
 const buttons = document.querySelectorAll('.indicators.-simple .indicator')
 const currentIndicator = document.querySelector('.indicators.-simple .current-indicator')
@@ -30,6 +34,7 @@ const setSelected = function (event) {
 
 for (const button of buttons) {
   button.addEventListener('click', function (event) {
+    autoplayPlugin.disableTemporarily()
     event.preventDefault()
 
     const slideElementIndex = Array.prototype.slice
@@ -41,10 +46,12 @@ for (const button of buttons) {
 }
 
 prev.addEventListener('click', function () {
+  autoplayPlugin.disableTemporarily()
   sliderSimple.slideTo(sliderSimple.slide - 1)
 })
 
 next.addEventListener('click', function () {
+  autoplayPlugin.disableTemporarily()
   sliderSimple.slideTo(sliderSimple.slide + 1)
 })
 
@@ -57,7 +64,7 @@ const loopInput = document.querySelector('#loop')
 const draggableInput = document.querySelector('#draggable')
 
 const enablePlugin = function (plugin) {
-  plugin.enable(sliderSimple)
+  plugin.enable()
   sliderSimple.plugins.set(plugin.id, plugin)
 }
 

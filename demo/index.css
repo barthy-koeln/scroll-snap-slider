@@ -1,6 +1,6 @@
-@import './page.css';
-@import './feature_toggle.css';
-@import '../src/scroll-snap-slider.css';
+@import "./page.css";
+@import "./feature_toggle.css";
+@import "../build/scroll-snap-slider.css";
 
 h1,
 h2,
@@ -84,7 +84,7 @@ p {
   opacity: 0;
 }
 
-.indicators input[type='radio'] {
+.indicators input[type="radio"] {
   display: none;
 }
 
