@@ -20,6 +20,9 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
         Element.prototype.append.apply(this.slider.element, sortedSlides);
     }
     loopSlides() {
+        if (this.slider.element.children.length < 3) {
+            return;
+        }
         this.slider.detachListeners();
         const { scrollLeft, offsetWidth, scrollWidth } = this.slider.element;
         if (scrollLeft < 5) {
@@ -28,7 +31,7 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
         else if (scrollWidth - scrollLeft - offsetWidth < 5) {
             this.slider.element.append(this.slider.element.children[0]);
         }
-        this.slider.attachListeners();
+        window.setTimeout(() => this.slider.attachListeners(), 0);
     }
     sortFunction(a, b) {
         return parseInt(a.dataset.index, 10) - parseInt(b.dataset.index, 10);
