@@ -34,6 +34,10 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
   }
 
   private loopSlides (): void {
+    if (this.slider!.element.children.length < 3) {
+      return
+    }
+
     this.slider!.detachListeners()
 
     const { scrollLeft, offsetWidth, scrollWidth } = this.slider!.element
