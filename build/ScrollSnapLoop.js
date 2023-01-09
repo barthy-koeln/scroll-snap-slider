@@ -11,6 +11,7 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
         this.slider.addEventListener('slide-pass', this.loopSlides);
         this.slider.addEventListener('slide-stop', this.loopSlides);
         this.loopSlides();
+        this.slider.slide = this.slider.calculateSlide();
     }
     disable() {
         this.slider.removeEventListener('slide-pass', this.loopSlides);
@@ -31,7 +32,7 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
         else if (scrollWidth - scrollLeft - offsetWidth < 5) {
             this.slider.element.append(this.slider.element.children[0]);
         }
-        window.setTimeout(() => this.slider.attachListeners(), 0);
+        this.slider.attachListeners();
     }
     sortFunction(a, b) {
         return parseInt(a.dataset.index, 10) - parseInt(b.dataset.index, 10);

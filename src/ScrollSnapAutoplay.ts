@@ -71,15 +71,15 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
   }
 
   public onInterval (): void {
-    if (this.slider!.plugins.has('ScrollSnapLoop')) {
-      this.slider!.slideTo(this.slider!.slide + 1)
+    if (this.slider.plugins.has('ScrollSnapLoop')) {
+      this.slider.slideTo(this.slider.slide + 1)
       return
     }
 
-    const { scrollLeft, offsetWidth, scrollWidth } = this.slider!.element
+    const { scrollLeft, offsetWidth, scrollWidth } = this.slider.element
     const isLastSlide = scrollLeft + offsetWidth === scrollWidth
-    const target = isLastSlide ? 0 : this.slider!.slide + 1
+    const target = isLastSlide ? 0 : this.slider.slide + 1
 
-    this.slider!.slideTo(target)
+    this.slider.slideTo(target)
   }
 }
