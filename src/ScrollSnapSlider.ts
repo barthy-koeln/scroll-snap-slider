@@ -150,6 +150,14 @@ export class ScrollSnapSlider {
   }
 
   /**
+   * Calculates the active slide.
+   * The scroll-snap-type property makes sure that the container snaps perfectly to integer multiples.
+   */
+  calculateSlide (): number {
+    return this.roundingMethod(this.element.scrollLeft / this.itemSize)
+  }
+
+  /**
    * Calculate all necessary things and dispatch an event when sliding stops
    */
   private onScrollEnd (): void {
@@ -157,14 +165,6 @@ export class ScrollSnapSlider {
     this.slide = this.calculateSlide()
     this.slideScrollLeft = this.element.scrollLeft
     this.dispatch('slide-stop', this.slide)
-  }
-
-  /**
-   * Calculates the active slide.
-   * The scroll-snap-type property makes sure that the container snaps perfectly to integer multiples.
-   */
-  private calculateSlide (): number {
-    return this.roundingMethod(this.element.scrollLeft / this.itemSize)
   }
 
   private onSlideResize (entries: ResizeObserverEntry[]) {
