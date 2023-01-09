@@ -56,6 +56,8 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
     this.slider.removeEventListener('wheel', this.disableTemporarily)
     this.interval && window.clearInterval(this.interval)
     this.interval = null
+    this.debounceId && window.clearTimeout(this.debounceId)
+    this.debounceId = null
   }
 
   public disableTemporarily (): void {
