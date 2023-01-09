@@ -7,7 +7,8 @@
     "removeComments": true,
     "rootDir": "src",
     "outDir": "build",
-    "target": "ESNext"
+    "target": "ESNext",
+    "declaration": true
   },
   "include": [
     "src/**/*.ts"

@@ -1,6 +1,6 @@
 {
   "name": "scroll-snap-slider",
-  "version": "3.0.0",
+  "version": "3.0.0-RC1",
   "description": "Mostly CSS slider with great performance.",
   "keywords": [
     "slider",
@@ -11,6 +11,7 @@
   "main": "build/ScrollSnapSlider.js",
   "style": "build/scroll-snap-slider.css",
   "module": "build/ScrollSnapSlider.js",
+  "types": "build/ScrollSnapSlider.d.ts",
   "files": [
     "build/**/*"
   ],
@@ -46,7 +47,7 @@
     "setup-git-hooks": "git config core.hooksPath hooks",
     "build-css": "sass --style expanded src/scroll-snap-slider.scss > build/scroll-snap-slider.css",
     "build-js": "tsc",
-    "build": "@build-js && @build-css",
+    "build": "yarn build-js && yarn build-css",
     "doc": "typedoc src"
   }
 }
