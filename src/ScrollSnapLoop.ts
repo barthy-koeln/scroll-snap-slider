@@ -1,11 +1,6 @@
 import { ScrollSnapPlugin } from './ScrollSnapPlugin.js'
 
 export class ScrollSnapLoop extends ScrollSnapPlugin {
-  public constructor () {
-    super()
-
-    this.loopSlides = this.loopSlides.bind(this)
-  }
 
   public get id (): string {
     return 'ScrollSnapLoop'
@@ -18,7 +13,6 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
     this.slider.addEventListener('slide-pass', this.loopSlides)
     this.slider.addEventListener('slide-stop', this.loopSlides)
     this.loopSlides()
-    this.slider.slide = this.slider.calculateSlide()
   }
 
   /**
@@ -46,6 +40,7 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
     this.slider.element.style.scrollSnapStop = ''
     this.slider.element.style.scrollSnapType = ''
     this.slider.attachListeners()
+    window.setTimeout(this.slider.update, 0)
   }
 
   private loopEndToStart () {
@@ -62,7 +57,7 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
     this.addSnapping()
   }
 
-  private loopSlides (): void {
+  private loopSlides = () => {
     if (this.slider.element.children.length < 3) {
       return
     }

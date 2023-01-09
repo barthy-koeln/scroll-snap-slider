@@ -1,5 +1,4 @@
 import { ScrollSnapPlugin } from './ScrollSnapPlugin.js'
-import type { ScrollSnapSlider } from './ScrollSnapSlider'
 
 export class ScrollSnapAutoplay extends ScrollSnapPlugin {
   /**
@@ -11,8 +10,6 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
    * Duration in milliseconds after human interaction where the slider will not autoplay
    */
   public timeoutDuration: number
-
-  private originalSlideTo: ScrollSnapSlider['slideTo']
 
   private debounceId: number | null
 
@@ -27,10 +24,6 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
     this.intervalDuration = intervalDuration
     this.timeoutDuration = timeoutDuration
     this.interval = null
-
-    this.onInterval = this.onInterval.bind(this)
-    this.disableTemporarily = this.disableTemporarily.bind(this)
-    this.enable = this.enable.bind(this)
   }
 
   public get id (): string {
@@ -40,7 +33,7 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
   /**
    * @override
    */
-  public enable (): void {
+  public enable = () => {
     this.debounceId && window.clearTimeout(this.debounceId)
     this.debounceId = null
     this.interval = window.setInterval(this.onInterval, this.intervalDuration)
@@ -60,7 +53,7 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
     this.debounceId = null
   }
 
-  public disableTemporarily (): void {
+  public disableTemporarily = () => {
     if (!this.interval) {
       return
     }
@@ -72,7 +65,7 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
     this.debounceId = window.setTimeout(this.enable, this.timeoutDuration)
   }
 
-  public onInterval (): void {
+  public onInterval = () => {
     if (this.slider.plugins.has('ScrollSnapLoop')) {
       this.slider.slideTo(this.slider.slide + 1)
       return
