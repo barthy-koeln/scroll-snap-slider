@@ -34,10 +34,6 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
     this.slider = null
     this.disableTimeout = null
     this.quickSwipeDistance = quickSwipeDistance
-
-    this.mouseMove = this.mouseMove.bind(this)
-    this.startDragging = this.startDragging.bind(this)
-    this.stopDragging = this.stopDragging.bind(this)
   }
 
   public get id (): string {
@@ -91,7 +87,7 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
   /**
    * Scroll the slider the appropriate amount of pixels and update the last event position
    */
-  private mouseMove (event: MouseEvent): void {
+  private mouseMove = (event: MouseEvent) => {
     const distance = this.lastX! - event.clientX
     this.lastX = event.clientX
 
@@ -101,7 +97,7 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
   /**
    * Clear disable timeout, set up variables and styles and attach the listener.
    */
-  private startDragging (event: MouseEvent): void {
+  private startDragging = (event: MouseEvent) => {
     event.preventDefault()
     this.disableTimeout && window.clearTimeout(this.disableTimeout)
     this.disableTimeout = null
@@ -125,7 +121,7 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
    * Note: We first restore the smooth behaviour, then manually snap to the current slide.
    * Using a timeout, we then restore the rest of the snap behaviour.
    */
-  private stopDragging (event: MouseEvent): void {
+  private stopDragging = (event: MouseEvent) => {
     if (this.lastX === null) {
       return
     }

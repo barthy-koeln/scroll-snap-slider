@@ -1,9 +1,5 @@
 import { ScrollSnapPlugin } from './ScrollSnapPlugin.js';
 export class ScrollSnapLoop extends ScrollSnapPlugin {
-    constructor() {
-        super();
-        this.loopSlides = this.loopSlides.bind(this);
-    }
     get id() {
         return 'ScrollSnapLoop';
     }
@@ -11,7 +7,6 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
         this.slider.addEventListener('slide-pass', this.loopSlides);
         this.slider.addEventListener('slide-stop', this.loopSlides);
         this.loopSlides();
-        this.slider.slide = this.slider.calculateSlide();
     }
     disable() {
         this.slider.removeEventListener('slide-pass', this.loopSlides);
@@ -31,6 +26,7 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
         this.slider.element.style.scrollSnapStop = '';
         this.slider.element.style.scrollSnapType = '';
         this.slider.attachListeners();
+        window.setTimeout(this.slider.update, 0);
     }
     loopEndToStart() {
         this.removeSnapping();
@@ -44,7 +40,7 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
         this.slider.element.scrollLeft -= this.slider.itemSize;
         this.addSnapping();
     }
-    loopSlides() {
+    loopSlides = () => {
         if (this.slider.element.children.length < 3) {
             return;
         }
@@ -56,7 +52,7 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
         if (scrollWidth - scrollLeft - offsetWidth < 5) {
             this.loopStartToEnd();
         }
-    }
+    };
     sortFunction(a, b) {
         return parseInt(a.dataset.index, 10) - parseInt(b.dataset.index, 10);
     }

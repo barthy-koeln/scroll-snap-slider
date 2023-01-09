@@ -11,9 +11,6 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
         this.slider = null;
         this.disableTimeout = null;
         this.quickSwipeDistance = quickSwipeDistance;
-        this.mouseMove = this.mouseMove.bind(this);
-        this.startDragging = this.startDragging.bind(this);
-        this.stopDragging = this.stopDragging.bind(this);
     }
     get id() {
         return 'ScrollSnapDraggable';
@@ -46,12 +43,12 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
         }
         return this.slider.slide + 1;
     }
-    mouseMove(event) {
+    mouseMove = (event) => {
         const distance = this.lastX - event.clientX;
         this.lastX = event.clientX;
         this.slider.element.scrollLeft += distance;
-    }
-    startDragging(event) {
+    };
+    startDragging = (event) => {
         event.preventDefault();
         this.disableTimeout && window.clearTimeout(this.disableTimeout);
         this.disableTimeout = null;
@@ -65,8 +62,8 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
             autoplay.disable();
         }
         window.addEventListener('mousemove', this.mouseMove);
-    }
-    stopDragging(event) {
+    };
+    stopDragging = (event) => {
         if (this.lastX === null) {
             return;
         }
@@ -85,5 +82,5 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
             this.slider.element.style.scrollSnapStop = '';
             this.slider.element.style.scrollSnapType = '';
         }, 300);
-    }
+    };
 }

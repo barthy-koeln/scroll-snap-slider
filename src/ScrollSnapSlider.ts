@@ -78,16 +78,11 @@ export class ScrollSnapSlider {
       ...options
     })
 
-    this.slideScrollLeft = this.element.scrollLeft
+
     this.scrollTimeoutId = null
-
     this.itemSize = this.sizingMethod(this)
-    this.slide = this.calculateSlide()
 
-    this.onScroll = this.onScroll.bind(this)
-    this.onScrollEnd = this.onScrollEnd.bind(this)
-    this.slideTo = this.slideTo.bind(this)
-    this.onSlideResize = this.onSlideResize.bind(this)
+    this.update()
 
     this.addEventListener = this.element.addEventListener.bind(this.element)
     this.removeEventListener = this.element.removeEventListener.bind(this.element)
@@ -129,7 +124,7 @@ export class ScrollSnapSlider {
   /**
    * Scroll to a slide by index.
    */
-  public slideTo (index: number): void {
+  public slideTo = (index: number) => {
     this.element.scrollTo({
       left: index * this.itemSize
     })
@@ -157,17 +152,21 @@ export class ScrollSnapSlider {
     return this.roundingMethod(this.element.scrollLeft / this.itemSize)
   }
 
+  update = () => {
+    this.slide = this.calculateSlide()
+    this.slideScrollLeft = this.slide * this.itemSize
+  }
+
   /**
    * Calculate all necessary things and dispatch an event when sliding stops
    */
-  private onScrollEnd (): void {
+  private onScrollEnd = () => {
     this.scrollTimeoutId = null
-    this.slide = this.calculateSlide()
-    this.slideScrollLeft = this.element.scrollLeft
+    this.update()
     this.dispatch('slide-stop', this.slide)
   }
 
-  private onSlideResize (entries: ResizeObserverEntry[]) {
+  private onSlideResize = (entries: ResizeObserverEntry[]) => {
     this.itemSize = this.sizingMethod(this, entries)
   }
 
@@ -185,16 +184,14 @@ export class ScrollSnapSlider {
   /**
    * Act when scrolling starts and stops
    */
-  private onScroll (): void {
+  private onScroll = () => {
     if (null === this.scrollTimeoutId) {
       const direction = (this.element.scrollLeft > this.slideScrollLeft) ? 1 : -1
       this.dispatch('slide-start', this.slide + direction)
     }
 
-    const floored = this.calculateSlide()
-    if (floored !== this.slide) {
-      this.slideScrollLeft = this.element.scrollLeft
-      this.slide = floored
+    if (this.calculateSlide() !== this.slide) {
+      this.update()
       this.dispatch('slide-pass', this.slide)
     }
 
