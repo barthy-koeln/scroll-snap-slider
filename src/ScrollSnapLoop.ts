@@ -34,21 +34,48 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
     Element.prototype.append.apply(this.slider.element, sortedSlides)
   }
 
+  removeSnapping () {
+    this.slider.detachListeners()
+    this.slider.element.style.scrollBehavior = 'auto'
+    this.slider.element.style.scrollSnapStop = 'unset'
+    this.slider.element.style.scrollSnapType = 'none'
+  }
+
+  addSnapping () {
+    this.slider.element.style.scrollBehavior = ''
+    this.slider.element.style.scrollSnapStop = ''
+    this.slider.element.style.scrollSnapType = ''
+    this.slider.attachListeners()
+  }
+
+  private loopEndToStart () {
+    this.removeSnapping()
+    this.slider.element.prepend(this.slider.element.children[this.slider.element.children.length - 1])
+    this.slider.element.scrollLeft += this.slider.itemSize
+    this.addSnapping()
+  }
+
+  private loopStartToEnd () {
+    this.removeSnapping()
+    this.slider.element.append(this.slider.element.children[0])
+    this.slider.element.scrollLeft -= this.slider.itemSize
+    this.addSnapping()
+  }
+
   private loopSlides (): void {
     if (this.slider.element.children.length < 3) {
       return
     }
 
-    this.slider.detachListeners()
-
     const { scrollLeft, offsetWidth, scrollWidth } = this.slider.element
     if (scrollLeft < 5) {
-      this.slider.element.prepend(this.slider.element.children[this.slider.element.children.length - 1])
-    } else if (scrollWidth - scrollLeft - offsetWidth < 5) {
-      this.slider.element.append(this.slider.element.children[0])
+      this.loopEndToStart()
+      return
     }
 
-    this.slider.attachListeners()
+    if (scrollWidth - scrollLeft - offsetWidth < 5) {
+      this.loopStartToEnd()
+    }
   }
 
   private sortFunction (a: HTMLOrSVGElement, b: HTMLOrSVGElement): number {
