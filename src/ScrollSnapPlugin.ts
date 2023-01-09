@@ -3,7 +3,7 @@ import type { ScrollSnapSlider } from './ScrollSnapSlider'
 export abstract class ScrollSnapPlugin {
   public slider: ScrollSnapSlider | null
 
-  protected constructor () {
+  public constructor () {
     this.slider = null
   }
 
