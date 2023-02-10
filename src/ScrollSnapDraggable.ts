@@ -56,7 +56,6 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
   }
 
   onSlideStopAfterDrag = () => {
-    this.slider.removeEventListener('slide-stop', this.onSlideStopAfterDrag)
     this.slider.element.style.scrollSnapStop = ''
     this.slider.element.style.scrollSnapType = ''
   }
@@ -143,6 +142,6 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
       return
     }
 
-    this.slider.addEventListener('slide-stop', this.onSlideStopAfterDrag)
+    this.slider.addEventListener('slide-stop', this.onSlideStopAfterDrag, { once: true })
   }
 }
