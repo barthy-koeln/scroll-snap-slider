@@ -12,11 +12,6 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
   quickSwipeDistance: number | null
 
   /**
-   * Timeout ID for a smooth drag release
-   */
-  private disableTimeout: number | null
-
-  /**
    * Last drag event position
    */
   private lastX: number | null
@@ -32,7 +27,6 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
     this.lastX = null
     this.startX = null
     this.slider = null
-    this.disableTimeout = null
     this.quickSwipeDistance = quickSwipeDistance
   }
 
@@ -55,13 +49,16 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
   public disable (): void {
     this.slider.element.classList.remove('-draggable')
 
-    this.disableTimeout && window.clearTimeout(this.disableTimeout)
-    this.disableTimeout = null
-
     this.slider.removeEventListener('mousedown', this.startDragging)
     window.removeEventListener('mouseup', this.stopDragging, { capture: true })
 
     this.lastX = null
+  }
+
+  onSlideStopAfterDrag = () => {
+    this.slider.removeEventListener('slide-stop', this.onSlideStopAfterDrag)
+    this.slider.element.style.scrollSnapStop = ''
+    this.slider.element.style.scrollSnapType = ''
   }
 
   private getFinalSlide (): number {
@@ -99,8 +96,6 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
    */
   private startDragging = (event: MouseEvent) => {
     event.preventDefault()
-    this.disableTimeout && window.clearTimeout(this.disableTimeout)
-    this.disableTimeout = null
 
     this.startX = this.lastX = event.clientX
     this.slider.element.style.scrollBehavior = 'auto'
@@ -142,9 +137,12 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
       autoplay.enable()
     }
 
-    this.disableTimeout = window.setTimeout(() => {
-      this.slider.element.style.scrollSnapStop = ''
-      this.slider.element.style.scrollSnapType = ''
-    }, 300)
+    const { scrollLeft, offsetWidth, scrollWidth } = this.slider.element
+    if (scrollLeft === 0 || scrollWidth - scrollLeft - offsetWidth === 0) {
+      this.onSlideStopAfterDrag()
+      return
+    }
+
+    this.slider.addEventListener('slide-stop', this.onSlideStopAfterDrag)
   }
 }

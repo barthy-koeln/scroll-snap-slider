@@ -16,7 +16,11 @@ p {
   margin: 1rem auto;
 }
 
-.scroll-snap-slider.-simple,
+.scroll-snap-slider.-simple {
+  height: 600px;
+  width: 900px;
+}
+
 .scroll-snap-slider.-pure {
   width: 400px;
 }
@@ -38,6 +42,10 @@ p {
 .scroll-snap-slider .scroll-snap-slide {
   scroll-snap-align: start;
   width: 400px;
+}
+
+.scroll-snap-slider.-simple .scroll-snap-slide {
+  width: 900px;
 }
 
 .scroll-snap-slider .scroll-snap-slide article {
