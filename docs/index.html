@@ -1,0 +1,249 @@
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>scroll-snap-slider</title><meta name="description" content="Documentation for scroll-snap-slider"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container">
+<div class="table-cell" id="tsd-search" data-base=".">
+<div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15.7824 13.833L12.6666 10.7177C12.5259 10.5771 12.3353 10.499 12.1353 10.499H11.6259C12.4884 9.39596 13.001 8.00859 13.001 6.49937C13.001 2.90909 10.0914 0 6.50048 0C2.90959 0 0 2.90909 0 6.49937C0 10.0896 2.90959 12.9987 6.50048 12.9987C8.00996 12.9987 9.39756 12.4863 10.5008 11.6239V12.1332C10.5008 12.3332 10.5789 12.5238 10.7195 12.6644L13.8354 15.7797C14.1292 16.0734 14.6042 16.0734 14.8948 15.7797L15.7793 14.8954C16.0731 14.6017 16.0731 14.1267 15.7824 13.833ZM6.50048 10.499C4.29094 10.499 2.50018 8.71165 2.50018 6.49937C2.50018 4.29021 4.28781 2.49976 6.50048 2.49976C8.71001 2.49976 10.5008 4.28708 10.5008 6.49937C10.5008 8.70852 8.71314 10.499 6.50048 10.499Z" fill="var(--color-text)"></path></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div>
+<div class="field">
+<div id="tsd-toolbar-links"></div></div>
+<ul class="results">
+<li class="state loading">Preparing search index...</li>
+<li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">scroll-snap-slider</a></div>
+<div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="7" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="11" width="14" height="2" fill="var(--color-text)"></rect></svg></a></div></div></header>
+<div class="container container-main">
+<div class="col-8 col-content">
+<div class="tsd-page-title">
+<h2>scroll-snap-slider</h2></div>
+<div class="tsd-panel tsd-typography">
+<a href="#scroll-snap-slider" id="scroll-snap-slider" style="color: inherit; text-decoration: none;">
+  <h1>Scroll Snap Slider</h1>
+</a>
+<p><a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="JavaScript Style Guide"></a>
+<a href="https://codeclimate.com/github/barthy-koeln/scroll-snap-slider/maintainability"><img src="https://api.codeclimate.com/v1/badges/c4c7edd819ca59e9f5e2/maintainability" alt="Maintainability"></a>
+<a href="https://bundlephobia.com/result?p=scroll-snap-slider"><img src="https://badgen.net/bundlephobia/tree-shaking/scroll-snap-slider" alt="Tree Shaking: Supported"></a>
+<br>
+<a href="https://www.npmjs.com/package/scroll-snap-slider"><img src="https://badgen.net/npm/v/scroll-snap-slider" alt="npm Version"></a>
+<a href="https://bundlephobia.com/result?p=scroll-snap-slider"><img src="https://badgen.net/bundlephobia/dependency-count/scroll-snap-slider" alt="Dependency Count: 0"></a>
+<a href="https://bundlephobia.com/result?p=scroll-snap-slider"><img src="https://badgen.net/bundlephobia/minzip/scroll-snap-slider" alt="minzippped Size"></a></p>
+<p>Mostly CSS slider with great performance. See a <a href="https://barthy-koeln.github.io/scroll-snap-slider/">demo</a>.</p>
+
+<a href="#premise" id="premise" style="color: inherit; text-decoration: none;">
+  <h2>Premise</h2>
+</a>
+<p>This library is a shortcut to something I personally have to implement in almost every website. To keep it small (see
+badges above), there are not many fancy features, no error handling.</p>
+<p>However, with a clear API and the use of a ES6 class, it can provide a useful base for custom extensions.</p>
+<p>What this module contains:</p>
+<ul>
+<li>Example markup for a <code>scroll-snap</code> slider</li>
+<li>CSS default styling for a <code>scroll-snap</code> slider without scrollbars</li>
+<li>ES6 class to slightly enhance functionality</li>
+<li>ES6 class plugins for <code>loop</code>, <code>autoplay</code>, and <code>draggable</code> features</li>
+<li>TypeScript Typings</li>
+</ul>
+
+<a href="#restrictions" id="restrictions" style="color: inherit; text-decoration: none;">
+  <h2>Restrictions</h2>
+</a>
+<p>This library only handles sliders on the X-axis.</p>
+<p>For more &quot;fully-featured&quot; implementations, go to:</p>
+<ul>
+<li><a href="https://github.com/NickPiscitelli/Glider.js">Nick Piscitelli&#39;s Glider.js</a></li>
+<li><a href="https://tannerhodges.github.io/snap-slider/">Tanner Hodges&#39; snap-slider</a></li>
+</ul>
+
+<a href="#installing" id="installing" style="color: inherit; text-decoration: none;">
+  <h2>Installing</h2>
+</a>
+<pre><code class="language-shell"><span class="hl-0">npm install barthy-koeln/scroll-snap-slider </span><br/><br/><span class="hl-0">yarn add barthy-koeln/scroll-snap-slider</span>
+</code></pre>
+
+<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+  <h2>Usage</h2>
+</a>
+<p>HTML + CSS are enough for a working slider. You can use IDs and anchor links to create navigation buttons.</p>
+<p>The ES6 class provided in this package augments the slider with a few events and methods.</p>
+
+<a href="#markup" id="markup" style="color: inherit; text-decoration: none;">
+  <h3>Markup</h3>
+</a>
+<p>You can add whatever markup inside the slides.</p>
+<pre><code class="language-html"><br/><span class="hl-1">&lt;</span><span class="hl-2">ul</span><span class="hl-0"> </span><span class="hl-3">class</span><span class="hl-0">=</span><span class="hl-4">&quot;scroll-snap-slider&quot;</span><span class="hl-1">&gt;</span><br/><span class="hl-0">  </span><span class="hl-1">&lt;</span><span class="hl-2">li</span><span class="hl-0"> </span><span class="hl-3">class</span><span class="hl-0">=</span><span class="hl-4">&quot;scroll-snap-slide&quot;</span><span class="hl-1">&gt;</span><br/><span class="hl-0">    </span><span class="hl-1">&lt;</span><span class="hl-2">img</span><span class="hl-0"> </span><span class="hl-3">src</span><span class="hl-0">=</span><span class="hl-4">&quot;https://picsum.photos/id/1011/400/300&quot;</span><span class="hl-1">/&gt;</span><br/><span class="hl-0">  </span><span class="hl-1">&lt;/</span><span class="hl-2">li</span><span class="hl-1">&gt;</span><br/><span class="hl-0">  </span><span class="hl-1">&lt;</span><span class="hl-2">li</span><span class="hl-0"> </span><span class="hl-3">class</span><span class="hl-0">=</span><span class="hl-4">&quot;scroll-snap-slide&quot;</span><span class="hl-1">&gt;</span><br/><span class="hl-0">    </span><span class="hl-1">&lt;</span><span class="hl-2">img</span><span class="hl-0"> </span><span class="hl-3">src</span><span class="hl-0">=</span><span class="hl-4">&quot;https://picsum.photos/id/1018/400/300&quot;</span><span class="hl-1">/&gt;</span><br/><span class="hl-0">  </span><span class="hl-1">&lt;/</span><span class="hl-2">li</span><span class="hl-1">&gt;</span><br/><span class="hl-1">&lt;/</span><span class="hl-2">ul</span><span class="hl-1">&gt;</span>
+</code></pre>
+
+<a href="#css" id="css" style="color: inherit; text-decoration: none;">
+  <h3>CSS</h3>
+</a>
+<pre><code class="language-css"><span class="hl-5">@import</span><span class="hl-0"> </span><span class="hl-6">&#39;~scroll-snap-slider&#39;</span><span class="hl-0">;</span>
+</code></pre>
+
+<a href="#additional-styles" id="additional-styles" style="color: inherit; text-decoration: none;">
+  <h3>Additional Styles</h3>
+</a>
+<p>Prevents page navigation on horizontal scrolling, i.E. on MacOS.
+<a href="https://caniuse.com/?search=overscroll-behavior">[Support tables]</a></p>
+<pre><code class="language-css"><span class="hl-7">.scroll-snap-slider</span><span class="hl-0"> {</span><br/><span class="hl-0">  </span><span class="hl-3">overscroll-behavior-x</span><span class="hl-0">: </span><span class="hl-8">none</span><span class="hl-0">;</span><br/><span class="hl-0">  </span><span class="hl-3">overscroll-behavior-y</span><span class="hl-0">: </span><span class="hl-8">auto</span><span class="hl-0">;</span><br/><span class="hl-0">}</span>
+</code></pre>
+<p>Prevents scrolling past elements in the slider:
+<a href="https://caniuse.com/?search=scroll-snap-stop">[Support tables]</a></p>
+<pre><code class="language-css"><span class="hl-7">.scroll-snap-slide</span><span class="hl-0"> {</span><br/><span class="hl-0">  </span><span class="hl-3">scroll-snap-stop</span><span class="hl-0">: </span><span class="hl-8">always</span><span class="hl-0">;</span><br/><span class="hl-0">}</span>
+</code></pre>
+
+<a href="#javascript" id="javascript" style="color: inherit; text-decoration: none;">
+  <h3>JavaScript</h3>
+</a>
+<p>If you do not want to add any additional behaviour, the JavaScript instance is not needed. This class dispatches several
+events and exposes a few methods, with which you can enhance your slider&#39;s behaviour.</p>
+<p><strong>Default behaviour:</strong></p>
+<pre><code class="language-javascript"><span class="hl-5">import</span><span class="hl-0"> { </span><span class="hl-9">ScrollSnapSlider</span><span class="hl-0"> } </span><span class="hl-5">from</span><span class="hl-0"> </span><span class="hl-6">&#39;scroll-snap-slider&#39;</span><br/><br/><span class="hl-10">const</span><span class="hl-0"> </span><span class="hl-11">slider</span><span class="hl-0"> = </span><span class="hl-10">new</span><span class="hl-0"> </span><span class="hl-12">ScrollSnapSlider</span><span class="hl-0">({ </span><span class="hl-9">element:</span><span class="hl-0"> </span><span class="hl-9">document</span><span class="hl-0">.</span><span class="hl-12">querySelector</span><span class="hl-0">(</span><span class="hl-6">&#39;.example-slider&#39;</span><span class="hl-0">) });</span><br/><br/><span class="hl-9">slider</span><span class="hl-0">.</span><span class="hl-12">addEventListener</span><span class="hl-0">(</span><span class="hl-6">&#39;slide-start&#39;</span><span class="hl-0">, </span><span class="hl-10">function</span><span class="hl-0"> (</span><span class="hl-9">event</span><span class="hl-0">) {</span><br/><span class="hl-0">  </span><span class="hl-9">console</span><span class="hl-0">.</span><span class="hl-12">info</span><span class="hl-0">(</span><span class="hl-6">`Started sliding towards slide </span><span class="hl-10">${</span><span class="hl-9">event</span><span class="hl-13">.</span><span class="hl-9">detail</span><span class="hl-10">}</span><span class="hl-6">.`</span><span class="hl-0">)</span><br/><span class="hl-0">})</span><br/><br/><span class="hl-9">slider</span><span class="hl-0">.</span><span class="hl-12">addEventListener</span><span class="hl-0">(</span><span class="hl-6">&#39;slide-pass&#39;</span><span class="hl-0">, </span><span class="hl-10">function</span><span class="hl-0"> (</span><span class="hl-9">event</span><span class="hl-0">) {</span><br/><span class="hl-0">  </span><span class="hl-9">console</span><span class="hl-0">.</span><span class="hl-12">info</span><span class="hl-0">(</span><span class="hl-6">`Passing slide </span><span class="hl-10">${</span><span class="hl-9">event</span><span class="hl-13">.</span><span class="hl-9">detail</span><span class="hl-10">}</span><span class="hl-6">.`</span><span class="hl-0">)</span><br/><span class="hl-0">})</span><br/><br/><span class="hl-9">slider</span><span class="hl-0">.</span><span class="hl-12">addEventListener</span><span class="hl-0">(</span><span class="hl-6">&#39;slide-stop&#39;</span><span class="hl-0">, </span><span class="hl-10">function</span><span class="hl-0"> (</span><span class="hl-9">event</span><span class="hl-0">) {</span><br/><span class="hl-0">  </span><span class="hl-9">console</span><span class="hl-0">.</span><span class="hl-12">info</span><span class="hl-0">(</span><span class="hl-6">`Stopped sliding at slide </span><span class="hl-10">${</span><span class="hl-9">event</span><span class="hl-13">.</span><span class="hl-9">detail</span><span class="hl-10">}</span><span class="hl-6">.`</span><span class="hl-0">)</span><br/><span class="hl-0">})</span>
+</code></pre>
+<p><strong>Advanced config:</strong></p>
+<pre><code class="language-javascript"><span class="hl-5">import</span><span class="hl-0"> { </span><span class="hl-9">ScrollSnapSlider</span><span class="hl-0"> } </span><span class="hl-5">from</span><span class="hl-0"> </span><span class="hl-6">&#39;scroll-snap-slider&#39;</span><br/><br/><span class="hl-14">// Do not automatically attach scroll listener</span><br/><span class="hl-10">const</span><span class="hl-0"> </span><span class="hl-11">slider</span><span class="hl-0"> = </span><span class="hl-10">new</span><span class="hl-0"> </span><span class="hl-12">ScrollSnapSlider</span><span class="hl-0">({</span><br/><span class="hl-0">  </span><span class="hl-9">element:</span><span class="hl-0"> </span><span class="hl-9">document</span><span class="hl-0">.</span><span class="hl-12">querySelector</span><span class="hl-0">(</span><span class="hl-6">&#39;.example-slider&#39;</span><span class="hl-0">),</span><br/><span class="hl-0">  </span><span class="hl-9">scrollTimeout:</span><span class="hl-0"> </span><span class="hl-15">50</span><span class="hl-0">, </span><span class="hl-14">// Sets a shorter timeout to detect scroll end</span><br/><span class="hl-0">  </span><span class="hl-9">roundingMethod:</span><span class="hl-0"> </span><span class="hl-9">Math</span><span class="hl-0">.</span><span class="hl-9">round</span><span class="hl-0">, </span><span class="hl-14">// Dispatch &#39;slide-pass&#39; events around the center of each slide</span><br/><span class="hl-0">  </span><span class="hl-14">// roundingMethod: Math.ceil, // Dispatch &#39;slide-pass&#39; events as soon as the next one is visible</span><br/><span class="hl-0">  </span><span class="hl-14">// roundingMethod: Math.floor, // Dispatch &#39;slide-pass&#39; events only when the next one is fully visible</span><br/><span class="hl-0">  </span><span class="hl-12">sizingMethod</span><span class="hl-0"> (</span><span class="hl-9">slider</span><span class="hl-0">) {</span><br/><br/><span class="hl-0">    </span><span class="hl-14">// with padding</span><br/><span class="hl-0">    </span><span class="hl-5">return</span><span class="hl-0"> </span><span class="hl-9">slider</span><span class="hl-0">.</span><span class="hl-9">element</span><span class="hl-0">.</span><span class="hl-9">firstElementChild</span><span class="hl-0">.</span><span class="hl-9">offsetWidth</span><br/><br/><span class="hl-0">    </span><span class="hl-14">// without padding</span><br/><span class="hl-0">    </span><span class="hl-14">// return slider.element.firstElementChild.clientWidth</span><br/><span class="hl-0">  }</span><br/><span class="hl-0">});</span>
+</code></pre>
+<p><strong>Plugins:</strong></p>
+<p>You can add one or multiple of the available Plugins:</p>
+<ul>
+<li><code>ScrollSnapAutoplay</code>: Automatically slides at a given interval</li>
+<li><code>ScrollSnapLoop</code>: Sliding past the last element shows the first without sliding to the start (and vice-versa)</li>
+<li><code>ScrollSnapDraggable</code>: Drag the slider with your mouse. Note: this does not affect mobile behaviour and is not
+necessary for touch sliding.</li>
+</ul>
+<p>Additional Note: The <code>ScrollSnapDraggable</code> and <code>ScrollSnapLoop</code> <strong>do not</strong> work well together.</p>
+<pre><code class="language-javascript"><span class="hl-5">import</span><span class="hl-0"> { </span><span class="hl-9">ScrollSnapSlider</span><span class="hl-0"> } </span><span class="hl-5">from</span><span class="hl-0"> </span><span class="hl-6">&#39;scroll-snap-slider/src/ScrollSnapSlider.js&#39;</span><br/><span class="hl-5">import</span><span class="hl-0"> { </span><span class="hl-9">ScrollSnapAutoplay</span><span class="hl-0"> } </span><span class="hl-5">from</span><span class="hl-0"> </span><span class="hl-6">&#39;scroll-snap-slider/src/ScrollSnapAutoplay.js&#39;</span><br/><span class="hl-5">import</span><span class="hl-0"> { </span><span class="hl-9">ScrollSnapLoop</span><span class="hl-0"> } </span><span class="hl-5">from</span><span class="hl-0"> </span><span class="hl-6">&#39;scroll-snap-slider/src/ScrollSnapLoop.js&#39;</span><br/><br/><span class="hl-10">const</span><span class="hl-0"> </span><span class="hl-11">sliderElement</span><span class="hl-0"> = </span><span class="hl-9">document</span><span class="hl-0">.</span><span class="hl-12">querySelector</span><span class="hl-0">(</span><span class="hl-6">&#39;.example-slider&#39;</span><span class="hl-0">)</span><br/><span class="hl-10">const</span><span class="hl-0"> </span><span class="hl-11">slider</span><span class="hl-0"> = </span><span class="hl-10">new</span><span class="hl-0"> </span><span class="hl-12">ScrollSnapSlider</span><span class="hl-0">({ </span><span class="hl-9">element:</span><span class="hl-0"> </span><span class="hl-9">sliderElement</span><span class="hl-0"> }).</span><span class="hl-12">with</span><span class="hl-0">([</span><br/><span class="hl-0">  </span><span class="hl-10">new</span><span class="hl-0"> </span><span class="hl-12">ScrollSnapAutoplay</span><span class="hl-0">(</span><span class="hl-15">1200</span><span class="hl-0">),</span><br/><span class="hl-0">  </span><span class="hl-10">new</span><span class="hl-0"> </span><span class="hl-9">ScrollSnapLoop</span><br/><span class="hl-0">])</span>
+</code></pre>
+<p>Creating your own plugin:</p>
+<pre><code class="language-javascript"><span class="hl-5">export</span><span class="hl-0"> </span><span class="hl-10">class</span><span class="hl-0"> </span><span class="hl-16">CustomPlugin</span><span class="hl-0"> </span><span class="hl-10">extends</span><span class="hl-0"> </span><span class="hl-16">ScrollSnapPlugin</span><span class="hl-0"> {</span><br/><br/><span class="hl-0">  </span><span class="hl-14">/**</span><br/><span class="hl-14">   * Pass any config here</span><br/><span class="hl-14">   * </span><span class="hl-10">@param</span><span class="hl-14"> </span><span class="hl-16">{*}</span><span class="hl-14"> </span><span class="hl-9">config</span><br/><span class="hl-14">   */</span><br/><span class="hl-0">  </span><span class="hl-10">constructor</span><span class="hl-0"> (</span><span class="hl-9">config</span><span class="hl-0">) {</span><br/><span class="hl-0">    </span><span class="hl-10">super</span><span class="hl-0">()</span><br/><br/><span class="hl-0">    </span><span class="hl-10">this</span><span class="hl-0">.</span><span class="hl-9">config</span><span class="hl-0"> = </span><span class="hl-9">config</span><br/><span class="hl-0">  }</span><br/><br/><span class="hl-0">  </span><span class="hl-14">/**</span><br/><span class="hl-14">   * Override this if you need multiple instances of the same plugin on the same slider.</span><br/><span class="hl-14">   * By default, the id will be the plugin&#39;s class name.</span><br/><span class="hl-14">   * </span><span class="hl-10">@return</span><span class="hl-14"> </span><span class="hl-16">{String}</span><br/><span class="hl-14">   */</span><br/><span class="hl-0">  </span><span class="hl-10">get</span><span class="hl-0"> </span><span class="hl-12">id</span><span class="hl-0"> () {</span><br/><span class="hl-0">    </span><span class="hl-5">return</span><span class="hl-0"> </span><span class="hl-6">&#39;lubba-wubba-dub-dub&#39;</span><br/><span class="hl-0">  }</span><br/><br/><span class="hl-0">  </span><span class="hl-14">/**</span><br/><span class="hl-14">   * Attach listeners, fetch DOM things, save reference to the slider</span><br/><span class="hl-14">   * </span><span class="hl-10">@param</span><span class="hl-14"> </span><span class="hl-16">{ScrollSnapSlider}</span><span class="hl-14"> </span><span class="hl-9">slider</span><br/><span class="hl-14">   * </span><span class="hl-10">@override</span><br/><span class="hl-14">   */</span><br/><span class="hl-0">  </span><span class="hl-12">enable</span><span class="hl-0"> (</span><span class="hl-9">slider</span><span class="hl-0">) {</span><br/><span class="hl-0">    </span><span class="hl-14">// TODO methods stub</span><br/><span class="hl-0">  }</span><br/><br/><span class="hl-0">  </span><span class="hl-14">/**</span><br/><span class="hl-14">   * Free resources, remove listeners, ...</span><br/><span class="hl-14">   * </span><span class="hl-10">@override</span><br/><span class="hl-14">   */</span><br/><span class="hl-0">  </span><span class="hl-12">disable</span><span class="hl-0"> () {</span><br/><span class="hl-0">    </span><span class="hl-14">// TODO methods stub</span><br/><span class="hl-0">  }</span><br/><span class="hl-0">}</span>
+</code></pre>
+
+<a href="#api" id="api" style="color: inherit; text-decoration: none;">
+  <h2>API</h2>
+</a>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>slideTo(index: Number): void</code></td>
+<td>Scrolls to slide with at <code>index</code>.</td>
+</tr>
+<tr>
+<td><code>addEventListener(...)</code></td>
+<td>This is a shortcut for <code>slider.element.addEventListener(...)</code>.</td>
+</tr>
+<tr>
+<td><code>removeEventListener(...)</code></td>
+<td>This is a shortcut for <code>slider.element.removeEventListener(...)</code>.</td>
+</tr>
+<tr>
+<td><code>attachEventListeners()</code></td>
+<td>Enables the JS behaviour of this plugin. This is called in the constructor.</td>
+</tr>
+<tr>
+<td><code>detachEventListeners()</code></td>
+<td>Disables the JS behaviour of this plugin.</td>
+</tr>
+<tr>
+<td><code>destroy()</code></td>
+<td>Free resources and listeners. You can/should do <code>slider = null</code> after this.</td>
+</tr>
+</tbody></table>
+
+<a href="#events" id="events" style="color: inherit; text-decoration: none;">
+  <h2>Events</h2>
+</a>
+<p>Events dispatched on the slider&#39;s <code>element</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Event Name</th>
+<th>Event Detail Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>slide-start</code></td>
+<td><code>Number</code></td>
+<td>Dispatched when sliding starts toward slide at <code>event.detail</code>.</td>
+</tr>
+<tr>
+<td><code>slide-pass</code></td>
+<td><code>Number</code></td>
+<td>Dispatched when sliding passes (crosses the threshold to) slide at <code>event.detail</code>. The threshold is defined/altered by the <code>roundingMethod</code>.</td>
+</tr>
+<tr>
+<td><code>slide-stop</code></td>
+<td><code>Number</code></td>
+<td>Dispatched when sliding stopped at index <code>event.detail</code>, i.e. the last scroll event happened before <code>scrollTimeout</code> ms.</td>
+</tr>
+</tbody></table>
+<p>You can use the proxy methods <code>addEventListener</code> and <code>removeEventListener</code> to listen to them.</p>
+
+<a href="#public-properties" id="public-properties" style="color: inherit; text-decoration: none;">
+  <h2>Public Properties</h2>
+</a>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>slide: Number</code> (read only)</td>
+<td>Currently active slide.</td>
+</tr>
+<tr>
+<td><code>element: Element</code> (read only)</td>
+<td>The element passed into the constructor.</td>
+</tr>
+<tr>
+<td><code>slideScrollLeft</code> (read only)</td>
+<td>the <code>element.scrollLeft</code> value of the currently active slide.</td>
+</tr>
+<tr>
+<td><code>scrollTimeout: Number</code></td>
+<td>Timeout delay in milliseconds used to catch the end of scroll events.</td>
+</tr>
+<tr>
+<td><code>plugins: Map&lt;String, ScrollSnapPlugin&gt;</code></td>
+<td>Map of plugins enabled for this slider</td>
+</tr>
+</tbody></table>
+
+<a href="#support" id="support" style="color: inherit; text-decoration: none;">
+  <h2>Support</h2>
+</a>
+<p>Check out the
+<a href="https://caniuse.com/css-snappoints">support tables for CSS scroll snap</a>. Note that it&#39;s up to you to inject potential
+vendor prefixes.</p>
+</div></div>
+<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+<div class="tsd-navigation settings">
+<details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility">
+<h4 class="uppercase">Member Visibility</h4><form>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-private" name="private"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Private</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></form></div>
+<div class="tsd-theme-toggle">
+<h4 class="uppercase">Theme</h4><select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<nav class="tsd-navigation primary">
+<details class="tsd-index-accordion" open><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Modules</h3></summary>
+<div class="tsd-accordion-details">
+<ul>
+<li class="current selected"><a href="modules.html">scroll-<wbr/>snap-<wbr/>slider</a>
+<ul>
+<li class="tsd-kind-module"><a href="modules/ScrollSnapAutoplay.html">Scroll<wbr/>Snap<wbr/>Autoplay</a></li>
+<li class="tsd-kind-module"><a href="modules/ScrollSnapDraggable.html">Scroll<wbr/>Snap<wbr/>Draggable</a></li>
+<li class="tsd-kind-module"><a href="modules/ScrollSnapLoop.html">Scroll<wbr/>Snap<wbr/>Loop</a></li>
+<li class="tsd-kind-module"><a href="modules/ScrollSnapPlugin.html">Scroll<wbr/>Snap<wbr/>Plugin</a></li>
+<li class="tsd-kind-module"><a href="modules/ScrollSnapSlider.html">Scroll<wbr/>Snap<wbr/>Slider</a></li></ul></li></ul></div></details></nav></div></div>
+<div class="container tsd-generator">
+<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div>
+<div class="overlay"></div><script src="assets/main.js"></script></body></html>

@@ -6,14 +6,16 @@
 <br>
 [![npm Version](https://badgen.net/npm/v/scroll-snap-slider)](https://www.npmjs.com/package/scroll-snap-slider)
 [![Dependency Count: 0](https://badgen.net/bundlephobia/dependency-count/scroll-snap-slider)](https://bundlephobia.com/result?p=scroll-snap-slider)
-[![mminzippped Size](https://badgen.net/bundlephobia/minzip/scroll-snap-slider)](https://bundlephobia.com/result?p=scroll-snap-slider)
+[![minzippped Size](https://badgen.net/bundlephobia/minzip/scroll-snap-slider)](https://bundlephobia.com/result?p=scroll-snap-slider)
 
-Mostly CSS slider with great performance. See a [demo](https://barthy-koeln.github.io/scroll-snap-slider/).
+Mostly CSS slider with great performance.
+
+[demo](https://barthy-koeln.github.io/scroll-snap-slider/) | [docs](https://barthy-koeln.github.io/scroll-snap-slider/docs/)
 
 ## Premise
 
-This library is a shortcut to something I personally have to implement in almost every website. To keep it small (see
-badges above), there are not many fancy features, no error handling.
+This library is an opinionated minimal implementation of a common feature across many websites.
+To keep it small (see badges above), there are not many fancy features and there is almost no error handling.
 
 However, with a clear API and the use of a ES6 class, it can provide a useful base for custom extensions.
 
@@ -23,6 +25,11 @@ What this module contains:
 * CSS default styling for a `scroll-snap` slider without scrollbars
 * ES6 class to slightly enhance functionality
 * ES6 class plugins for `loop`, `autoplay`, and `draggable` features
+* TypeScript Typings
+
+## Restrictions
+
+This library only handles sliders on the X-axis.
 
 For more "fully-featured" implementations, go to:
 
@@ -51,10 +58,16 @@ You can add whatever markup inside the slides.
 
 <ul class="scroll-snap-slider">
   <li class="scroll-snap-slide">
-    <img src="https://picsum.photos/id/1011/400/300"/>
+    <img
+      alt=""
+      src="https://picsum.photos/id/1011/400/300"
+    />
   </li>
   <li class="scroll-snap-slide">
-    <img src="https://picsum.photos/id/1018/400/300"/>
+    <img
+      alt=""
+      src="https://picsum.photos/id/1018/400/300"
+    />
   </li>
 </ul>
 ```
@@ -62,7 +75,7 @@ You can add whatever markup inside the slides.
 ### CSS
 
 ```css
-@import '~scroll-snap-slider';
+@import 'scroll-snap-slider';
 ```
 
 ### Additional Styles
@@ -96,7 +109,8 @@ events and exposes a few methods, with which you can enhance your slider's behav
 ```javascript
 import { ScrollSnapSlider } from 'scroll-snap-slider'
 
-const slider = new ScrollSnapSlider({ element: document.querySelector('.example-slider') });
+const element = document.querySelector('.example-slider')
+const slider = new ScrollSnapSlider({ element })
 
 slider.addEventListener('slide-start', function (event) {
   console.info(`Started sliding towards slide ${event.detail}.`)
@@ -131,7 +145,7 @@ const slider = new ScrollSnapSlider({
     // without padding
     // return slider.element.firstElementChild.clientWidth
   }
-});
+})
 ```
 
 **Plugins:**
@@ -150,8 +164,8 @@ import { ScrollSnapSlider } from 'scroll-snap-slider/src/ScrollSnapSlider.js'
 import { ScrollSnapAutoplay } from 'scroll-snap-slider/src/ScrollSnapAutoplay.js'
 import { ScrollSnapLoop } from 'scroll-snap-slider/src/ScrollSnapLoop.js'
 
-const sliderElement = document.querySelector('.example-slider')
-const slider = new ScrollSnapSlider({ element: sliderElement }).with([
+const element = document.querySelector('.example-slider')
+const slider = new ScrollSnapSlider({ element }).with([
   new ScrollSnapAutoplay(1200),
   new ScrollSnapLoop
 ])
@@ -173,8 +187,7 @@ export class CustomPlugin extends ScrollSnapPlugin {
   }
 
   /**
-   * Override this if you need multiple instances of the same plugin on the same slider.
-   * By default, the id will be the plugin's class name.
+   * Chose a unique plugin name. If you need multiple instances of the same plugin on a slider, each must return a unique id.
    * @return {String}
    */
   get id () {
@@ -187,7 +200,7 @@ export class CustomPlugin extends ScrollSnapPlugin {
    * @override
    */
   enable (slider) {
-    // TODO methods stub
+    // TODO method stub
   }
 
   /**
@@ -195,7 +208,7 @@ export class CustomPlugin extends ScrollSnapPlugin {
    * @override
    */
   disable () {
-    // TODO methods stub
+    // TODO method stub
   }
 }
 ```

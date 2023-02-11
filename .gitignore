@@ -26,8 +26,5 @@ node_modules/
 *.sass.map
 *.scss.map
 
-### JSDoc
-docs
-
 ### IDE
 .idea

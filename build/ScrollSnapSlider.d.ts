@@ -21,8 +21,8 @@ export declare class ScrollSnapSlider {
     detachListeners(): void;
     slideTo: (index: number) => void;
     destroy(): void;
-    calculateSlide(): number;
     update: () => void;
+    private calculateSlide;
     private onScrollEnd;
     private onSlideResize;
     private dispatch;

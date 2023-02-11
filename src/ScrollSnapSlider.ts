@@ -1,5 +1,8 @@
 import { ScrollSnapPlugin } from './ScrollSnapPlugin'
 
+/**
+ * All options have sensitive defaults. The only required option is the <code>element</code>.
+ */
 export type ScrollSnapSliderOptions = Partial<ScrollSnapSlider> & {
   element: HTMLElement
 }
@@ -18,15 +21,21 @@ export class ScrollSnapSlider {
    */
   public plugins: Map<string, ScrollSnapPlugin>
 
+  /**
+   * @inheritDoc
+   */
   public removeEventListener: HTMLElement['removeEventListener']
 
+  /**
+   * @inheritDoc
+   */
   public addEventListener: HTMLElement['addEventListener']
 
   /**
    * Rounding method used to calculate the current slide (e.g. Math.floor, Math.round, Math.ceil, or totally custom.)
    *
-   * @param {number} value - factor indicating th current position (e.g "0" for first slide, "2.5" for third slide and a half)
-   * @return {number} f(x) - integer factor indicating the currently 'active' slide.
+   * @param value - factor indicating th current position (e.g "0" for first slide, "2.5" for third slide and a half)
+   * @return f(x) - integer factor indicating the currently 'active' slide.
    */
   public roundingMethod: (value: number) => number
 
@@ -41,10 +50,13 @@ export class ScrollSnapSlider {
   public itemSize: number
 
   /**
-   * Gets the width of each child, assuming all children have the same size
+   * Computes a single number representing the slides widths.
+   * By default, this will use the first slide's <code>offsetWidth</code>.
+   * Possible values could be an average of all slides, the min or max values, ...
    *
-   * @param {ScrollSnapSlider} slider - current slider
-   * @return {number} integer size of a slide in pixels
+   * @param slider current slider
+   * @param entries resized entries
+   * @return integer size of a slide in pixels
    */
   public sizingMethod: (slider: ScrollSnapSlider, entries?: ResizeObserverEntry[] | undefined) => number
 
@@ -78,7 +90,6 @@ export class ScrollSnapSlider {
       ...options
     })
 
-
     this.scrollTimeoutId = null
     this.itemSize = this.sizingMethod(this)
 
@@ -96,6 +107,12 @@ export class ScrollSnapSlider {
     this.attachListeners()
   }
 
+  /**
+   * Extend the Slider's functionality with Plugins
+   *
+   * @param plugins Plugins to attach
+   * @param enabled Whether the plugins are enabled right away
+   */
   public with (plugins: ScrollSnapPlugin[], enabled = true): ScrollSnapSlider {
     for (const plugin of plugins) {
       plugin.slider = this
@@ -145,16 +162,18 @@ export class ScrollSnapSlider {
   }
 
   /**
-   * Calculates the active slide.
-   * The scroll-snap-type property makes sure that the container snaps perfectly to integer multiples.
+   * Updates the computed values
    */
-  calculateSlide (): number {
-    return this.roundingMethod(this.element.scrollLeft / this.itemSize)
-  }
-
   update = () => {
     this.slide = this.calculateSlide()
     this.slideScrollLeft = this.slide * this.itemSize
+  }
+
+  /**
+   * Calculates the active slide using the user-defined <code>roundingMethod</code>
+   */
+  private calculateSlide (): number {
+    return this.roundingMethod(this.element.scrollLeft / this.itemSize)
   }
 
   /**
@@ -166,6 +185,10 @@ export class ScrollSnapSlider {
     this.dispatch('slide-stop', this.slide)
   }
 
+  /**
+   * Callback on resize. This will recompute the <code>itemSize</code>
+   * @param entries Entries that have changed size
+   */
   private onSlideResize = (entries: ResizeObserverEntry[]) => {
     this.itemSize = this.sizingMethod(this, entries)
   }

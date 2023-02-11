@@ -4,11 +4,13 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
     timeoutDuration;
     debounceId;
     interval;
-    constructor(intervalDuration = 3141, timeoutDuration = 6282) {
+    events;
+    constructor(intervalDuration = 3141, timeoutDuration = 6282, events = ['touchmove', 'wheel']) {
         super();
         this.intervalDuration = intervalDuration;
         this.timeoutDuration = timeoutDuration;
         this.interval = null;
+        this.events = events;
     }
     get id() {
         return 'ScrollSnapAutoplay';
@@ -17,12 +19,14 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
         this.debounceId && window.clearTimeout(this.debounceId);
         this.debounceId = null;
         this.interval = window.setInterval(this.onInterval, this.intervalDuration);
-        this.slider.addEventListener('touchstart', this.disableTemporarily, { passive: true });
-        this.slider.addEventListener('wheel', this.disableTemporarily, { passive: true });
+        for (const event of this.events) {
+            this.slider.addEventListener(event, this.disableTemporarily, { passive: true });
+        }
     };
     disable() {
-        this.slider.removeEventListener('touchstart', this.disableTemporarily);
-        this.slider.removeEventListener('wheel', this.disableTemporarily);
+        for (const event of this.events) {
+            this.slider.removeEventListener(event, this.disableTemporarily);
+        }
         this.interval && window.clearInterval(this.interval);
         this.interval = null;
         this.debounceId && window.clearTimeout(this.debounceId);

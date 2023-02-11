@@ -1,7 +1,6 @@
 import { ScrollSnapPlugin } from './ScrollSnapPlugin.js';
 export class ScrollSnapDraggable extends ScrollSnapPlugin {
     quickSwipeDistance;
-    enableTimeout;
     lastX;
     startX;
     constructor(quickSwipeDistance = null) {
@@ -9,7 +8,6 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
         this.lastX = null;
         this.startX = null;
         this.slider = null;
-        this.enableTimeout = null;
         this.quickSwipeDistance = quickSwipeDistance;
     }
     get id() {
@@ -22,14 +20,11 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
     }
     disable() {
         this.slider.element.classList.remove('-draggable');
-        this.enableTimeout && window.clearTimeout(this.enableTimeout);
-        this.enableTimeout = null;
         this.slider.removeEventListener('mousedown', this.startDragging);
         window.removeEventListener('mouseup', this.stopDragging, { capture: true });
         this.lastX = null;
     }
     onSlideStopAfterDrag = () => {
-        this.slider.removeEventListener('slide-stop', this.onSlideStopAfterDrag);
         this.slider.element.style.scrollSnapStop = '';
         this.slider.element.style.scrollSnapType = '';
     };
@@ -39,7 +34,7 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
         }
         const distance = Math.abs(this.startX - this.lastX);
         const minimumNotReached = this.quickSwipeDistance > distance;
-        const halfPointCrossed = distance > (this.slider.sizingMethod(this.slider) / 2);
+        const halfPointCrossed = distance > (this.slider.itemSize / 2);
         if (minimumNotReached || halfPointCrossed) {
             return this.slider.slide;
         }
@@ -55,8 +50,6 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
     };
     startDragging = (event) => {
         event.preventDefault();
-        this.enableTimeout && window.clearTimeout(this.enableTimeout);
-        this.enableTimeout = null;
         this.startX = this.lastX = event.clientX;
         this.slider.element.style.scrollBehavior = 'auto';
         this.slider.element.style.scrollSnapStop = 'unset';
@@ -88,6 +81,6 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
             this.onSlideStopAfterDrag();
             return;
         }
-        this.slider.addEventListener('slide-stop', this.onSlideStopAfterDrag);
+        this.slider.addEventListener('slide-stop', this.onSlideStopAfterDrag, { once: true });
     };
 }
