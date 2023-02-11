@@ -1,6 +1,6 @@
 {
   "name": "scroll-snap-slider",
-  "version": "3.0.0-RC2",
+  "version": "3.0.0-RC3",
   "description": "Mostly CSS slider with great performance.",
   "keywords": [
     "slider",
@@ -8,12 +8,12 @@
     "scroll",
     "scroll-snap"
   ],
-  "main": "build/ScrollSnapSlider.js",
-  "style": "build/scroll-snap-slider.css",
-  "module": "build/ScrollSnapSlider.js",
-  "types": "build/ScrollSnapSlider.d.ts",
+  "main": "dist/scroll-snap-slider.cjs.js",
+  "style": "dist/scroll-snap-slider.css",
+  "module": "dist/scroll-snap-slider.esm.js",
+  "types": "dist/index.d.ts",
   "files": [
-    "build/**/*"
+    "dist"
   ],
   "type": "module",
   "sideEffects": false,
@@ -25,28 +25,32 @@
   "license": "MIT",
   "private": false,
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.47.1",
-    "@typescript-eslint/parser": "^5.47.1",
+    "@types/node": "^18.13.0",
+    "@typescript-eslint/eslint-plugin": "^5.51.0",
+    "@typescript-eslint/parser": "^5.51.0",
     "bash-echolorized": "^1.0.1",
-    "core-js": "^3.25",
-    "eslint": "^8.30.0",
+    "core-js": "^3.27.2",
+    "esbuild": "^0.17.7",
+    "esbuild-plugin-tsc": "^0.3.1",
+    "eslint": "^8.34.0",
     "eslint-config-standard": "^17.0.0",
-    "eslint-plugin-compat": "^4.0.2",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-n": "^15.3.0",
-    "eslint-plugin-promise": "^6.0.1",
-    "eslint-plugin-standard": "^5.0.0",
-    "sass": "^1.57.1",
-    "stylelint": "^14.13.0",
-    "stylelint-config-standard": "^28.0.0",
+    "eslint-plugin-compat": "^4.1.1",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "postcss": "^8.4.21",
+    "postcss-scss": "^4.0.6",
+    "sass": "^1.58.0",
+    "stylelint": "^14.16.1",
+    "stylelint-config-standard": "^29.0.0",
     "stylelint-config-standard-scss": "^6.1.0",
     "stylelint-order": "^6.0.2",
-    "typedoc": "^0.23.23",
-    "typescript": "^4.9.4"
+    "typedoc": "^0.23.24",
+    "typescript": "^4.9.5"
   },
   "scripts": {
     "setup-git-hooks": "git config core.hooksPath hooks",
-    "build-css": "sass --style expanded src/scroll-snap-slider.scss > build/scroll-snap-slider.css",
+    "build-css": "sass --style expanded src/scroll-snap-slider.scss > dist/scroll-snap-slider.css",
     "build-js": "tsc",
     "build-doc": "typedoc src",
     "build": "yarn build-js && yarn build-css && yarn build-doc"
