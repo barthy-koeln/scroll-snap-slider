@@ -1,6 +1,6 @@
 {
   "name": "scroll-snap-slider",
-  "version": "3.0.0-RC.3",
+  "version": "3.0.0-RC.4",
   "description": "Mostly CSS slider with great performance.",
   "keywords": [
     "slider",
@@ -8,9 +8,9 @@
     "scroll",
     "scroll-snap"
   ],
-  "main": "dist/scroll-snap-slider.cjs.js",
+  "main": "dist/index.js",
   "style": "dist/scroll-snap-slider.css",
-  "module": "dist/scroll-snap-slider.esm.js",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
