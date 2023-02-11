@@ -60,13 +60,13 @@ export class ScrollSnapSlider {
             this.plugins.delete(id);
         }
     }
-    calculateSlide() {
-        return this.roundingMethod(this.element.scrollLeft / this.itemSize);
-    }
     update = () => {
         this.slide = this.calculateSlide();
         this.slideScrollLeft = this.slide * this.itemSize;
     };
+    calculateSlide() {
+        return this.roundingMethod(this.element.scrollLeft / this.itemSize);
+    }
     onScrollEnd = () => {
         this.scrollTimeoutId = null;
         this.update();

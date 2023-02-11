@@ -1,6 +1,14 @@
 {
   "extends": "stylelint-config-standard-scss",
+  "plugins": [
+    "stylelint-order"
+  ],
   "rules": {
-    "selector-class-pattern": null
+    "selector-class-pattern": null,
+    "order/order": [
+      "custom-properties",
+      "declarations"
+    ],
+    "order/properties-alphabetical-order": "error"
   }
 }

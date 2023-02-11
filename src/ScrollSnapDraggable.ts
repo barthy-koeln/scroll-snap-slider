@@ -1,5 +1,8 @@
 import { ScrollSnapPlugin } from './ScrollSnapPlugin.js'
 
+/**
+ * @classdesc Plugin that enables mouse/pointer drag. Note, that touch interaction is enabled natively in all browsers.
+ */
 export class ScrollSnapDraggable extends ScrollSnapPlugin {
 
   /**
@@ -30,6 +33,9 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
     this.quickSwipeDistance = quickSwipeDistance
   }
 
+  /**
+   * @inheritDoc
+   */
   public get id (): string {
     return 'ScrollSnapDraggable'
   }
@@ -55,25 +61,31 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
     this.lastX = null
   }
 
-  onSlideStopAfterDrag = () => {
+  /**
+   * Disable scroll-snapping
+   */
+  private onSlideStopAfterDrag = () => {
     this.slider.element.style.scrollSnapStop = ''
     this.slider.element.style.scrollSnapType = ''
   }
 
+  /**
+   * Calculate the target slide after dragging
+   */
   private getFinalSlide (): number {
     if (!this.quickSwipeDistance) {
       return this.slider.slide
     }
 
-    const distance = Math.abs(this.startX! - this.lastX!)
+    const distance = Math.abs(this.startX - this.lastX)
     const minimumNotReached = this.quickSwipeDistance > distance
-    const halfPointCrossed = distance > (this.slider.sizingMethod(this.slider!) / 2)
+    const halfPointCrossed = distance > (this.slider.itemSize / 2)
 
     if (minimumNotReached || halfPointCrossed) {
       return this.slider.slide
     }
 
-    if (this.startX! < this.lastX!) {
+    if (this.startX < this.lastX) {
       return this.slider.slide - 1
     }
 
@@ -84,7 +96,7 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
    * Scroll the slider the appropriate amount of pixels and update the last event position
    */
   private mouseMove = (event: MouseEvent) => {
-    const distance = this.lastX! - event.clientX
+    const distance = this.lastX - event.clientX
     this.lastX = event.clientX
 
     this.slider.element.scrollLeft += distance

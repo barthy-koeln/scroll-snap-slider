@@ -1,12 +1,20 @@
 import { ScrollSnapPlugin } from './ScrollSnapPlugin.js'
 
+/**
+ * Plugin to loop around to the first slide at the end and to the last slide at the start
+ * All slides should have a unique and numeric <code>data-index</code> attribute.
+ */
 export class ScrollSnapLoop extends ScrollSnapPlugin {
 
+  /**
+   * @inheritDoc
+   */
   public get id (): string {
     return 'ScrollSnapLoop'
   }
 
   /**
+   * @inheritDoc
    * @override
    */
   public enable (): void {
@@ -16,6 +24,7 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
   }
 
   /**
+   * @inheritDoc
    * @override
    */
   public disable (): void {
@@ -28,14 +37,20 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
     Element.prototype.append.apply(this.slider.element, sortedSlides)
   }
 
-  removeSnapping () {
+  /**
+   * Remove snapping behaviour
+   */
+  private removeSnapping () {
     this.slider.detachListeners()
     this.slider.element.style.scrollBehavior = 'auto'
     this.slider.element.style.scrollSnapStop = 'unset'
     this.slider.element.style.scrollSnapType = 'none'
   }
 
-  addSnapping () {
+  /**
+   * Add snapping behaviour
+   */
+  private addSnapping () {
     this.slider.element.style.scrollBehavior = ''
     this.slider.element.style.scrollSnapStop = ''
     this.slider.element.style.scrollSnapType = ''
@@ -43,6 +58,9 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
     window.setTimeout(this.slider.update, 0)
   }
 
+  /**
+   * Move last slide to the start of the slider.
+   */
   private loopEndToStart () {
     this.removeSnapping()
     this.slider.element.prepend(this.slider.element.children[this.slider.element.children.length - 1])
@@ -50,6 +68,9 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
     this.addSnapping()
   }
 
+  /**
+   * Move first slide to the end of the slider.
+   */
   private loopStartToEnd () {
     this.removeSnapping()
     this.slider.element.append(this.slider.element.children[0])
@@ -57,6 +78,9 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
     this.addSnapping()
   }
 
+  /**
+   * Determine which slide to move where and apply the change.
+   */
   private loopSlides = () => {
     if (this.slider.element.children.length < 3) {
       return
@@ -73,7 +97,10 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
     }
   }
 
+  /**
+   * Sort items to their initial position after disabling
+   */
   private sortFunction (a: HTMLOrSVGElement, b: HTMLOrSVGElement): number {
-    return parseInt(a.dataset.index!, 10) - parseInt(b.dataset.index!, 10)
+    return parseInt(a.dataset.index, 10) - parseInt(b.dataset.index, 10)
   }
 }

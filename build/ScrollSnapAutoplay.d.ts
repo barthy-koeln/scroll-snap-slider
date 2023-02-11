@@ -4,7 +4,8 @@ export declare class ScrollSnapAutoplay extends ScrollSnapPlugin {
     timeoutDuration: number;
     private debounceId;
     private interval;
-    constructor(intervalDuration?: number, timeoutDuration?: number);
+    private readonly events;
+    constructor(intervalDuration?: number, timeoutDuration?: number, events?: string[]);
     get id(): string;
     enable: () => void;
     disable(): void;
