@@ -26,22 +26,53 @@
 <p>Mostly CSS slider with great performance.</p>
 <p><a href="https://barthy-koeln.github.io/scroll-snap-slider/">demo</a> | <a href="https://barthy-koeln.github.io/scroll-snap-slider/docs/">docs</a></p>
 
+<a href="#table-of-contents" id="table-of-contents" style="color: inherit; text-decoration: none;">
+  <h2>Table of Contents</h2>
+</a>
+<ul>
+<li><a href="#premise">Premise</a></li>
+<li><a href="#sizes">Sizes</a></li>
+<li><a href="#restrictions">Restrictions</a></li>
+<li><a href="#installing">Installing</a></li>
+<li><a href="#usage">Usage</a><ul>
+<li><a href="#markup">Markup</a></li>
+<li><a href="#css">CSS</a></li>
+<li><a href="#additional-styles">Additional Styles</a></li>
+<li><a href="#javascript">JavaScript</a></li>
+</ul>
+</li>
+<li><a href="#api">API</a></li>
+<li><a href="#events">Events</a></li>
+<li><a href="#public-properties">Public Properties</a></li>
+<li><a href="#support">Support</a></li>
+</ul>
+
 <a href="#premise" id="premise" style="color: inherit; text-decoration: none;">
   <h2>Premise</h2>
 </a>
 <p>This library is an opinionated minimal implementation of a common feature across many websites.
 To keep it small, there are not many fancy features and there is almost no error handling.</p>
-<p>index: 348 B → 130 B
-ScrollSnapAutoplay: 1.5 kB → 523 B
-ScrollSnapDraggable: 2.42 kB → 727 B
-ScrollSnapLoop: 1.75 kB → 580 B
-ScrollSnapPlugin: 70 B → 86 B
-ScrollSnapSlider: 2.27 kB → 759 B</p>
+<p>However, with a clear API and the use of a ES6 class, it can provide a useful base for custom extensions.</p>
+<p>What this module contains:</p>
+<ul>
+<li>Example markup for a <code>scroll-snap</code> slider</li>
+<li>CSS default styling for a <code>scroll-snap</code> slider without scrollbars</li>
+<li>ES6 class to slightly enhance functionality</li>
+<li>ES6 class plugins for <code>loop</code>, <code>autoplay</code>, and <code>draggable</code> features</li>
+<li>TypeScript Typings</li>
+</ul>
+
+<a href="#sizes" id="sizes" style="color: inherit; text-decoration: none;">
+  <h2>Sizes</h2>
+</a>
+<p>Here are the sizes of individual modules, using terser and gzip with default options.
+The size increase at <a href="https://bundlephobia.com/result?p=scroll-snap-slider">bundlephobia</a> between v2 and v3 is due to
+the entrypoint changing from &#39;ScrollSnapSlider&#39; to &#39;index&#39;.</p>
 <table>
 <thead>
 <tr>
 <th>Item</th>
-<th>minified (terser default options)</th>
+<th>minified</th>
 <th>minified + gzipped</th>
 </tr>
 </thead>
@@ -76,15 +107,6 @@ ScrollSnapSlider: 2.27 kB → 759 B</p>
 <td>783 B</td>
 </tr>
 </tbody></table>
-<p>However, with a clear API and the use of a ES6 class, it can provide a useful base for custom extensions.</p>
-<p>What this module contains:</p>
-<ul>
-<li>Example markup for a <code>scroll-snap</code> slider</li>
-<li>CSS default styling for a <code>scroll-snap</code> slider without scrollbars</li>
-<li>ES6 class to slightly enhance functionality</li>
-<li>ES6 class plugins for <code>loop</code>, <code>autoplay</code>, and <code>draggable</code> features</li>
-<li>TypeScript Typings</li>
-</ul>
 
 <a href="#restrictions" id="restrictions" style="color: inherit; text-decoration: none;">
   <h2>Restrictions</h2>
