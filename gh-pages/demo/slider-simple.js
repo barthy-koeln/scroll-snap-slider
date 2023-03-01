@@ -3,7 +3,7 @@ import {
   ScrollSnapDraggable,
   ScrollSnapLoop,
   ScrollSnapSlider
-} from '../dist/scroll-snap-slider.esm.js'
+} from 'https://unpkg.com/scroll-snap-slider@3.0.0'
 
 const sliderSimpleElement = document.querySelector('.scroll-snap-slider.-simple')
 const slides = sliderSimpleElement.getElementsByClassName('scroll-snap-slide')

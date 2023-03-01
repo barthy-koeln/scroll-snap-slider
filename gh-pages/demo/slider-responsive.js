@@ -1,4 +1,4 @@
-import { ScrollSnapSlider } from '../dist/scroll-snap-slider.esm.js'
+import { ScrollSnapSlider } from 'https://unpkg.com/scroll-snap-slider@3.0.0'
 
 const sliderResponsiveElement = document.querySelector('.scroll-snap-slider.-responsive')
 const sliderResponsive = new ScrollSnapSlider({ element: sliderResponsiveElement })
