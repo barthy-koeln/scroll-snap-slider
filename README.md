@@ -12,10 +12,38 @@ Mostly CSS slider with great performance.
 
 [demo](https://barthy-koeln.github.io/scroll-snap-slider/) | [docs](https://barthy-koeln.github.io/scroll-snap-slider/docs/)
 
+## Table of Contents
+
+- [Premise](#premise)
+- [Restrictions](#restrictions)
+- [Installing](#installing)
+- [Usage](#usage)
+    - [Markup](#markup)
+    - [CSS](#css)
+    - [Additional Styles](#additional-styles)
+    - [JavaScript](#javascript)
+- [API](#api)
+- [Events](#events)
+- [Public Properties](#public-properties)
+- [Support](#support)
+
 ## Premise
 
 This library is an opinionated minimal implementation of a common feature across many websites.
-To keep it small (see badges above), there are not many fancy features and there is almost no error handling.
+To keep it small, there are not many fancy features and there is almost no error handling.
+
+Here are the sizes of individual modules, using terser and gzip with default options.
+The size increase at [bundlephobia](https://bundlephobia.com/result?p=scroll-snap-slider) between v2 and v3 is due to
+the entrypoint changing from 'ScrollSnapSlider' to 'index'.
+
+| Item                | minified | minified + gzipped |
+|---------------------|----------|--------------------|
+| index               | 348 B    | 143 B              |
+| ScrollSnapAutoplay  | 1497 B   | 549 B              |
+| ScrollSnapDraggable | 2425 B   | 754 B              |
+| ScrollSnapLoop      | 1754 B   | 603 B              |
+| ScrollSnapPlugin    | 70 B     | 110 B              |
+| ScrollSnapSlider    | 2268 B   | 783 B              |
 
 However, with a clear API and the use of a ES6 class, it can provide a useful base for custom extensions.
 

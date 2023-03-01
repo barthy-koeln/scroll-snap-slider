@@ -1,6 +1,6 @@
 @import "./page.css";
 @import "./feature_toggle.css";
-@import "../dist/scroll-snap-slider.css";
+@import "https://unpkg.com/scroll-snap-slider@3.0.0/dist/scroll-snap-slider.css";
 
 .scroll-snap-slider {
   --slider-h: 300px;

@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+rm ./dist/*.min.js
+
+FILES=$(ls ./dist/*.js)
+
+echo "| Item                | minified (terser default options) | minified + gzipped |"
+echo "|---------------------|-----------------------------------|--------------------|"
+
+for FILE in $FILES; do
+  BASENAME=$(basename "$FILE" .js)
+  MINIFIED="./dist/$BASENAME.js.min"
+  ZIPPED="./dist/$BASENAME.js.gz"
+  terser --module --rename "$FILE" >"$MINIFIED"
+  gzip -c "$MINIFIED" >"$ZIPPED"
+
+  echo -e "| $BASENAME \t | $(stat --printf="%s" "$MINIFIED") B \t\t | $(stat --printf="%s" "$ZIPPED") B \t\t |"
+
+  rm "$MINIFIED"
+  rm "$ZIPPED"
+done
