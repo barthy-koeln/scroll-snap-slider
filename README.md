@@ -15,6 +15,7 @@ Mostly CSS slider with great performance.
 ## Table of Contents
 
 - [Premise](#premise)
+- [Sizes](#sizes)
 - [Restrictions](#restrictions)
 - [Installing](#installing)
 - [Usage](#usage)
@@ -32,6 +33,18 @@ Mostly CSS slider with great performance.
 This library is an opinionated minimal implementation of a common feature across many websites.
 To keep it small, there are not many fancy features and there is almost no error handling.
 
+However, with a clear API and the use of a ES6 class, it can provide a useful base for custom extensions.
+
+What this module contains:
+
+* Example markup for a `scroll-snap` slider
+* CSS default styling for a `scroll-snap` slider without scrollbars
+* ES6 class to slightly enhance functionality
+* ES6 class plugins for `loop`, `autoplay`, and `draggable` features
+* TypeScript Typings
+
+## Sizes
+
 Here are the sizes of individual modules, using terser and gzip with default options.
 The size increase at [bundlephobia](https://bundlephobia.com/result?p=scroll-snap-slider) between v2 and v3 is due to
 the entrypoint changing from 'ScrollSnapSlider' to 'index'.
@@ -44,16 +57,6 @@ the entrypoint changing from 'ScrollSnapSlider' to 'index'.
 | ScrollSnapLoop      | 1754 B   | 603 B              |
 | ScrollSnapPlugin    | 70 B     | 110 B              |
 | ScrollSnapSlider    | 2268 B   | 783 B              |
-
-However, with a clear API and the use of a ES6 class, it can provide a useful base for custom extensions.
-
-What this module contains:
-
-* Example markup for a `scroll-snap` slider
-* CSS default styling for a `scroll-snap` slider without scrollbars
-* ES6 class to slightly enhance functionality
-* ES6 class plugins for `loop`, `autoplay`, and `draggable` features
-* TypeScript Typings
 
 ## Restrictions
 
