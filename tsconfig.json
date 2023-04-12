@@ -29,5 +29,10 @@
     ],
     "entryPointStrategy": "expand",
     "out": "docs"
-  }
+  },
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }

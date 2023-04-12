@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
-rm ./dist/*.min.js
+tsc
 
 FILES=$(ls ./dist/*.js)
 
-echo "| Item                | minified (terser default options) | minified + gzipped |"
-echo "|---------------------|-----------------------------------|--------------------|"
+echo "| Item                   | minified (terser)     | minified + gzipped    |"
+echo "|------------------------|-----------------------|-----------------------|"
+
 
 for FILE in $FILES; do
   BASENAME=$(basename "$FILE" .js)
@@ -14,8 +15,15 @@ for FILE in $FILES; do
   terser --module --rename "$FILE" >"$MINIFIED"
   gzip -c "$MINIFIED" >"$ZIPPED"
 
-  echo -e "| $BASENAME \t | $(stat --printf="%s" "$MINIFIED") B \t\t | $(stat --printf="%s" "$ZIPPED") B \t\t |"
+  PADDING=' '
+  if [[ "$BASENAME" == 'index' ]]; then
+    PADDING="\t\t"
+  fi
 
+  echo -e "| $BASENAME$PADDING\t | $(stat --printf="%s" "$MINIFIED") B \t\t | $(stat --printf="%s" "$ZIPPED") B \t\t |"
+
+  rm "$FILE"
+  rm "dist/$BASENAME.d.ts"
   rm "$MINIFIED"
   rm "$ZIPPED"
 done
