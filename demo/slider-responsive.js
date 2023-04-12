@@ -1,4 +1,4 @@
-import { ScrollSnapSlider } from '../dist/ScrollSnapSlider.js'
+import { ScrollSnapSlider } from '../dist/scroll-snap-slider.js'
 
 const sliderResponsiveElement = document.querySelector('.scroll-snap-slider.-responsive')
 const sliderResponsive = new ScrollSnapSlider({ element: sliderResponsiveElement })

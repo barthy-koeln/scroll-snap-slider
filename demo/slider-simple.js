@@ -1,7 +1,9 @@
-import { ScrollSnapSlider } from '../dist/ScrollSnapSlider.js'
-import { ScrollSnapAutoplay } from '../dist/ScrollSnapAutoplay.js'
-import { ScrollSnapLoop } from '../dist/ScrollSnapLoop.js'
-import { ScrollSnapDraggable } from '../dist/ScrollSnapDraggable.js'
+import {
+  ScrollSnapAutoplay,
+  ScrollSnapDraggable,
+  ScrollSnapLoop,
+  ScrollSnapSlider
+} from '../dist/scroll-snap-slider.js'
 
 const sliderSimpleElement = document.querySelector('.scroll-snap-slider.-simple')
 const slides = sliderSimpleElement.getElementsByClassName('scroll-snap-slide')
