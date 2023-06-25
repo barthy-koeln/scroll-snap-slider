@@ -1,4 +1,4 @@
-import { ScrollSnapPlugin } from './ScrollSnapPlugin.js'
+import {ScrollSnapPlugin} from './ScrollSnapPlugin.js'
 
 /**
  * @classdesc Plugin that enables mouse/pointer drag. Note, that touch interaction is enabled natively in all browsers.
@@ -24,7 +24,7 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
    */
   private startX: number | null
 
-  public constructor (quickSwipeDistance: number | null = null) {
+  public constructor(quickSwipeDistance: number | null = null) {
     super()
 
     this.lastX = null
@@ -36,27 +36,27 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
   /**
    * @inheritDoc
    */
-  public get id (): string {
+  public get id(): string {
     return 'ScrollSnapDraggable'
   }
 
   /**
    * @override
    */
-  public enable (): void {
+  public enable(): void {
     this.slider.element.classList.add('-draggable')
     this.slider.addEventListener('mousedown', this.startDragging)
-    window.addEventListener('mouseup', this.stopDragging, { capture: true })
+    addEventListener('mouseup', this.stopDragging, {capture: true})
   }
 
   /**
    * @override
    */
-  public disable (): void {
+  public disable(): void {
     this.slider.element.classList.remove('-draggable')
 
     this.slider.removeEventListener('mousedown', this.startDragging)
-    window.removeEventListener('mouseup', this.stopDragging, { capture: true })
+    removeEventListener('mouseup', this.stopDragging, {capture: true})
 
     this.lastX = null
   }
@@ -72,7 +72,7 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
   /**
    * Calculate the target slide after dragging
    */
-  private getFinalSlide (): number {
+  private getFinalSlide(): number {
     if (!this.quickSwipeDistance) {
       return this.slider.slide
     }
@@ -99,7 +99,9 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
     const distance = this.lastX - event.clientX
     this.lastX = event.clientX
 
-    this.slider.element.scrollLeft += distance
+    requestAnimationFrame(() => {
+      this.slider.element.scrollLeft += distance
+    })
   }
 
   /**
@@ -119,7 +121,7 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
       autoplay.disable()
     }
 
-    window.addEventListener('mousemove', this.mouseMove)
+    addEventListener('mousemove', this.mouseMove)
   }
 
   /**
@@ -136,7 +138,7 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
 
     const finalSlide = this.getFinalSlide()
 
-    window.removeEventListener('mousemove', this.mouseMove)
+    removeEventListener('mousemove', this.mouseMove)
     this.lastX = null
     this.slider.element.style.scrollBehavior = ''
     this.slider.element.classList.remove('-dragging')
@@ -148,12 +150,14 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
       autoplay.enable()
     }
 
-    const { scrollLeft, offsetWidth, scrollWidth } = this.slider.element
-    if (scrollLeft === 0 || scrollWidth - scrollLeft - offsetWidth === 0) {
-      this.onSlideStopAfterDrag()
-      return
-    }
+    requestAnimationFrame(() => {
+      const {scrollLeft, offsetWidth, scrollWidth} = this.slider.element
+      if (scrollLeft === 0 || scrollWidth - scrollLeft - offsetWidth === 0) {
+        this.onSlideStopAfterDrag()
+        return
+      }
 
-    this.slider.addEventListener('slide-stop', this.onSlideStopAfterDrag, { once: true })
+      this.slider.addEventListener('slide-stop', this.onSlideStopAfterDrag, {once: true})
+    })
   }
 }

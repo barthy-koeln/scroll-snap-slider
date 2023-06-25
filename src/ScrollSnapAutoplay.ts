@@ -1,4 +1,4 @@
-import { ScrollSnapPlugin } from './ScrollSnapPlugin.js'
+import {ScrollSnapPlugin} from './ScrollSnapPlugin.js'
 
 /**
  * @classdesc Plugin that automatically changes slides.
@@ -29,7 +29,7 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
    */
   private readonly events: string[]
 
-  public constructor (intervalDuration = 3141, timeoutDuration = 6282, events: string[] = ['touchmove', 'wheel']) {
+  public constructor(intervalDuration = 3141, timeoutDuration = 6282, events: string[] = ['touchmove', 'wheel']) {
     super()
 
     this.intervalDuration = intervalDuration
@@ -41,7 +41,7 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
   /**
    * @inheritDoc
    */
-  public get id (): string {
+  public get id(): string {
     return 'ScrollSnapAutoplay'
   }
 
@@ -50,12 +50,12 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
    * @override
    */
   public enable = () => {
-    this.debounceId && window.clearTimeout(this.debounceId)
+    this.debounceId && clearTimeout(this.debounceId)
     this.debounceId = null
-    this.interval = window.setInterval(this.onInterval, this.intervalDuration)
+    this.interval = setInterval(this.onInterval, this.intervalDuration)
 
     for (const event of this.events) {
-      this.slider.addEventListener(event, this.disableTemporarily, { passive: true })
+      this.slider.addEventListener(event, this.disableTemporarily, {passive: true})
     }
   }
 
@@ -63,14 +63,14 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
    * @inheritDoc
    * @override
    */
-  public disable (): void {
+  public disable(): void {
     for (const event of this.events) {
       this.slider.removeEventListener(event, this.disableTemporarily)
     }
 
-    this.interval && window.clearInterval(this.interval)
+    this.interval && clearInterval(this.interval)
     this.interval = null
-    this.debounceId && window.clearTimeout(this.debounceId)
+    this.debounceId && clearTimeout(this.debounceId)
     this.debounceId = null
   }
 
@@ -82,11 +82,11 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
       return
     }
 
-    window.clearInterval(this.interval)
+    clearInterval(this.interval)
     this.interval = null
 
-    this.debounceId && window.clearTimeout(this.debounceId)
-    this.debounceId = window.setTimeout(this.enable, this.timeoutDuration)
+    this.debounceId && clearTimeout(this.debounceId)
+    this.debounceId = setTimeout(this.enable, this.timeoutDuration)
   }
 
   /**
@@ -98,10 +98,12 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
       return
     }
 
-    const { scrollLeft, offsetWidth, scrollWidth } = this.slider.element
-    const isLastSlide = scrollLeft + offsetWidth === scrollWidth
-    const target = isLastSlide ? 0 : this.slider.slide + 1
+    requestAnimationFrame(() => {
+      const {scrollLeft, offsetWidth, scrollWidth} = this.slider.element
+      const isLastSlide = scrollLeft + offsetWidth === scrollWidth
+      const target = isLastSlide ? 0 : this.slider.slide + 1
 
-    this.slider.slideTo(target)
+      this.slider.slideTo(target)
+    })
   }
 }

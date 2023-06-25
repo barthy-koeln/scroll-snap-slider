@@ -49,14 +49,14 @@ Here are the sizes of individual modules, using terser and gzip with default opt
 The size increase at [bundlephobia](https://bundlephobia.com/result?p=scroll-snap-slider) between v2 and v3 is due to
 the entrypoint changing from 'ScrollSnapSlider' to 'index'.
 
-| Item                | minified | minified + gzipped |
-|---------------------|----------|--------------------|
-| index               | 348 B    | 143 B              |
-| ScrollSnapAutoplay  | 1497 B   | 549 B              |
-| ScrollSnapDraggable | 2425 B   | 754 B              |
-| ScrollSnapLoop      | 1754 B   | 603 B              |
-| ScrollSnapPlugin    | 70 B     | 110 B              |
-| ScrollSnapSlider    | 2268 B   | 783 B              |
+| Item                | minified (terser) | minified + gzipped |
+|---------------------|-------------------|--------------------|
+| index               | 382 B             | 162 B              |
+| ScrollSnapAutoplay  | 1479 B            | 559 B              |
+| ScrollSnapDraggable | 2459 B            | 772 B              |
+| ScrollSnapLoop      | 1840 B            | 623 B              |
+| ScrollSnapPlugin    | 70 B              | 110 B              |
+| ScrollSnapSlider    | 2361 B            | 811 B              |
 
 ## Restrictions
 
@@ -116,8 +116,8 @@ Prevents page navigation on horizontal scrolling, i.E. on MacOS.
 
 ```css
 .scroll-snap-slider {
-  overscroll-behavior-x: none;
-  overscroll-behavior-y: auto;
+    overscroll-behavior-x: none;
+    overscroll-behavior-y: auto;
 }
 ```
 
@@ -126,7 +126,7 @@ Prevents scrolling past elements in the slider:
 
 ```css
 .scroll-snap-slide {
-  scroll-snap-stop: always;
+    scroll-snap-stop: always;
 }
 ```
 
@@ -138,44 +138,44 @@ events and exposes a few methods, with which you can enhance your slider's behav
 **Default behaviour:**
 
 ```javascript
-import { ScrollSnapSlider } from 'scroll-snap-slider'
+import {ScrollSnapSlider} from 'scroll-snap-slider'
 
 const element = document.querySelector('.example-slider')
-const slider = new ScrollSnapSlider({ element })
+const slider = new ScrollSnapSlider({element})
 
 slider.addEventListener('slide-start', function (event) {
-  console.info(`Started sliding towards slide ${event.detail}.`)
+    console.info(`Started sliding towards slide ${event.detail}.`)
 })
 
 slider.addEventListener('slide-pass', function (event) {
-  console.info(`Passing slide ${event.detail}.`)
+    console.info(`Passing slide ${event.detail}.`)
 })
 
 slider.addEventListener('slide-stop', function (event) {
-  console.info(`Stopped sliding at slide ${event.detail}.`)
+    console.info(`Stopped sliding at slide ${event.detail}.`)
 })
 ```
 
 **Advanced config:**
 
 ```javascript
-import { ScrollSnapSlider } from 'scroll-snap-slider'
+import {ScrollSnapSlider} from 'scroll-snap-slider'
 
 // Do not automatically attach scroll listener
 const slider = new ScrollSnapSlider({
-  element: document.querySelector('.example-slider'),
-  scrollTimeout: 50, // Sets a shorter timeout to detect scroll end
-  roundingMethod: Math.round, // Dispatch 'slide-pass' events around the center of each slide
-  // roundingMethod: Math.ceil, // Dispatch 'slide-pass' events as soon as the next one is visible
-  // roundingMethod: Math.floor, // Dispatch 'slide-pass' events only when the next one is fully visible
-  sizingMethod (slider) {
+    element: document.querySelector('.example-slider'),
+    scrollTimeout: 50, // Sets a shorter timeout to detect scroll end
+    roundingMethod: Math.round, // Dispatch 'slide-pass' events around the center of each slide
+    // roundingMethod: Math.ceil, // Dispatch 'slide-pass' events as soon as the next one is visible
+    // roundingMethod: Math.floor, // Dispatch 'slide-pass' events only when the next one is fully visible
+    sizingMethod(slider) {
 
-    // with padding
-    return slider.element.firstElementChild.offsetWidth
+        // with padding
+        return slider.element.firstElementChild.offsetWidth
 
-    // without padding
-    // return slider.element.firstElementChild.clientWidth
-  }
+        // without padding
+        // return slider.element.firstElementChild.clientWidth
+    }
 })
 ```
 
@@ -191,14 +191,14 @@ You can add one or multiple of the available Plugins:
 Additional Note: The `ScrollSnapDraggable` and `ScrollSnapLoop` **do not** work well together.
 
 ```javascript
-import { ScrollSnapSlider } from 'scroll-snap-slider/src/ScrollSnapSlider.js'
-import { ScrollSnapAutoplay } from 'scroll-snap-slider/src/ScrollSnapAutoplay.js'
-import { ScrollSnapLoop } from 'scroll-snap-slider/src/ScrollSnapLoop.js'
+import {ScrollSnapSlider} from 'scroll-snap-slider/src/ScrollSnapSlider.js'
+import {ScrollSnapAutoplay} from 'scroll-snap-slider/src/ScrollSnapAutoplay.js'
+import {ScrollSnapLoop} from 'scroll-snap-slider/src/ScrollSnapLoop.js'
 
 const element = document.querySelector('.example-slider')
-const slider = new ScrollSnapSlider({ element }).with([
-  new ScrollSnapAutoplay(1200),
-  new ScrollSnapLoop
+const slider = new ScrollSnapSlider({element}).with([
+    new ScrollSnapAutoplay(1200),
+    new ScrollSnapLoop
 ])
 ```
 
@@ -207,40 +207,40 @@ Creating your own plugin:
 ```javascript
 export class CustomPlugin extends ScrollSnapPlugin {
 
-  /**
-   * Pass any config here
-   * @param {*} config
-   */
-  constructor (config) {
-    super()
+    /**
+     * Pass any config here
+     * @param {*} config
+     */
+    constructor(config) {
+        super()
 
-    this.config = config
-  }
+        this.config = config
+    }
 
-  /**
-   * Chose a unique plugin name. If you need multiple instances of the same plugin on a slider, each must return a unique id.
-   * @return {String}
-   */
-  get id () {
-    return 'lubba-wubba-dub-dub'
-  }
+    /**
+     * Chose a unique plugin name. If you need multiple instances of the same plugin on a slider, each must return a unique id.
+     * @return {String}
+     */
+    get id() {
+        return 'lubba-wubba-dub-dub'
+    }
 
-  /**
-   * Attach listeners, fetch DOM things, save reference to the slider
-   * @param {ScrollSnapSlider} slider
-   * @override
-   */
-  enable (slider) {
-    // TODO method stub
-  }
+    /**
+     * Attach listeners, fetch DOM things, save reference to the slider
+     * @param {ScrollSnapSlider} slider
+     * @override
+     */
+    enable(slider) {
+        // TODO method stub
+    }
 
-  /**
-   * Free resources, remove listeners, ...
-   * @override
-   */
-  disable () {
-    // TODO method stub
-  }
+    /**
+     * Free resources, remove listeners, ...
+     * @override
+     */
+    disable() {
+        // TODO method stub
+    }
 }
 ```
 
@@ -273,12 +273,10 @@ You can use the proxy methods `addEventListener` and `removeEventListener` to li
 |------------------------------------------|-----------------------------------------------------------------------|
 | `slide: Number` (read only)              | Currently active slide.                                               |
 | `element: Element` (read only)           | The element passed into the constructor.                              |
-| `slideScrollLeft` (read only)            | the `element.scrollLeft` value of the currently active slide.         |
 | `scrollTimeout: Number`                  | Timeout delay in milliseconds used to catch the end of scroll events. |
 | `plugins: Map<String, ScrollSnapPlugin>` | Map of plugins enabled for this slider                                |
 
 ## Support
 
-Check out the
-[support tables for CSS scroll snap](https://caniuse.com/css-snappoints). Note that it's up to you to inject potential
-vendor prefixes.
+Check out the [support tables for CSS scroll snap](https://caniuse.com/css-snappoints).
+Note that it's up to you to inject or add vendor specific code.
