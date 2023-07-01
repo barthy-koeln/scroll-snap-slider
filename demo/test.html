@@ -13,13 +13,21 @@
   >
 
   <style>
+      * {
+          margin: 0;
+          padding: 0;
+      }
+
       #app {
           display: flex;
           flex-flow: row wrap;
+          width: 100%;
+          height: 100%;
       }
 
       .scroll-snap-slider {
-          width: 25%;
+          width: 12.5%;
+          height: 16.667%;
       }
 
       .scroll-snap-slider img {
@@ -29,74 +37,28 @@
   </style>
 </head>
 <body>
-<template id="template">
+<template id="sliderTemplate">
   <ul
     class="scroll-snap-slider -simple"
     id="__ID__"
   >
-    <li
-      class="scroll-snap-slide"
-      data-index="0"
-      tabindex="-1"
-    >
-      <img
-        alt="pug in a blanket"
-        height="600"
-        loading="eager"
-        src="https://picsum.photos/id/__IMAGE__/900/600"
-        width="900"
-      />
-    </li>
-    <li
-      class="scroll-snap-slide"
-      data-index="1"
-      tabindex="-1"
-    >
-      <img
-        alt="cat's nose up close"
-        height="600"
-        loading="lazy"
-        src="https://picsum.photos/id/__IMAGE__/900/600"
-        width="900"
-      />
-    </li>
-    <li
-      class="scroll-snap-slide"
-      data-index="2"
-      tabindex="-1"
-    >
-      <article>
-        <h4>This one is just text</h4>
-        <p>Lorem ipsum and all that stuff.</p>
-      </article>
-    </li>
-    <li
-      class="scroll-snap-slide"
-      data-index="3"
-      tabindex="-1"
-    >
-      <img
-        alt="same pug in another blanket"
-        height="600"
-        loading="lazy"
-        src="https://picsum.photos/id/__IMAGE__/900/600"
-        width="900"
-      />
-    </li>
-    <li
-      class="scroll-snap-slide"
-      data-index="4"
-      tabindex="-1"
-    >
-      <img
-        alt="cute puppy eyes"
-        height="600"
-        loading="lazy"
-        src="https://picsum.photos/id/__IMAGE__/900/600"
-        width="900"
-      />
-    </li>
+    __SLIDES__
   </ul>
+</template>
+<template id="slideTemplate">
+  <li
+    class="scroll-snap-slide"
+    data-index="__INDEX__"
+    tabindex="-1"
+  >
+    <img
+      alt="image __INDEX__"
+      height="600"
+      loading="eager"
+      src="https://dummyimage.com/900x600/fff/aaa?text=image%20__INDEX__"
+      width="900"
+    />
+  </li>
 </template>
 <div id="app"></div>
 
@@ -108,12 +70,23 @@
 
     const sliders = []
     const appElement = document.getElementById('app')
-    const templateElement = document.getElementById('template')
-    for (let index = 0; index < 50; index++) {
+    const sliderTemplate = document.getElementById('sliderTemplate')
+    const slideTemplate = document.getElementById('slideTemplate')
+    const sliderCount = 64
+    const slidesPerSlider = 10
+    const interval = 1_000 / 64
+
+    for (let index = 0; index < sliderCount; index++) {
         const id = `slider-${index}`
-        const clone = templateElement.innerHTML
+
+        const slides = []
+        for (let imageIndex = 0; imageIndex < slidesPerSlider; imageIndex++) {
+            slides.push(slideTemplate.innerHTML.replaceAll('__INDEX__', imageIndex.toString(10)))
+        }
+
+        const clone = sliderTemplate.innerHTML
             .replace('__ID__', id)
-            .replaceAll('__IMAGE__', () => 1 + Math.round((Math.random() * 999)))
+            .replace('__SLIDES__', slides.join('\n'))
 
         appElement.insertAdjacentHTML('beforeend', clone)
 
@@ -121,10 +94,10 @@
             const element = document.getElementById(id)
             sliders.push(new ScrollSnapSlider({element})
                 .with([
-                    new ScrollSnapAutoplay(1000 + (index % 8) * 100),
+                    new ScrollSnapAutoplay(500),
                     new ScrollSnapLoop()
                 ]))
-        }, 1000)
+        }, (index * interval))
     }
 </script>
 </body>
