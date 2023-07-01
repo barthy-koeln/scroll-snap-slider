@@ -1,4 +1,4 @@
-import {ScrollSnapPlugin} from './ScrollSnapPlugin.js'
+import { ScrollSnapPlugin } from './ScrollSnapPlugin.js'
 
 /**
  * Plugin to loop around to the first slide at the end and to the last slide at the start
@@ -91,7 +91,7 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
     }
 
     requestAnimationFrame(() => {
-      const {scrollLeft, offsetWidth, scrollWidth} = this.slider.element
+      const { scrollLeft, offsetWidth, scrollWidth } = this.slider.element
       if (scrollLeft < 5) {
         this.loopEndToStart()
         return

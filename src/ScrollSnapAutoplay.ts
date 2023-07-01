@@ -1,4 +1,4 @@
-import {ScrollSnapPlugin} from './ScrollSnapPlugin.js'
+import { ScrollSnapPlugin } from './ScrollSnapPlugin.js'
 
 /**
  * @classdesc Plugin that automatically changes slides.
@@ -55,7 +55,7 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
     this.interval = setInterval(this.onInterval, this.intervalDuration)
 
     for (const event of this.events) {
-      this.slider.addEventListener(event, this.disableTemporarily, {passive: true})
+      this.slider.addEventListener(event, this.disableTemporarily, { passive: true })
     }
   }
 
@@ -99,7 +99,7 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
     }
 
     requestAnimationFrame(() => {
-      const {scrollLeft, offsetWidth, scrollWidth} = this.slider.element
+      const { scrollLeft, offsetWidth, scrollWidth } = this.slider.element
       const isLastSlide = scrollLeft + offsetWidth === scrollWidth
       const target = isLastSlide ? 0 : this.slider.slide + 1
 

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link
+    href="/dist/scroll-snap-slider.css"
+    rel="stylesheet"
+  >
+  <link
+    href="/demo/page.css"
+    rel="stylesheet"
+  >
+
+  <style>
+      #app {
+          display: flex;
+          flex-flow: row wrap;
+      }
+
+      .scroll-snap-slider {
+          width: 25%;
+      }
+
+      .scroll-snap-slider img {
+          width: 100%;
+          height: auto;
+      }
+  </style>
+</head>
+<body>
+<template id="template">
+  <ul
+    class="scroll-snap-slider -simple"
+    id="__ID__"
+  >
+    <li
+      class="scroll-snap-slide"
+      data-index="0"
+      tabindex="-1"
+    >
+      <img
+        alt="pug in a blanket"
+        height="600"
+        loading="eager"
+        src="https://picsum.photos/id/__IMAGE__/900/600"
+        width="900"
+      />
+    </li>
+    <li
+      class="scroll-snap-slide"
+      data-index="1"
+      tabindex="-1"
+    >
+      <img
+        alt="cat's nose up close"
+        height="600"
+        loading="lazy"
+        src="https://picsum.photos/id/__IMAGE__/900/600"
+        width="900"
+      />
+    </li>
+    <li
+      class="scroll-snap-slide"
+      data-index="2"
+      tabindex="-1"
+    >
+      <article>
+        <h4>This one is just text</h4>
+        <p>Lorem ipsum and all that stuff.</p>
+      </article>
+    </li>
+    <li
+      class="scroll-snap-slide"
+      data-index="3"
+      tabindex="-1"
+    >
+      <img
+        alt="same pug in another blanket"
+        height="600"
+        loading="lazy"
+        src="https://picsum.photos/id/__IMAGE__/900/600"
+        width="900"
+      />
+    </li>
+    <li
+      class="scroll-snap-slide"
+      data-index="4"
+      tabindex="-1"
+    >
+      <img
+        alt="cute puppy eyes"
+        height="600"
+        loading="lazy"
+        src="https://picsum.photos/id/__IMAGE__/900/600"
+        width="900"
+      />
+    </li>
+  </ul>
+</template>
+<div id="app"></div>
+
+<script
+  lang="js"
+  type="module"
+>
+    import {ScrollSnapSlider, ScrollSnapAutoplay, ScrollSnapLoop} from '/dist/scroll-snap-slider.js'
+
+    const sliders = []
+    const appElement = document.getElementById('app')
+    const templateElement = document.getElementById('template')
+    for (let index = 0; index < 50; index++) {
+        const id = `slider-${index}`
+        const clone = templateElement.innerHTML
+            .replace('__ID__', id)
+            .replaceAll('__IMAGE__', () => 1 + Math.round((Math.random() * 999)))
+
+        appElement.insertAdjacentHTML('beforeend', clone)
+
+        setTimeout(() => {
+            const element = document.getElementById(id)
+            sliders.push(new ScrollSnapSlider({element})
+                .with([
+                    new ScrollSnapAutoplay(1000 + (index % 8) * 100),
+                    new ScrollSnapLoop()
+                ]))
+        }, 1000)
+    }
+</script>
+</body>
+</html>

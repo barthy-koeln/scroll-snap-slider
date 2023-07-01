@@ -23,6 +23,10 @@
         "comment": "This is a concious decision. The enable/disable flow makes sure that everything is set up properly."
       }
     ],
+    "object-curly-spacing": [
+      "error",
+      "always"
+    ],
     "object-property-newline": "error",
     "object-curly-newline": [
       "error",

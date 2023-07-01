@@ -1,4 +1,4 @@
-import {ScrollSnapPlugin} from './ScrollSnapPlugin.js'
+import { ScrollSnapPlugin } from './ScrollSnapPlugin.js'
 
 /**
  * @classdesc Plugin that enables mouse/pointer drag. Note, that touch interaction is enabled natively in all browsers.
@@ -46,7 +46,7 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
   public enable(): void {
     this.slider.element.classList.add('-draggable')
     this.slider.addEventListener('mousedown', this.startDragging)
-    addEventListener('mouseup', this.stopDragging, {capture: true})
+    addEventListener('mouseup', this.stopDragging, { capture: true })
   }
 
   /**
@@ -56,7 +56,7 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
     this.slider.element.classList.remove('-draggable')
 
     this.slider.removeEventListener('mousedown', this.startDragging)
-    removeEventListener('mouseup', this.stopDragging, {capture: true})
+    removeEventListener('mouseup', this.stopDragging, { capture: true })
 
     this.lastX = null
   }
@@ -151,13 +151,13 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
     }
 
     requestAnimationFrame(() => {
-      const {scrollLeft, offsetWidth, scrollWidth} = this.slider.element
+      const { scrollLeft, offsetWidth, scrollWidth } = this.slider.element
       if (scrollLeft === 0 || scrollWidth - scrollLeft - offsetWidth === 0) {
         this.onSlideStopAfterDrag()
         return
       }
 
-      this.slider.addEventListener('slide-stop', this.onSlideStopAfterDrag, {once: true})
+      this.slider.addEventListener('slide-stop', this.onSlideStopAfterDrag, { once: true })
     })
   }
 }

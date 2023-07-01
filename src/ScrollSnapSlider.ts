@@ -1,4 +1,4 @@
-import {ScrollSnapPlugin} from './ScrollSnapPlugin'
+import { ScrollSnapPlugin } from './ScrollSnapPlugin'
 
 /**
  * All options have sensitive defaults. The only required option is the <code>element</code>.
@@ -128,7 +128,7 @@ export class ScrollSnapSlider {
    * Attach all necessary listeners
    */
   public attachListeners(): void {
-    this.addEventListener('scroll', this.onScroll, {passive: true})
+    this.addEventListener('scroll', this.onScroll, { passive: true })
   }
 
   /**
@@ -210,7 +210,7 @@ export class ScrollSnapSlider {
    */
   private onScroll = () => {
     requestAnimationFrame(() => {
-      const {scrollLeft} = this.element
+      const { scrollLeft } = this.element
       const newSlide = this.roundingMethod(scrollLeft / this.itemSize)
 
       if (null === this.scrollTimeoutId) {
