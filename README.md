@@ -70,9 +70,9 @@ For more "fully-featured" implementations, go to:
 ## Installing
 
 ```shell
-npm install barthy-koeln/scroll-snap-slider 
+npm install scroll-snap-slider 
 
-yarn add barthy-koeln/scroll-snap-slider
+yarn add scroll-snap-slider
 ```
 
 ## Usage
