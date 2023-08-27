@@ -51,7 +51,7 @@ the entrypoint changing from 'ScrollSnapSlider' to 'index'.
 
 | Item                | minified (terser) | minified + gzipped |
 |---------------------|-------------------|--------------------|
-| index               | 382 B             | 162 B              |
+| index               | 348 B             | 143 B              |
 | ScrollSnapAutoplay  | 1479 B            | 559 B              |
 | ScrollSnapDraggable | 2459 B            | 772 B              |
 | ScrollSnapLoop      | 1840 B            | 623 B              |
@@ -70,9 +70,9 @@ For more "fully-featured" implementations, go to:
 ## Installing
 
 ```shell
-npm install barthy-koeln/scroll-snap-slider 
+npm install scroll-snap-slider 
 
-yarn add barthy-koeln/scroll-snap-slider
+yarn add scroll-snap-slider
 ```
 
 ## Usage

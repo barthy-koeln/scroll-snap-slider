@@ -507,7 +507,6 @@
       });
     };
   }
-  const scrollSnapSlider = "";
   exports2.ScrollSnapAutoplay = ScrollSnapAutoplay;
   exports2.ScrollSnapDraggable = ScrollSnapDraggable;
   exports2.ScrollSnapLoop = ScrollSnapLoop;

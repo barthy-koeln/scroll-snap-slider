@@ -503,7 +503,6 @@ class ScrollSnapSlider {
     });
   };
 }
-const scrollSnapSlider = "";
 export {
   ScrollSnapAutoplay,
   ScrollSnapDraggable,
