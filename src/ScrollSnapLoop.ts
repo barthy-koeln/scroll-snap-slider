@@ -9,7 +9,7 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
   /**
    * @inheritDoc
    */
-  public get id (): string {
+  public get id(): string {
     return 'ScrollSnapLoop'
   }
 
@@ -17,7 +17,7 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
    * @inheritDoc
    * @override
    */
-  public enable (): void {
+  public enable(): void {
     this.slider.addEventListener('slide-pass', this.loopSlides)
     this.slider.addEventListener('slide-stop', this.loopSlides)
     this.loopSlides()
@@ -27,7 +27,7 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
    * @inheritDoc
    * @override
    */
-  public disable (): void {
+  public disable(): void {
     this.slider.removeEventListener('slide-pass', this.loopSlides)
     this.slider.removeEventListener('slide-stop', this.loopSlides)
 
@@ -40,7 +40,7 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
   /**
    * Remove snapping behaviour
    */
-  private removeSnapping () {
+  private removeSnapping() {
     this.slider.detachListeners()
     this.slider.element.style.scrollBehavior = 'auto'
     this.slider.element.style.scrollSnapStop = 'unset'
@@ -50,32 +50,36 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
   /**
    * Add snapping behaviour
    */
-  private addSnapping () {
+  private addSnapping() {
     this.slider.element.style.scrollBehavior = ''
     this.slider.element.style.scrollSnapStop = ''
     this.slider.element.style.scrollSnapType = ''
     this.slider.attachListeners()
-    window.setTimeout(this.slider.update, 0)
+    setTimeout(this.slider.update, 0)
   }
 
   /**
    * Move last slide to the start of the slider.
    */
-  private loopEndToStart () {
-    this.removeSnapping()
-    this.slider.element.prepend(this.slider.element.children[this.slider.element.children.length - 1])
-    this.slider.element.scrollLeft += this.slider.itemSize
-    this.addSnapping()
+  private loopEndToStart() {
+    requestAnimationFrame(() => {
+      this.removeSnapping()
+      this.slider.element.prepend(this.slider.element.children[this.slider.element.children.length - 1])
+      this.slider.element.scrollLeft += this.slider.itemSize
+      this.addSnapping()
+    })
   }
 
   /**
    * Move first slide to the end of the slider.
    */
-  private loopStartToEnd () {
-    this.removeSnapping()
-    this.slider.element.append(this.slider.element.children[0])
-    this.slider.element.scrollLeft -= this.slider.itemSize
-    this.addSnapping()
+  private loopStartToEnd() {
+    requestAnimationFrame(() => {
+      this.removeSnapping()
+      this.slider.element.append(this.slider.element.children[0])
+      this.slider.element.scrollLeft -= this.slider.itemSize
+      this.addSnapping()
+    })
   }
 
   /**
@@ -86,21 +90,23 @@ export class ScrollSnapLoop extends ScrollSnapPlugin {
       return
     }
 
-    const { scrollLeft, offsetWidth, scrollWidth } = this.slider.element
-    if (scrollLeft < 5) {
-      this.loopEndToStart()
-      return
-    }
+    requestAnimationFrame(() => {
+      const { scrollLeft, offsetWidth, scrollWidth } = this.slider.element
+      if (scrollLeft < 5) {
+        this.loopEndToStart()
+        return
+      }
 
-    if (scrollWidth - scrollLeft - offsetWidth < 5) {
-      this.loopStartToEnd()
-    }
+      if (scrollWidth - scrollLeft - offsetWidth < 5) {
+        this.loopStartToEnd()
+      }
+    })
   }
 
   /**
    * Sort items to their initial position after disabling
    */
-  private sortFunction (a: HTMLOrSVGElement, b: HTMLOrSVGElement): number {
+  private sortFunction(a: HTMLOrSVGElement, b: HTMLOrSVGElement): number {
     return parseInt(a.dataset.index, 10) - parseInt(b.dataset.index, 10)
   }
 }

@@ -10,9 +10,7 @@
     "target": "ESNext",
     "declaration": true,
     "moduleResolution": "Node",
-    "types": [
-      "node"
-    ]
+    "types": []
   },
   "include": [
     "src/**/*.ts"

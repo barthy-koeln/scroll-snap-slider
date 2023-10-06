@@ -46,9 +46,9 @@ class ScrollSnapAutoplay extends ScrollSnapPlugin {
    * @override
    */
   enable = () => {
-    this.debounceId && window.clearTimeout(this.debounceId);
+    this.debounceId && clearTimeout(this.debounceId);
     this.debounceId = null;
-    this.interval = window.setInterval(this.onInterval, this.intervalDuration);
+    this.interval = setInterval(this.onInterval, this.intervalDuration);
     for (const event of this.events) {
       this.slider.addEventListener(event, this.disableTemporarily, { passive: true });
     }
@@ -61,9 +61,9 @@ class ScrollSnapAutoplay extends ScrollSnapPlugin {
     for (const event of this.events) {
       this.slider.removeEventListener(event, this.disableTemporarily);
     }
-    this.interval && window.clearInterval(this.interval);
+    this.interval && clearInterval(this.interval);
     this.interval = null;
-    this.debounceId && window.clearTimeout(this.debounceId);
+    this.debounceId && clearTimeout(this.debounceId);
     this.debounceId = null;
   }
   /**
@@ -73,10 +73,10 @@ class ScrollSnapAutoplay extends ScrollSnapPlugin {
     if (!this.interval) {
       return;
     }
-    window.clearInterval(this.interval);
+    clearInterval(this.interval);
     this.interval = null;
-    this.debounceId && window.clearTimeout(this.debounceId);
-    this.debounceId = window.setTimeout(this.enable, this.timeoutDuration);
+    this.debounceId && clearTimeout(this.debounceId);
+    this.debounceId = setTimeout(this.enable, this.timeoutDuration);
   };
   /**
    * Callback for regular intervals to continue to the next slide
@@ -86,10 +86,12 @@ class ScrollSnapAutoplay extends ScrollSnapPlugin {
       this.slider.slideTo(this.slider.slide + 1);
       return;
     }
-    const { scrollLeft, offsetWidth, scrollWidth } = this.slider.element;
-    const isLastSlide = scrollLeft + offsetWidth === scrollWidth;
-    const target = isLastSlide ? 0 : this.slider.slide + 1;
-    this.slider.slideTo(target);
+    requestAnimationFrame(() => {
+      const { scrollLeft, offsetWidth, scrollWidth } = this.slider.element;
+      const isLastSlide = scrollLeft + offsetWidth === scrollWidth;
+      const target = isLastSlide ? 0 : this.slider.slide + 1;
+      this.slider.slideTo(target);
+    });
   };
 }
 class ScrollSnapDraggable extends ScrollSnapPlugin {
@@ -128,7 +130,7 @@ class ScrollSnapDraggable extends ScrollSnapPlugin {
   enable() {
     this.slider.element.classList.add("-draggable");
     this.slider.addEventListener("mousedown", this.startDragging);
-    window.addEventListener("mouseup", this.stopDragging, { capture: true });
+    addEventListener("mouseup", this.stopDragging, { capture: true });
   }
   /**
    * @override
@@ -136,7 +138,7 @@ class ScrollSnapDraggable extends ScrollSnapPlugin {
   disable() {
     this.slider.element.classList.remove("-draggable");
     this.slider.removeEventListener("mousedown", this.startDragging);
-    window.removeEventListener("mouseup", this.stopDragging, { capture: true });
+    removeEventListener("mouseup", this.stopDragging, { capture: true });
     this.lastX = null;
   }
   /**
@@ -170,7 +172,9 @@ class ScrollSnapDraggable extends ScrollSnapPlugin {
   mouseMove = (event) => {
     const distance = this.lastX - event.clientX;
     this.lastX = event.clientX;
-    this.slider.element.scrollLeft += distance;
+    requestAnimationFrame(() => {
+      this.slider.element.scrollLeft += distance;
+    });
   };
   /**
    * Clear disable timeout, set up variables and styles and attach the listener.
@@ -186,7 +190,7 @@ class ScrollSnapDraggable extends ScrollSnapPlugin {
     if (autoplay) {
       autoplay.disable();
     }
-    window.addEventListener("mousemove", this.mouseMove);
+    addEventListener("mousemove", this.mouseMove);
   };
   /**
    * Remove listener and clean up the styles.
@@ -199,7 +203,7 @@ class ScrollSnapDraggable extends ScrollSnapPlugin {
     }
     event.preventDefault();
     const finalSlide = this.getFinalSlide();
-    window.removeEventListener("mousemove", this.mouseMove);
+    removeEventListener("mousemove", this.mouseMove);
     this.lastX = null;
     this.slider.element.style.scrollBehavior = "";
     this.slider.element.classList.remove("-dragging");
@@ -208,12 +212,14 @@ class ScrollSnapDraggable extends ScrollSnapPlugin {
     if (autoplay) {
       autoplay.enable();
     }
-    const { scrollLeft, offsetWidth, scrollWidth } = this.slider.element;
-    if (scrollLeft === 0 || scrollWidth - scrollLeft - offsetWidth === 0) {
-      this.onSlideStopAfterDrag();
-      return;
-    }
-    this.slider.addEventListener("slide-stop", this.onSlideStopAfterDrag, { once: true });
+    requestAnimationFrame(() => {
+      const { scrollLeft, offsetWidth, scrollWidth } = this.slider.element;
+      if (scrollLeft === 0 || scrollWidth - scrollLeft - offsetWidth === 0) {
+        this.onSlideStopAfterDrag();
+        return;
+      }
+      this.slider.addEventListener("slide-stop", this.onSlideStopAfterDrag, { once: true });
+    });
   };
 }
 class ScrollSnapLoop extends ScrollSnapPlugin {
@@ -260,25 +266,29 @@ class ScrollSnapLoop extends ScrollSnapPlugin {
     this.slider.element.style.scrollSnapStop = "";
     this.slider.element.style.scrollSnapType = "";
     this.slider.attachListeners();
-    window.setTimeout(this.slider.update, 0);
+    setTimeout(this.slider.update, 0);
   }
   /**
    * Move last slide to the start of the slider.
    */
   loopEndToStart() {
-    this.removeSnapping();
-    this.slider.element.prepend(this.slider.element.children[this.slider.element.children.length - 1]);
-    this.slider.element.scrollLeft += this.slider.itemSize;
-    this.addSnapping();
+    requestAnimationFrame(() => {
+      this.removeSnapping();
+      this.slider.element.prepend(this.slider.element.children[this.slider.element.children.length - 1]);
+      this.slider.element.scrollLeft += this.slider.itemSize;
+      this.addSnapping();
+    });
   }
   /**
    * Move first slide to the end of the slider.
    */
   loopStartToEnd() {
-    this.removeSnapping();
-    this.slider.element.append(this.slider.element.children[0]);
-    this.slider.element.scrollLeft -= this.slider.itemSize;
-    this.addSnapping();
+    requestAnimationFrame(() => {
+      this.removeSnapping();
+      this.slider.element.append(this.slider.element.children[0]);
+      this.slider.element.scrollLeft -= this.slider.itemSize;
+      this.addSnapping();
+    });
   }
   /**
    * Determine which slide to move where and apply the change.
@@ -287,14 +297,16 @@ class ScrollSnapLoop extends ScrollSnapPlugin {
     if (this.slider.element.children.length < 3) {
       return;
     }
-    const { scrollLeft, offsetWidth, scrollWidth } = this.slider.element;
-    if (scrollLeft < 5) {
-      this.loopEndToStart();
-      return;
-    }
-    if (scrollWidth - scrollLeft - offsetWidth < 5) {
-      this.loopStartToEnd();
-    }
+    requestAnimationFrame(() => {
+      const { scrollLeft, offsetWidth, scrollWidth } = this.slider.element;
+      if (scrollLeft < 5) {
+        this.loopEndToStart();
+        return;
+      }
+      if (scrollWidth - scrollLeft - offsetWidth < 5) {
+        this.loopStartToEnd();
+      }
+    });
   };
   /**
    * Sort items to their initial position after disabling
@@ -368,20 +380,21 @@ class ScrollSnapSlider {
     Object.assign(this, {
       scrollTimeout: 100,
       roundingMethod: Math.round,
-      sizingMethod: (slider) => slider.element.firstElementChild.offsetWidth,
+      sizingMethod: (slider) => {
+        return slider.element.firstElementChild.offsetWidth;
+      },
       ...options
     });
     this.scrollTimeoutId = null;
-    this.itemSize = this.sizingMethod(this);
-    this.update();
     this.addEventListener = this.element.addEventListener.bind(this.element);
     this.removeEventListener = this.element.removeEventListener.bind(this.element);
-    this.plugins = new window.Map();
-    this.resizeObserver = new ResizeObserver(this.onSlideResize);
+    this.plugins = /* @__PURE__ */ new Map();
+    this.resizeObserver = new ResizeObserver(this.rafSlideSize);
     this.resizeObserver.observe(this.element);
     for (const child of this.element.children) {
       this.resizeObserver.observe(child);
     }
+    this.rafSlideSize();
     this.attachListeners();
   }
   /**
@@ -409,21 +422,23 @@ class ScrollSnapSlider {
    */
   detachListeners() {
     this.removeEventListener("scroll", this.onScroll);
-    this.scrollTimeoutId && window.clearTimeout(this.scrollTimeoutId);
+    this.scrollTimeoutId && clearTimeout(this.scrollTimeoutId);
   }
   /**
    * Scroll to a slide by index.
    */
   slideTo = (index) => {
-    this.element.scrollTo({
-      left: index * this.itemSize
+    requestAnimationFrame(() => {
+      this.element.scrollTo({
+        left: index * this.itemSize
+      });
     });
   };
   /**
    * Free resources and listeners, disable plugins
    */
   destroy() {
-    this.scrollTimeoutId && window.clearTimeout(this.scrollTimeoutId);
+    this.scrollTimeoutId && clearTimeout(this.scrollTimeoutId);
     this.detachListeners();
     for (const [id, plugin] of this.plugins) {
       plugin.disable();
@@ -435,15 +450,11 @@ class ScrollSnapSlider {
    * Updates the computed values
    */
   update = () => {
-    this.slide = this.calculateSlide();
-    this.slideScrollLeft = this.slide * this.itemSize;
+    requestAnimationFrame(() => {
+      this.slide = this.roundingMethod(this.element.scrollLeft / this.itemSize);
+      this.slideScrollLeft = this.slide * this.itemSize;
+    });
   };
-  /**
-   * Calculates the active slide using the user-defined <code>roundingMethod</code>
-   */
-  calculateSlide() {
-    return this.roundingMethod(this.element.scrollLeft / this.itemSize);
-  }
   /**
    * Calculate all necessary things and dispatch an event when sliding stops
    */
@@ -453,18 +464,21 @@ class ScrollSnapSlider {
     this.dispatch("slide-stop", this.slide);
   };
   /**
-   * Callback on resize. This will recompute the <code>itemSize</code>
-   * @param entries Entries that have changed size
+   * This will recompute the <code>itemSize</code>
+   * @param entries Optional entries delivered from a ResizeObserver
    */
-  onSlideResize = (entries) => {
-    this.itemSize = this.sizingMethod(this, entries);
+  rafSlideSize = (entries) => {
+    requestAnimationFrame(() => {
+      this.itemSize = this.sizingMethod(this, entries);
+      this.update();
+    });
   };
   /**
    * Dispatches an event on the slider's element
    */
   dispatch(event, detail) {
     return this.element.dispatchEvent(
-      new window.CustomEvent(event, {
+      new CustomEvent(event, {
         detail
       })
     );
@@ -473,16 +487,20 @@ class ScrollSnapSlider {
    * Act when scrolling starts and stops
    */
   onScroll = () => {
-    if (null === this.scrollTimeoutId) {
-      const direction = this.element.scrollLeft > this.slideScrollLeft ? 1 : -1;
-      this.dispatch("slide-start", this.slide + direction);
-    }
-    if (this.calculateSlide() !== this.slide) {
-      this.update();
-      this.dispatch("slide-pass", this.slide);
-    }
-    this.scrollTimeoutId && window.clearTimeout(this.scrollTimeoutId);
-    this.scrollTimeoutId = window.setTimeout(this.onScrollEnd, this.scrollTimeout);
+    requestAnimationFrame(() => {
+      const { scrollLeft } = this.element;
+      const newSlide = this.roundingMethod(scrollLeft / this.itemSize);
+      if (null === this.scrollTimeoutId) {
+        const direction = scrollLeft > this.slideScrollLeft ? 1 : -1;
+        this.dispatch("slide-start", this.slide + direction);
+      }
+      if (newSlide !== this.slide) {
+        this.update();
+        this.dispatch("slide-pass", this.slide);
+      }
+      this.scrollTimeoutId && clearTimeout(this.scrollTimeoutId);
+      this.scrollTimeoutId = setTimeout(this.onScrollEnd, this.scrollTimeout);
+    });
   };
 }
 export {

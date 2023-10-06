@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+rm ./dist/*
+
 tsc
 
 FILES=$(ls ./dist/*.js)
@@ -27,3 +29,5 @@ for FILE in $FILES; do
   rm "$MINIFIED"
   rm "$ZIPPED"
 done
+
+echo -e "\n"

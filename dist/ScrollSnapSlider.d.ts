@@ -22,9 +22,8 @@ export declare class ScrollSnapSlider {
     slideTo: (index: number) => void;
     destroy(): void;
     update: () => void;
-    private calculateSlide;
     private onScrollEnd;
-    private onSlideResize;
+    private rafSlideSize;
     private dispatch;
     private onScroll;
 }
