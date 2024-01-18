@@ -11,7 +11,8 @@ export default defineConfig({
     minify: false,
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: 'scroll-snap-slider'
+      name: 'scroll-snap-slider',
+      fileName: 'index'
     }
   },
 })
