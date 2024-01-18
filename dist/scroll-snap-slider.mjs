@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 class ScrollSnapPlugin {
   /**
    * Reference to the slider this plugin is attached to.
@@ -505,8 +503,10 @@ class ScrollSnapSlider {
     });
   };
 }
-exports.ScrollSnapAutoplay = ScrollSnapAutoplay;
-exports.ScrollSnapDraggable = ScrollSnapDraggable;
-exports.ScrollSnapLoop = ScrollSnapLoop;
-exports.ScrollSnapPlugin = ScrollSnapPlugin;
-exports.ScrollSnapSlider = ScrollSnapSlider;
+export {
+  ScrollSnapAutoplay,
+  ScrollSnapDraggable,
+  ScrollSnapLoop,
+  ScrollSnapPlugin,
+  ScrollSnapSlider
+};

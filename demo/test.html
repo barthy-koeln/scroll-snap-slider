@@ -66,39 +66,39 @@
   lang="js"
   type="module"
 >
-    import {ScrollSnapSlider, ScrollSnapAutoplay, ScrollSnapLoop} from '/dist/scroll-snap-slider.js'
+  import { ScrollSnapSlider, ScrollSnapAutoplay, ScrollSnapLoop } from '/dist/scroll-snap-slider.mjs'
 
-    const sliders = []
-    const appElement = document.getElementById('app')
-    const sliderTemplate = document.getElementById('sliderTemplate')
-    const slideTemplate = document.getElementById('slideTemplate')
-    const sliderCount = 64
-    const slidesPerSlider = 10
-    const interval = 1_000 / 64
+  const sliders = []
+  const appElement = document.getElementById('app')
+  const sliderTemplate = document.getElementById('sliderTemplate')
+  const slideTemplate = document.getElementById('slideTemplate')
+  const sliderCount = 64
+  const slidesPerSlider = 10
+  const interval = 1_000 / 64
 
-    for (let index = 0; index < sliderCount; index++) {
-        const id = `slider-${index}`
+  for (let index = 0; index < sliderCount; index++) {
+    const id = `slider-${index}`
 
-        const slides = []
-        for (let imageIndex = 0; imageIndex < slidesPerSlider; imageIndex++) {
-            slides.push(slideTemplate.innerHTML.replaceAll('__INDEX__', imageIndex.toString(10)))
-        }
-
-        const clone = sliderTemplate.innerHTML
-            .replace('__ID__', id)
-            .replace('__SLIDES__', slides.join('\n'))
-
-        appElement.insertAdjacentHTML('beforeend', clone)
-
-        setTimeout(() => {
-            const element = document.getElementById(id)
-            sliders.push(new ScrollSnapSlider({element})
-                .with([
-                    new ScrollSnapAutoplay(500),
-                    new ScrollSnapLoop()
-                ]))
-        }, (index * interval))
+    const slides = []
+    for (let imageIndex = 0; imageIndex < slidesPerSlider; imageIndex++) {
+      slides.push(slideTemplate.innerHTML.replaceAll('__INDEX__', imageIndex.toString(10)))
     }
+
+    const clone = sliderTemplate.innerHTML
+      .replace('__ID__', id)
+      .replace('__SLIDES__', slides.join('\n'))
+
+    appElement.insertAdjacentHTML('beforeend', clone)
+
+    setTimeout(() => {
+      const element = document.getElementById(id)
+      sliders.push(new ScrollSnapSlider({ element })
+        .with([
+          new ScrollSnapAutoplay(500),
+          new ScrollSnapLoop()
+        ]))
+    }, (index * interval))
+  }
 </script>
 </body>
 </html>

@@ -1,6 +1,4 @@
-(function(global, factory) {
-  typeof exports === "object" && typeof module !== "undefined" ? factory(exports) : typeof define === "function" && define.amd ? define(["exports"], factory) : (global = typeof globalThis !== "undefined" ? globalThis : global || self, factory(global["scroll-snap-slider"] = {}));
-})(this, function(exports2) {
+var ScrollSnapSlider = function(exports) {
   "use strict";
   class ScrollSnapPlugin {
     /**
@@ -319,7 +317,7 @@
       return parseInt(a.dataset.index, 10) - parseInt(b.dataset.index, 10);
     }
   }
-  class ScrollSnapSlider {
+  class ScrollSnapSlider2 {
     /**
      * Base element of this slider
      */
@@ -507,10 +505,11 @@
       });
     };
   }
-  exports2.ScrollSnapAutoplay = ScrollSnapAutoplay;
-  exports2.ScrollSnapDraggable = ScrollSnapDraggable;
-  exports2.ScrollSnapLoop = ScrollSnapLoop;
-  exports2.ScrollSnapPlugin = ScrollSnapPlugin;
-  exports2.ScrollSnapSlider = ScrollSnapSlider;
-  Object.defineProperty(exports2, Symbol.toStringTag, { value: "Module" });
-});
+  exports.ScrollSnapAutoplay = ScrollSnapAutoplay;
+  exports.ScrollSnapDraggable = ScrollSnapDraggable;
+  exports.ScrollSnapLoop = ScrollSnapLoop;
+  exports.ScrollSnapPlugin = ScrollSnapPlugin;
+  exports.ScrollSnapSlider = ScrollSnapSlider2;
+  Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+  return exports;
+}({});
