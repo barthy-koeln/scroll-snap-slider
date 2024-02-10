@@ -266,7 +266,7 @@ class ScrollSnapLoop extends ScrollSnapPlugin {
     this.slider.element.style.scrollSnapStop = "";
     this.slider.element.style.scrollSnapType = "";
     this.slider.attachListeners();
-    setTimeout(this.slider.update, 0);
+    requestAnimationFrame(this.slider.update);
   }
   /**
    * Move last slide to the start of the slider.
@@ -450,18 +450,18 @@ class ScrollSnapSlider {
    * Updates the computed values
    */
   update = () => {
-    requestAnimationFrame(() => {
-      this.slide = this.roundingMethod(this.element.scrollLeft / this.itemSize);
-      this.slideScrollLeft = this.slide * this.itemSize;
-    });
+    this.slide = this.roundingMethod(this.element.scrollLeft / this.itemSize);
+    this.slideScrollLeft = this.slide * this.itemSize;
   };
   /**
    * Calculate all necessary things and dispatch an event when sliding stops
    */
   onScrollEnd = () => {
-    this.scrollTimeoutId = null;
-    this.update();
-    this.dispatch("slide-stop", this.slide);
+    requestAnimationFrame(() => {
+      this.scrollTimeoutId = null;
+      this.update();
+      this.dispatch("slide-stop", this.slide);
+    });
   };
   /**
    * This will recompute the <code>itemSize</code>

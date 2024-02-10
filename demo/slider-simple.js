@@ -1,8 +1,8 @@
 import {
-    ScrollSnapAutoplay,
-    ScrollSnapDraggable,
-    ScrollSnapLoop,
-    ScrollSnapSlider
+  ScrollSnapAutoplay,
+  ScrollSnapDraggable,
+  ScrollSnapLoop,
+  ScrollSnapSlider
 } from '../dist/scroll-snap-slider.mjs'
 
 const sliderSimpleElement = document.querySelector('.scroll-snap-slider.-simple')
@@ -25,6 +25,7 @@ const prev = document.querySelector('.indicators.-simple .arrow.-prev')
 const next = document.querySelector('.indicators.-simple .arrow.-next')
 
 const setSelected = function (event) {
+  console.info(event)
   const slideElementIndex = event.detail
   const slideElement = slides[slideElementIndex]
 

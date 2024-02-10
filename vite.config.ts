@@ -10,6 +10,7 @@ export default defineConfig({
   build: {
     target: 'ESNext',
     minify: false,
+    emptyOutDir: false,
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'ScrollSnapSlider',

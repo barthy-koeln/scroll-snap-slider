@@ -83,7 +83,7 @@ export class ScrollSnapSlider {
   /**
    * Bind methods and possibly attach listeners.
    */
-  constructor(options: ScrollSnapSliderOptions) {
+  constructor (options: ScrollSnapSliderOptions) {
     Object.assign(this, {
       scrollTimeout: 100,
       roundingMethod: Math.round,
@@ -114,7 +114,7 @@ export class ScrollSnapSlider {
    * @param plugins Plugins to attach
    * @param enabled Whether the plugins are enabled right away
    */
-  public with(plugins: ScrollSnapPlugin[], enabled = true): ScrollSnapSlider {
+  public with (plugins: ScrollSnapPlugin[], enabled = true): ScrollSnapSlider {
     for (const plugin of plugins) {
       plugin.slider = this
       this.plugins.set(plugin.id, plugin)
@@ -127,14 +127,14 @@ export class ScrollSnapSlider {
   /**
    * Attach all necessary listeners
    */
-  public attachListeners(): void {
+  public attachListeners (): void {
     this.addEventListener('scroll', this.onScroll, { passive: true })
   }
 
   /**
    * Detach all listeners
    */
-  public detachListeners(): void {
+  public detachListeners (): void {
     this.removeEventListener('scroll', this.onScroll)
     this.scrollTimeoutId && clearTimeout(this.scrollTimeoutId)
   }
@@ -153,7 +153,7 @@ export class ScrollSnapSlider {
   /**
    * Free resources and listeners, disable plugins
    */
-  public destroy(): void {
+  public destroy (): void {
     this.scrollTimeoutId && clearTimeout(this.scrollTimeoutId)
     this.detachListeners()
 
@@ -168,19 +168,19 @@ export class ScrollSnapSlider {
    * Updates the computed values
    */
   update = () => {
-    requestAnimationFrame(() => {
-      this.slide = this.roundingMethod(this.element.scrollLeft / this.itemSize)
-      this.slideScrollLeft = this.slide * this.itemSize
-    })
+    this.slide = this.roundingMethod(this.element.scrollLeft / this.itemSize)
+    this.slideScrollLeft = this.slide * this.itemSize
   }
 
   /**
    * Calculate all necessary things and dispatch an event when sliding stops
    */
   private onScrollEnd = () => {
-    this.scrollTimeoutId = null
-    this.update()
-    this.dispatch('slide-stop', this.slide)
+    requestAnimationFrame(() => {
+      this.scrollTimeoutId = null
+      this.update()
+      this.dispatch('slide-stop', this.slide)
+    })
   }
 
   /**
@@ -197,7 +197,7 @@ export class ScrollSnapSlider {
   /**
    * Dispatches an event on the slider's element
    */
-  private dispatch(event: string, detail: unknown): boolean {
+  private dispatch (event: string, detail: unknown): boolean {
     return this.element.dispatchEvent(
       new CustomEvent(event, {
         detail
