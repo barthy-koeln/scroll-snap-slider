@@ -48,10 +48,9 @@
     "vite-plugin-dts": "^3.7.2"
   },
   "scripts": {
-    "setup-git-hooks": "git config core.hooksPath hooks",
-    "build-doc": "typedoc src",
-    "build-css": "sass --style expanded src/scroll-snap-slider.scss > dist/scroll-snap-slider.css",
-    "build": "./calculate-sizes && vite build && yarn build-doc && yarn build-css",
+    "build:doc": "typedoc --options ./typedoc.json src",
+    "build:css": "sass --style expanded src/scroll-snap-slider.scss > dist/scroll-snap-slider.css",
+    "build": "./calculate-sizes && vite build && yarn build:doc && yarn build:css",
     "watch": "vite build --watch"
   }
 }

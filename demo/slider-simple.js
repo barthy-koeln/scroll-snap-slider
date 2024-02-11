@@ -25,7 +25,6 @@ const prev = document.querySelector('.indicators.-simple .arrow.-prev')
 const next = document.querySelector('.indicators.-simple .arrow.-next')
 
 const setSelected = function (event) {
-  console.info(event)
   const slideElementIndex = event.detail
   const slideElement = slides[slideElementIndex]
 

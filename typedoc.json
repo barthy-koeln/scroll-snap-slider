@@ -1,0 +1,10 @@
+{
+  "navigationLinks": {
+    "Demo": "https://barthy-koeln.github.io/scroll-snap-slider/",
+    "Repo": "https://github.com/barthy-koeln/scroll-snap-slider",
+    "Package": "https://www.npmjs.com/package/scroll-snap-slider"
+  },
+  "sort": [
+    "source-order"
+  ]
+}
