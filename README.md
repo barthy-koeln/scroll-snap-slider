@@ -40,7 +40,7 @@ What this module contains:
 * Example markup for a `scroll-snap` slider
 * CSS default styling for a `scroll-snap` slider without scrollbars
 * ES6 class to slightly enhance functionality
-* ES6 class plugins for `loop`, `autoplay`, and `draggable` features
+* ES6 class plugins for `loop`, `autoplay`, and desktop/mouse `draggable` features
 * TypeScript Typings
 
 ## Sizes
@@ -185,8 +185,6 @@ You can add one or multiple of the available Plugins:
 * `ScrollSnapLoop`: Sliding past the last element shows the first without sliding to the start (and vice-versa)
 * `ScrollSnapDraggable`: Drag the slider with your mouse. Note: this does not affect mobile behaviour and is not
   necessary for touch sliding.
-
-Additional Note: The `ScrollSnapDraggable` and `ScrollSnapLoop` **do not** work well together.
 
 ```javascript
 import { ScrollSnapSlider } from 'scroll-snap-slider/src/ScrollSnapSlider.js'

@@ -24,7 +24,7 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
    */
   private startX: number | null
 
-  public constructor(quickSwipeDistance: number | null = null) {
+  public constructor (quickSwipeDistance: number | null = null) {
     super()
 
     this.lastX = null
@@ -36,14 +36,14 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
   /**
    * @inheritDoc
    */
-  public get id(): string {
+  public get id (): string {
     return 'ScrollSnapDraggable'
   }
 
   /**
    * @override
    */
-  public enable(): void {
+  public enable (): void {
     this.slider.element.classList.add('-draggable')
     this.slider.addEventListener('mousedown', this.startDragging)
     addEventListener('mouseup', this.stopDragging, { capture: true })
@@ -52,7 +52,7 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
   /**
    * @override
    */
-  public disable(): void {
+  public disable (): void {
     this.slider.element.classList.remove('-draggable')
 
     this.slider.removeEventListener('mousedown', this.startDragging)
@@ -72,7 +72,7 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
   /**
    * Calculate the target slide after dragging
    */
-  private getFinalSlide(): number {
+  private getFinalSlide (): number {
     if (!this.quickSwipeDistance) {
       return this.slider.slide
     }
@@ -110,6 +110,7 @@ export class ScrollSnapDraggable extends ScrollSnapPlugin {
   private startDragging = (event: MouseEvent) => {
     event.preventDefault()
 
+    this.slider.removeEventListener('slide-stop', this.onSlideStopAfterDrag)
     this.startX = this.lastX = event.clientX
     this.slider.element.style.scrollBehavior = 'auto'
     this.slider.element.style.scrollSnapStop = 'unset'
