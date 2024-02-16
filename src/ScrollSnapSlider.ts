@@ -99,12 +99,6 @@ export class ScrollSnapSlider {
     this.plugins = new Map<string, ScrollSnapPlugin>()
 
     this.resizeObserver = new ResizeObserver(this.rafSlideSize)
-    this.resizeObserver.observe(this.element)
-    for (const child of this.element.children) {
-      this.resizeObserver.observe(child)
-    }
-
-    this.rafSlideSize()
     this.attachListeners()
   }
 
@@ -129,6 +123,11 @@ export class ScrollSnapSlider {
    */
   public attachListeners (): void {
     this.addEventListener('scroll', this.onScroll, { passive: true })
+
+    this.resizeObserver.observe(this.element)
+    for (const child of this.element.children) {
+      this.resizeObserver.observe(child)
+    }
   }
 
   /**
@@ -137,6 +136,7 @@ export class ScrollSnapSlider {
   public detachListeners (): void {
     this.removeEventListener('scroll', this.onScroll)
     this.scrollTimeoutId && clearTimeout(this.scrollTimeoutId)
+    this.resizeObserver.disconnect()
   }
 
   /**
