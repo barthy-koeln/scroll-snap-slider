@@ -181,6 +181,7 @@ class ScrollSnapDraggable extends ScrollSnapPlugin {
    */
   startDragging = (event) => {
     event.preventDefault();
+    this.slider.removeEventListener("slide-stop", this.onSlideStopAfterDrag);
     this.startX = this.lastX = event.clientX;
     this.slider.element.style.scrollBehavior = "auto";
     this.slider.element.style.scrollSnapStop = "unset";

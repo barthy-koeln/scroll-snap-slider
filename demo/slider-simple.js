@@ -82,29 +82,9 @@ autoPlayInput.addEventListener('change', function () {
 })
 
 loopInput.addEventListener('change', function () {
-  if (loopInput.disabled) {
-    return
-  }
-
   loopInput.checked ? enablePlugin(loopPlugin) : disablePlugin(loopPlugin)
 })
 
 draggableInput.addEventListener('change', function () {
-  loopInput.toggleAttribute('disabled', draggableInput.checked)
-
-  if (draggableInput.checked) {
-    enablePlugin(draggablePlugin)
-
-    if (loopInput.checked) {
-      disablePlugin(loopPlugin)
-    }
-
-    return
-  }
-
-  if (loopInput.checked) {
-    enablePlugin(loopPlugin)
-  }
-
-  disablePlugin(draggablePlugin)
+  draggableInput.checked ? enablePlugin(draggablePlugin) : disablePlugin(draggablePlugin)
 })
