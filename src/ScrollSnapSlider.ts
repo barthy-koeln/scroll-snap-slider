@@ -98,7 +98,7 @@ export class ScrollSnapSlider {
     this.removeEventListener = this.element.removeEventListener.bind(this.element)
     this.plugins = new Map<string, ScrollSnapPlugin>()
 
-    this.resizeObserver = new ResizeObserver(this.rafSlideSize)
+    this.resizeObserver = new ResizeObserver(this.onResize)
     this.attachListeners()
   }
 
@@ -187,11 +187,9 @@ export class ScrollSnapSlider {
    * This will recompute the <code>itemSize</code>
    * @param entries Optional entries delivered from a ResizeObserver
    */
-  private rafSlideSize = (entries?: ResizeObserverEntry[]) => {
-    requestAnimationFrame(() => {
-      this.itemSize = this.sizingMethod(this, entries)
-      this.update()
-    })
+  private onResize = (entries?: ResizeObserverEntry[]) => {
+    this.itemSize = this.sizingMethod(this, entries)
+    this.update()
   }
 
   /**
