@@ -167,7 +167,7 @@ export class ScrollSnapSlider {
   /**
    * Updates the computed values
    */
-  update = () => {
+  public update = () => {
     this.slide = this.roundingMethod(this.element.scrollLeft / this.itemSize)
     this.slideScrollLeft = this.slide * this.itemSize
   }
