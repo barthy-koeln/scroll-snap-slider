@@ -9,8 +9,6 @@ const sliderSimpleElement = document.querySelector('.scroll-snap-slider.-simple'
 const slides = sliderSimpleElement.getElementsByClassName('scroll-snap-slide')
 const sliderSimple = new ScrollSnapSlider({ element: sliderSimpleElement })
 
-sliderSimple.name = 'simple'
-
 const autoplayPlugin = new ScrollSnapAutoplay()
 const loopPlugin = new ScrollSnapLoop()
 const draggablePlugin = new ScrollSnapDraggable(50)
@@ -62,29 +60,26 @@ next.addEventListener('click', function () {
 sliderSimple.addEventListener('slide-pass', setSelected)
 sliderSimple.addEventListener('slide-stop', setSelected)
 
-/** AUTOPLAY & LOOP **/
 const autoPlayInput = document.querySelector('#autoplay')
 const loopInput = document.querySelector('#loop')
 const draggableInput = document.querySelector('#draggable')
 
-const enablePlugin = function (plugin) {
+autoPlayInput.addEventListener('change', () => togglePlugin(autoPlayInput, autoplayPlugin))
+loopInput.addEventListener('change', () => togglePlugin(autoPlayInput, loopPlugin))
+draggableInput.addEventListener('change', () => togglePlugin(autoPlayInput, draggablePlugin))
+
+function enablePlugin (plugin) {
   plugin.enable()
   sliderSimple.plugins.set(plugin.id, plugin)
 }
 
-const disablePlugin = function (plugin) {
+function disablePlugin (plugin) {
   plugin.disable()
   sliderSimple.plugins.delete(plugin.id)
 }
 
-autoPlayInput.addEventListener('change', function () {
-  autoPlayInput.checked ? enablePlugin(autoplayPlugin) : disablePlugin(autoplayPlugin)
-})
-
-loopInput.addEventListener('change', function () {
-  loopInput.checked ? enablePlugin(loopPlugin) : disablePlugin(loopPlugin)
-})
-
-draggableInput.addEventListener('change', function () {
-  draggableInput.checked ? enablePlugin(draggablePlugin) : disablePlugin(draggablePlugin)
-})
+function togglePlugin (input, plugin) {
+  input.checked
+    ? enablePlugin(plugin)
+    : disablePlugin(plugin)
+}

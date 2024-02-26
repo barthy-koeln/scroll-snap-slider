@@ -28,6 +28,13 @@ Mostly CSS slider with great performance.
 - [Public Properties](#public-properties)
 - [Support](#support)
 
+## Features
+
+* Native touch integration (draggable)
+* Native scroll integration (any peripheral — if it can scroll, it can use this slider)
+* Full HTML slides (any content possible)
+* Usable with native DOM methods like `scrollIntoView()`
+
 ## Premise
 
 This library is an opinionated minimal implementation of a common feature across many websites.
@@ -53,10 +60,10 @@ the entrypoint changing from 'ScrollSnapSlider' to 'index'.
 |---------------------|-------------------|--------------------|
 | index               | 348 B             | 143 B              |
 | ScrollSnapAutoplay  | 1479 B            | 559 B              |
-| ScrollSnapDraggable | 2459 B            | 772 B              |
+| ScrollSnapDraggable | 2531 B            | 778 B              |
 | ScrollSnapLoop      | 1849 B            | 615 B              |
 | ScrollSnapPlugin    | 70 B              | 110 B              |
-| ScrollSnapSlider    | 2361 B            | 809 B              |
+| ScrollSnapSlider    | 2336 B            | 806 B              |
 
 ## Restrictions
 

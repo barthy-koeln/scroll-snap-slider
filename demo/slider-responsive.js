@@ -3,8 +3,6 @@ import { ScrollSnapSlider } from '../dist/scroll-snap-slider.mjs'
 const sliderResponsiveElement = document.querySelector('.scroll-snap-slider.-responsive')
 const sliderResponsive = new ScrollSnapSlider({ element: sliderResponsiveElement })
 
-sliderResponsive.name = 'responsive'
-
 const arrows = document.querySelector('.indicators.-responsive')
 const prev = document.querySelector('.indicators.-responsive .arrow.-prev')
 const next = document.querySelector('.indicators.-responsive .arrow.-next')

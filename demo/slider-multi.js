@@ -3,8 +3,6 @@ import { ScrollSnapSlider } from '../dist/scroll-snap-slider.mjs'
 const sliderMultiElement = document.querySelector('.scroll-snap-slider.-multi')
 const sliderMulti = new ScrollSnapSlider({ element: sliderMultiElement })
 
-sliderMulti.name = 'multi'
-
 const prev = document.querySelector('.indicators.-multi .arrow.-prev')
 const next = document.querySelector('.indicators.-multi .arrow.-next')
 

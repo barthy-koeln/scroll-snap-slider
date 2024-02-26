@@ -394,12 +394,7 @@
       this.addEventListener = this.element.addEventListener.bind(this.element);
       this.removeEventListener = this.element.removeEventListener.bind(this.element);
       this.plugins = /* @__PURE__ */ new Map();
-      this.resizeObserver = new ResizeObserver(this.rafSlideSize);
-      this.resizeObserver.observe(this.element);
-      for (const child of this.element.children) {
-        this.resizeObserver.observe(child);
-      }
-      this.rafSlideSize();
+      this.resizeObserver = new ResizeObserver(this.onResize);
       this.attachListeners();
     }
     /**
@@ -421,6 +416,10 @@
      */
     attachListeners() {
       this.addEventListener("scroll", this.onScroll, { passive: true });
+      this.resizeObserver.observe(this.element);
+      for (const child of this.element.children) {
+        this.resizeObserver.observe(child);
+      }
     }
     /**
      * Detach all listeners
@@ -428,6 +427,7 @@
     detachListeners() {
       this.removeEventListener("scroll", this.onScroll);
       this.scrollTimeoutId && clearTimeout(this.scrollTimeoutId);
+      this.resizeObserver.disconnect();
     }
     /**
      * Scroll to a slide by index.
@@ -472,11 +472,9 @@
      * This will recompute the <code>itemSize</code>
      * @param entries Optional entries delivered from a ResizeObserver
      */
-    rafSlideSize = (entries) => {
-      requestAnimationFrame(() => {
-        this.itemSize = this.sizingMethod(this, entries);
-        this.update();
-      });
+    onResize = (entries) => {
+      this.itemSize = this.sizingMethod(this, entries);
+      this.update();
     };
     /**
      * Dispatches an event on the slider's element
