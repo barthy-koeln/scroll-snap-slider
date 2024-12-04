@@ -93,6 +93,11 @@ class ScrollSnapAutoplay extends ScrollSnapPlugin {
       this.slider.slideTo(target);
     });
   };
+  resetInterval = () => {
+    if (this.interval)
+      clearInterval(this.interval);
+    this.interval = setInterval(this.onInterval, this.intervalDuration);
+  };
 }
 class ScrollSnapDraggable extends ScrollSnapPlugin {
   /**
@@ -430,6 +435,10 @@ class ScrollSnapSlider {
    */
   slideTo = (index) => {
     requestAnimationFrame(() => {
+      const autoplayPlugin = this.plugins.get("ScrollSnapAutoplay");
+      if (autoplayPlugin) {
+        autoplayPlugin.resetInterval();
+      }
       this.element.scrollTo({
         left: index * this.itemSize
       });

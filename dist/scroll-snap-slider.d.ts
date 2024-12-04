@@ -10,6 +10,7 @@ export declare class ScrollSnapAutoplay extends ScrollSnapPlugin {
     disable(): void;
     disableTemporarily: () => void;
     onInterval: () => void;
+    resetInterval: () => void;
 }
 
 export declare class ScrollSnapDraggable extends ScrollSnapPlugin {
