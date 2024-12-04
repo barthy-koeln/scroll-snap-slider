@@ -143,9 +143,12 @@ export class ScrollSnapSlider {
    * Scroll to a slide by index.
    */
   public slideTo = (index: number) => {
+    const doesUserPreferReducedMotion = window.matchMedia('(prefers-reduced-motion)').matches
+
     requestAnimationFrame(() => {
       this.element.scrollTo({
-        left: index * this.itemSize
+        left: index * this.itemSize,
+        behavior: doesUserPreferReducedMotion ? 'instant' : 'smooth',
       })
     })
   }
