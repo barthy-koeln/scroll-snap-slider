@@ -100,7 +100,9 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
 
     requestAnimationFrame(() => {
       const { scrollLeft, offsetWidth, scrollWidth } = this.slider.element
-      const isLastSlide = scrollLeft + offsetWidth === scrollWidth
+
+      // check if calculated scroll width is within 10px, since the numbers are a bit off sometimes
+      const isLastSlide = Math.abs((scrollLeft + offsetWidth) - scrollWidth) <= 10;
       const target = isLastSlide ? 0 : this.slider.slide + 1
 
       this.slider.slideTo(target)
