@@ -1,4 +1,5 @@
 import { ScrollSnapPlugin } from './ScrollSnapPlugin'
+import type { ScrollSnapAutoplay } from './ScrollSnapAutoplay';
 
 /**
  * All options have sensitive defaults. The only required option is the <code>element</code>.
@@ -144,6 +145,12 @@ export class ScrollSnapSlider {
    */
   public slideTo = (index: number) => {
     requestAnimationFrame(() => {
+      // reset autoplay interval when slide is changed and plugin is registered
+      const autoplayPlugin = this.plugins.get('ScrollSnapAutoplay') as ScrollSnapAutoplay | undefined
+      if (autoplayPlugin) {
+        autoplayPlugin.resetInterval()
+      }
+
       this.element.scrollTo({
         left: index * this.itemSize
       })

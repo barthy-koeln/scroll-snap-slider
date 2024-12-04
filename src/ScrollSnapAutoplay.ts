@@ -106,4 +106,9 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
       this.slider.slideTo(target)
     })
   }
+
+  public resetInterval = () => {
+    if (this.interval) clearInterval(this.interval)
+    this.interval = setInterval(this.onInterval, this.intervalDuration)
+  }
 }
