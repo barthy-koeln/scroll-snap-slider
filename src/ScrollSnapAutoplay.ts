@@ -1,4 +1,5 @@
 import { ScrollSnapPlugin } from './ScrollSnapPlugin.js'
+import { Timer } from './utils';
 
 /**
  * @classdesc Plugin that automatically changes slides.
@@ -20,9 +21,10 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
   private debounceId: number | null
 
   /**
-   * Interval ID
+   * Timer instance to handle the interval
+   * @private
    */
-  private interval: number | null
+  private timer: Timer
 
   /**
    * Event names that temporarily disable the autoplay behaviour
@@ -34,8 +36,8 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
 
     this.intervalDuration = intervalDuration
     this.timeoutDuration = timeoutDuration
-    this.interval = null
     this.events = events
+    this.timer = new Timer(this.onInterval, this.intervalDuration);
   }
 
   /**
@@ -52,7 +54,7 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
   public enable = () => {
     this.debounceId && clearTimeout(this.debounceId)
     this.debounceId = null
-    this.interval = setInterval(this.onInterval, this.intervalDuration)
+    this.timer.start();
 
     for (const event of this.events) {
       this.slider.addEventListener(event, this.disableTemporarily, { passive: true })
@@ -68,8 +70,7 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
       this.slider.removeEventListener(event, this.disableTemporarily)
     }
 
-    this.interval && clearInterval(this.interval)
-    this.interval = null
+    this.timer.stop();
     this.debounceId && clearTimeout(this.debounceId)
     this.debounceId = null
   }
@@ -78,13 +79,7 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
    * Disable the autoplay behaviour and set a timeout to re-enable it.
    */
   public disableTemporarily = () => {
-    if (!this.interval) {
-      return
-    }
-
-    clearInterval(this.interval)
-    this.interval = null
-
+    this.timer.stop()
     this.debounceId && clearTimeout(this.debounceId)
     this.debounceId = setTimeout(this.enable, this.timeoutDuration)
   }
@@ -107,8 +102,11 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
     })
   }
 
-  public resetInterval = () => {
-    if (this.interval) clearInterval(this.interval)
-    this.interval = setInterval(this.onInterval, this.intervalDuration)
+  /**
+   * Restart the interval
+   */
+  public restartInterval() {
+    this.timer.reset();
+    this.timer.start();
   }
 }
