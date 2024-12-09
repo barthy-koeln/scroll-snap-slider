@@ -194,9 +194,7 @@ You can add one or multiple of the available Plugins:
   necessary for touch sliding.
 
 ```javascript
-import { ScrollSnapSlider } from 'scroll-snap-slider/src/ScrollSnapSlider.js'
-import { ScrollSnapAutoplay } from 'scroll-snap-slider/src/ScrollSnapAutoplay.js'
-import { ScrollSnapLoop } from 'scroll-snap-slider/src/ScrollSnapLoop.js'
+import { ScrollSnapSlider, ScrollSnapAutoplay, ScrollSnapLoop } from 'scroll-snap-slider';
 
 const element = document.querySelector('.example-slider')
 const slider = new ScrollSnapSlider({ element }).with([
