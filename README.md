@@ -56,14 +56,9 @@ Here are the sizes of individual modules, using terser and gzip with default opt
 The size increase at [bundlephobia](https://bundlephobia.com/result?p=scroll-snap-slider) between v2 and v3 is due to
 the entrypoint changing from 'ScrollSnapSlider' to 'index'.
 
-| Item                | minified (terser) | minified + gzipped |
-|---------------------|-------------------|--------------------|
-| index               | 348 B             | 143 B              |
-| ScrollSnapAutoplay  | 1479 B            | 559 B              |
-| ScrollSnapDraggable | 2531 B            | 778 B              |
-| ScrollSnapLoop      | 1849 B            | 615 B              |
-| ScrollSnapPlugin    | 70 B              | 110 B              |
-| ScrollSnapSlider    | 2336 B            | 806 B              |
+| Item             | minified (terser) | minified + gzipped |
+|------------------|-------------------|--------------------|
+| complete exports | 8462 B            | 2140 B             |
 
 ## Restrictions
 

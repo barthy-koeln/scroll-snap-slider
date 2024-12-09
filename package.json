@@ -42,6 +42,7 @@
     "stylelint-config-standard": "^36.0.0",
     "stylelint-config-standard-scss": "^13.0.0",
     "stylelint-order": "^6.0.4",
+    "terser": "^5.37.0",
     "typedoc": "^0.25.9",
     "typescript": "^5.3.3",
     "vite": "^5.1.4",
@@ -50,7 +51,8 @@
   "scripts": {
     "build:doc": "typedoc --options ./typedoc.json src",
     "build:css": "sass --style expanded src/scroll-snap-slider.scss > dist/scroll-snap-slider.css",
-    "build": "./calculate-sizes && vite build && yarn build:doc && yarn build:css",
+    "build": "vite build && yarn build:doc && yarn build:css",
     "dev": "vite dev"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

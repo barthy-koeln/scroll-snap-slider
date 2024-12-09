@@ -1,31 +1,26 @@
 #!/usr/bin/env bash
 
-rm ./dist/*
+DIR=$(dirname "$(realpath "$0")")
+FILES=$(ls "$DIR/dist/"*.js)
 
-tsc
-
-FILES=$(ls ./dist/*.js)
-
-echo "| Item                   | minified (terser)     | minified + gzipped    |"
-echo "|------------------------|-----------------------|-----------------------|"
+echo "| Item                           | minified (terser)     | minified + gzipped    |"
+echo "|--------------------------------|-----------------------|-----------------------|"
 
 
 for FILE in $FILES; do
   BASENAME=$(basename "$FILE" .js)
-  MINIFIED="./dist/$BASENAME.js.min"
-  ZIPPED="./dist/$BASENAME.js.gz"
+  MINIFIED="$DIR/dist/$BASENAME.js.min"
+  ZIPPED="$DIR/dist/$BASENAME.js.gz"
   terser --module --rename "$FILE" >"$MINIFIED"
   gzip -c "$MINIFIED" >"$ZIPPED"
 
   PADDING=' '
-  if [[ "$BASENAME" == 'index' ]]; then
-    PADDING="\t\t"
+  if [[ "$BASENAME" == 'scroll-snap-slider' ]]; then
+    PADDING="\t"
   fi
 
-  echo -e "| $BASENAME$PADDING\t | $(stat --printf="%s" "$MINIFIED") B \t\t | $(stat --printf="%s" "$ZIPPED") B \t\t |"
+  echo -e "| $BASENAME$PADDING\t | $(gstat --printf="%s" "$MINIFIED") B \t\t | $(gstat --printf="%s" "$ZIPPED") B \t\t |"
 
-  rm "$FILE"
-  rm "dist/$BASENAME.d.ts"
   rm "$MINIFIED"
   rm "$ZIPPED"
 done

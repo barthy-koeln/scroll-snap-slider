@@ -1,4 +1,4 @@
-import { ScrollSnapPlugin } from './ScrollSnapPlugin.js'
+import { ScrollSnapPlugin } from './ScrollSnapPlugin.js';
 
 /**
  * @classdesc Plugin that automatically changes slides.
@@ -7,42 +7,42 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
   /**
    * Duration in milliseconds between slide changes
    */
-  public intervalDuration: number
+  public intervalDuration: number;
 
   /**
    * Duration in milliseconds after human interaction where the slider will not autoplay
    */
-  public timeoutDuration: number
+  public timeoutDuration: number;
 
   /**
    * Used to debounce the re-enabling after a user interaction
    */
-  private debounceId: number | null
+  private debounceId: number | null;
 
   /**
    * Interval ID
    */
-  private interval: number | null
+  private interval: number | null;
 
   /**
    * Event names that temporarily disable the autoplay behaviour
    */
-  private readonly events: string[]
+  private readonly events: string[];
 
   public constructor(intervalDuration = 3141, timeoutDuration = 6282, events: string[] = ['touchmove', 'wheel']) {
-    super()
+    super();
 
-    this.intervalDuration = intervalDuration
-    this.timeoutDuration = timeoutDuration
-    this.interval = null
-    this.events = events
+    this.intervalDuration = intervalDuration;
+    this.timeoutDuration = timeoutDuration;
+    this.interval = null;
+    this.events = events;
   }
 
   /**
    * @inheritDoc
    */
   public get id(): string {
-    return 'ScrollSnapAutoplay'
+    return 'ScrollSnapAutoplay';
   }
 
   /**
@@ -50,14 +50,14 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
    * @override
    */
   public enable = () => {
-    this.debounceId && clearTimeout(this.debounceId)
-    this.debounceId = null
-    this.interval = setInterval(this.onInterval, this.intervalDuration)
+    this.debounceId && clearTimeout(this.debounceId);
+    this.debounceId = null;
+    this.interval = setInterval(this.onInterval, this.intervalDuration);
 
     for (const event of this.events) {
-      this.slider.addEventListener(event, this.disableTemporarily, { passive: true })
+      this.slider.addEventListener(event, this.disableTemporarily, { passive: true });
     }
-  }
+  };
 
   /**
    * @inheritDoc
@@ -65,13 +65,13 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
    */
   public disable(): void {
     for (const event of this.events) {
-      this.slider.removeEventListener(event, this.disableTemporarily)
+      this.slider.removeEventListener(event, this.disableTemporarily);
     }
 
-    this.interval && clearInterval(this.interval)
-    this.interval = null
-    this.debounceId && clearTimeout(this.debounceId)
-    this.debounceId = null
+    this.interval && clearInterval(this.interval);
+    this.interval = null;
+    this.debounceId && clearTimeout(this.debounceId);
+    this.debounceId = null;
   }
 
   /**
@@ -79,31 +79,31 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
    */
   public disableTemporarily = () => {
     if (!this.interval) {
-      return
+      return;
     }
 
-    clearInterval(this.interval)
-    this.interval = null
+    clearInterval(this.interval);
+    this.interval = null;
 
-    this.debounceId && clearTimeout(this.debounceId)
-    this.debounceId = setTimeout(this.enable, this.timeoutDuration)
-  }
+    this.debounceId && clearTimeout(this.debounceId);
+    this.debounceId = setTimeout(this.enable, this.timeoutDuration);
+  };
 
   /**
    * Callback for regular intervals to continue to the next slide
    */
   public onInterval = () => {
     if (this.slider.plugins.has('ScrollSnapLoop')) {
-      this.slider.slideTo(this.slider.slide + 1)
-      return
+      this.slider.slideTo(this.slider.slide + 1);
+      return;
     }
 
     requestAnimationFrame(() => {
-      const { scrollLeft, offsetWidth, scrollWidth } = this.slider.element
-      const isLastSlide = scrollLeft + offsetWidth === scrollWidth
-      const target = isLastSlide ? 0 : this.slider.slide + 1
+      const { scrollLeft, offsetWidth, scrollWidth } = this.slider.element;
+      const isLastSlide = scrollLeft + offsetWidth === scrollWidth;
+      const target = isLastSlide ? 0 : this.slider.slide + 1;
 
-      this.slider.slideTo(target)
-    })
-  }
+      this.slider.slideTo(target);
+    });
+  };
 }

@@ -85,6 +85,7 @@ var ScrollSnapSlider = function(exports) {
      */
     onInterval = () => {
       if (this.slider.plugins.has("ScrollSnapLoop")) {
+        console.info("has scroll-snap");
         this.slider.slideTo(this.slider.slide + 1);
         return;
       }
@@ -92,6 +93,10 @@ var ScrollSnapSlider = function(exports) {
         const { scrollLeft, offsetWidth, scrollWidth } = this.slider.element;
         const isLastSlide = scrollLeft + offsetWidth === scrollWidth;
         const target = isLastSlide ? 0 : this.slider.slide + 1;
+        console.info({
+          test: scrollLeft + offsetWidth,
+          compare: scrollWidth
+        });
         this.slider.slideTo(target);
       });
     };
