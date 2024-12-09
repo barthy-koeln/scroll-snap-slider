@@ -9,6 +9,12 @@
   scroll-snap-type: x mandatory;
 }
 
+@media (prefers-reduced-motion) {
+  .scroll-snap-slider {
+    scroll-behavior: auto;
+  }
+}
+
 .scroll-snap-slider:not(.-show-scroll-bar) {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
