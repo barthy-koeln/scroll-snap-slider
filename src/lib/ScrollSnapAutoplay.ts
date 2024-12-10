@@ -1,4 +1,4 @@
-import { ScrollSnapPlugin } from './ScrollSnapPlugin.js';
+import { ScrollSnapPlugin } from './ScrollSnapPlugin';
 
 /**
  * @classdesc Plugin that automatically changes slides.

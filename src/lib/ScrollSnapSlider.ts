@@ -1,10 +1,18 @@
-import { ScrollSnapPlugin } from './ScrollSnapPlugin'
+import { ScrollSnapPlugin } from './ScrollSnapPlugin';
 
 /**
  * All options have sensitive defaults. The only required option is the <code>element</code>.
  */
 export type ScrollSnapSliderOptions = Partial<ScrollSnapSlider> & {
   element: HTMLElement
+}
+
+declare global {
+  interface HTMLElementEventMap {
+    'slide-pass': CustomEvent<number>;
+    'slide-stop': CustomEvent<number>;
+    'slide-start': CustomEvent<number>;
+  }
 }
 
 /**
@@ -14,22 +22,22 @@ export class ScrollSnapSlider {
   /**
    * Base element of this slider
    */
-  public element: HTMLElement
+  public element: HTMLElement;
 
   /**
    * additional behaviour
    */
-  public plugins: Map<string, ScrollSnapPlugin>
+  public plugins: Map<string, ScrollSnapPlugin>;
 
   /**
    * @inheritDoc
    */
-  public removeEventListener: HTMLElement['removeEventListener']
+  public removeEventListener: HTMLElement['removeEventListener'];
 
   /**
    * @inheritDoc
    */
-  public addEventListener: HTMLElement['addEventListener']
+  public addEventListener: HTMLElement['addEventListener'];
 
   /**
    * Rounding method used to calculate the current slide (e.g. Math.floor, Math.round, Math.ceil, or totally custom.)
@@ -37,17 +45,17 @@ export class ScrollSnapSlider {
    * @param value - factor indicating th current position (e.g "0" for first slide, "2.5" for third slide and a half)
    * @return f(x) - integer factor indicating the currently 'active' slide.
    */
-  public roundingMethod: (value: number) => number
+  public roundingMethod: (value: number) => number;
 
   /**
    * Timeout delay in milliseconds used to catch the end of scroll events
    */
-  public scrollTimeout: number
+  public scrollTimeout: number;
 
   /**
    * Calculated size of a single item
    */
-  public itemSize: number
+  public itemSize: number;
 
   /**
    * Computes a single number representing the slides widths.
@@ -58,48 +66,48 @@ export class ScrollSnapSlider {
    * @param entries resized entries
    * @return integer size of a slide in pixels
    */
-  public sizingMethod: (slider: ScrollSnapSlider, entries?: ResizeObserverEntry[] | undefined) => number
+  public sizingMethod: (slider: ScrollSnapSlider, entries?: ResizeObserverEntry[] | undefined) => number;
 
   /**
    * Active slide
    */
-  public slide: number
+  public slide: number;
 
   /**
    * Resize observer used to update item size
    */
-  private resizeObserver: ResizeObserver
+  private resizeObserver: ResizeObserver;
 
   /**
    * Timeout ID used to catch the end of scroll events
    */
-  private scrollTimeoutId: null | number
+  private scrollTimeoutId: null | number;
 
   /**
    * Active slide's scrollLeft in the containing element
    */
-  private slideScrollLeft: number
+  private slideScrollLeft: number;
 
   /**
    * Bind methods and possibly attach listeners.
    */
-  constructor (options: ScrollSnapSliderOptions) {
+  constructor(options: ScrollSnapSliderOptions) {
     Object.assign(this, {
       scrollTimeout: 100,
       roundingMethod: Math.round,
       sizingMethod: (slider: ScrollSnapSlider) => {
-        return (slider.element.firstElementChild as HTMLElement).offsetWidth
+        return (slider.element.firstElementChild as HTMLElement).offsetWidth;
       },
-      ...options
-    })
+      ...options,
+    });
 
-    this.scrollTimeoutId = null
-    this.addEventListener = this.element.addEventListener.bind(this.element)
-    this.removeEventListener = this.element.removeEventListener.bind(this.element)
-    this.plugins = new Map<string, ScrollSnapPlugin>()
+    this.scrollTimeoutId = null;
+    this.addEventListener = this.element.addEventListener.bind(this.element);
+    this.removeEventListener = this.element.removeEventListener.bind(this.element);
+    this.plugins = new Map<string, ScrollSnapPlugin>();
 
-    this.resizeObserver = new ResizeObserver(this.onResize)
-    this.attachListeners()
+    this.resizeObserver = new ResizeObserver(this.onResize);
+    this.attachListeners();
   }
 
   /**
@@ -108,35 +116,35 @@ export class ScrollSnapSlider {
    * @param plugins Plugins to attach
    * @param enabled Whether the plugins are enabled right away
    */
-  public with (plugins: ScrollSnapPlugin[], enabled = true): ScrollSnapSlider {
+  public with(plugins: ScrollSnapPlugin[], enabled = true): ScrollSnapSlider {
     for (const plugin of plugins) {
-      plugin.slider = this
-      this.plugins.set(plugin.id, plugin)
-      enabled && plugin.enable()
+      plugin.slider = this;
+      this.plugins.set(plugin.id, plugin);
+      enabled && plugin.enable();
     }
 
-    return this
+    return this;
   }
 
   /**
    * Attach all necessary listeners
    */
-  public attachListeners (): void {
-    this.addEventListener('scroll', this.onScroll, { passive: true })
+  public attachListeners(): void {
+    this.addEventListener('scroll', this.onScroll, { passive: true });
 
-    this.resizeObserver.observe(this.element)
+    this.resizeObserver.observe(this.element);
     for (const child of this.element.children) {
-      this.resizeObserver.observe(child)
+      this.resizeObserver.observe(child);
     }
   }
 
   /**
    * Detach all listeners
    */
-  public detachListeners (): void {
-    this.removeEventListener('scroll', this.onScroll)
-    this.scrollTimeoutId && clearTimeout(this.scrollTimeoutId)
-    this.resizeObserver.disconnect()
+  public detachListeners(): void {
+    this.removeEventListener('scroll', this.onScroll);
+    this.scrollTimeoutId && clearTimeout(this.scrollTimeoutId);
+    this.resizeObserver.disconnect();
   }
 
   /**
@@ -145,22 +153,22 @@ export class ScrollSnapSlider {
   public slideTo = (index: number) => {
     requestAnimationFrame(() => {
       this.element.scrollTo({
-        left: index * this.itemSize
-      })
-    })
-  }
+        left: index * this.itemSize,
+      });
+    });
+  };
 
   /**
    * Free resources and listeners, disable plugins
    */
-  public destroy (): void {
-    this.scrollTimeoutId && clearTimeout(this.scrollTimeoutId)
-    this.detachListeners()
+  public destroy(): void {
+    this.scrollTimeoutId && clearTimeout(this.scrollTimeoutId);
+    this.detachListeners();
 
     for (const [id, plugin] of this.plugins) {
-      plugin.disable()
-      plugin.slider = null
-      this.plugins.delete(id)
+      plugin.disable();
+      plugin.slider = null;
+      this.plugins.delete(id);
     }
   }
 
@@ -168,39 +176,39 @@ export class ScrollSnapSlider {
    * Updates the computed values
    */
   public update = () => {
-    this.slide = this.roundingMethod(this.element.scrollLeft / this.itemSize)
-    this.slideScrollLeft = this.slide * this.itemSize
-  }
+    this.slide = this.roundingMethod(this.element.scrollLeft / this.itemSize);
+    this.slideScrollLeft = this.slide * this.itemSize;
+  };
 
   /**
    * Calculate all necessary things and dispatch an event when sliding stops
    */
   private onScrollEnd = () => {
     requestAnimationFrame(() => {
-      this.scrollTimeoutId = null
-      this.update()
-      this.dispatch('slide-stop', this.slide)
-    })
-  }
+      this.scrollTimeoutId = null;
+      this.update();
+      this.dispatch('slide-stop', this.slide);
+    });
+  };
 
   /**
    * This will recompute the <code>itemSize</code>
    * @param entries Optional entries delivered from a ResizeObserver
    */
   private onResize = (entries?: ResizeObserverEntry[]) => {
-    this.itemSize = this.sizingMethod(this, entries)
-    this.update()
-  }
+    this.itemSize = this.sizingMethod(this, entries);
+    this.update();
+  };
 
   /**
    * Dispatches an event on the slider's element
    */
-  private dispatch (event: string, detail: unknown): boolean {
+  private dispatch<DetailType>(event: string, detail?: DetailType): boolean {
     return this.element.dispatchEvent(
       new CustomEvent(event, {
-        detail
-      })
-    )
+        detail,
+      }),
+    );
   }
 
   /**
@@ -208,21 +216,21 @@ export class ScrollSnapSlider {
    */
   private onScroll = () => {
     requestAnimationFrame(() => {
-      const { scrollLeft } = this.element
-      const newSlide = this.roundingMethod(scrollLeft / this.itemSize)
+      const { scrollLeft } = this.element;
+      const newSlide = this.roundingMethod(scrollLeft / this.itemSize);
 
       if (null === this.scrollTimeoutId) {
-        const direction = (scrollLeft > this.slideScrollLeft) ? 1 : -1
-        this.dispatch('slide-start', this.slide + direction)
+        const direction = (scrollLeft > this.slideScrollLeft) ? 1 : -1;
+        this.dispatch('slide-start', this.slide + direction);
       }
 
       if (newSlide !== this.slide) {
-        this.update()
-        this.dispatch('slide-pass', this.slide)
+        this.update();
+        this.dispatch('slide-pass', this.slide);
       }
 
-      this.scrollTimeoutId && clearTimeout(this.scrollTimeoutId)
-      this.scrollTimeoutId = setTimeout(this.onScrollEnd, this.scrollTimeout)
-    })
-  }
+      this.scrollTimeoutId && clearTimeout(this.scrollTimeoutId);
+      this.scrollTimeoutId = setTimeout(this.onScrollEnd, this.scrollTimeout);
+    });
+  };
 }

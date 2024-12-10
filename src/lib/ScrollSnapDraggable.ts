@@ -1,4 +1,4 @@
-import { ScrollSnapPlugin } from './ScrollSnapPlugin.js'
+import { ScrollSnapPlugin } from './ScrollSnapPlugin'
 
 /**
  * @classdesc Plugin that enables mouse/pointer drag. Note, that touch interaction is enabled natively in all browsers.

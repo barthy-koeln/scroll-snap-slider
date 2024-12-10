@@ -14,6 +14,7 @@
     scroll-behavior: auto;
   }
 }
+
 .scroll-snap-slider:not(.-show-scroll-bar) {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */

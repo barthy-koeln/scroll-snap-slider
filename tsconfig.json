@@ -10,10 +10,14 @@
     "target": "ESNext",
     "declaration": true,
     "moduleResolution": "Node",
-    "types": []
+    "types": [],
+    "paths": {
+      "@/*": ["./src/*"],
+      "scroll-snap-slider": ["./src/lib/index.ts", "./src/lib/*"],
+    }
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*"
   ],
   "exclude": [
     "node_modules"
@@ -26,7 +30,7 @@
       "node_modules"
     ],
     "entryPointStrategy": "expand",
-    "out": "docs"
+    "out": "demo/docs"
   },
   "references": [
     {

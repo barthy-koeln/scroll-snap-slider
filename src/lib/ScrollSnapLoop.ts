@@ -1,4 +1,4 @@
-import { ScrollSnapPlugin } from './ScrollSnapPlugin.js'
+import { ScrollSnapPlugin } from './ScrollSnapPlugin'
 
 /**
  * Plugin to loop around to the first slide at the end and to the last slide at the start

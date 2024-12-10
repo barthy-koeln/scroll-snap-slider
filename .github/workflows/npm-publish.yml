@@ -12,10 +12,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
           registry-url: https://registry.npmjs.org/
           always-auth: true
       - run: yarn
+      - run: yarn build --mode=lib
+        env:
+            NODE_ENV: production
       - run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

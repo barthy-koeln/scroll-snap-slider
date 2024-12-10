@@ -2,11 +2,12 @@ import {
   ScrollSnapAutoplay,
   ScrollSnapDraggable,
   ScrollSnapLoop,
-  ScrollSnapSlider
-} from '../dist/scroll-snap-slider.mjs'
+  ScrollSnapPlugin,
+  ScrollSnapSlider,
+} from 'scroll-snap-slider'
 
-const sliderSimpleElement = document.querySelector('.scroll-snap-slider.-simple')
-const slides = sliderSimpleElement.getElementsByClassName('scroll-snap-slide')
+const sliderSimpleElement = document.querySelector<HTMLElement>('.scroll-snap-slider.-simple')
+const slides = sliderSimpleElement.getElementsByClassName('scroll-snap-slide') as HTMLCollectionOf<HTMLElement>
 const sliderSimple = new ScrollSnapSlider({ element: sliderSimpleElement })
 
 const autoplayPlugin = new ScrollSnapAutoplay()
@@ -17,12 +18,12 @@ autoplayPlugin.slider = sliderSimple
 loopPlugin.slider = sliderSimple
 draggablePlugin.slider = sliderSimple
 
-const buttons = document.querySelectorAll('.indicators.-simple .indicator')
+const buttons = document.querySelectorAll<HTMLButtonElement>('.indicators.-simple .indicator')
 const currentIndicator = document.querySelector('.indicators.-simple .current-indicator')
 const prev = document.querySelector('.indicators.-simple .arrow.-prev')
 const next = document.querySelector('.indicators.-simple .arrow.-next')
 
-const setSelected = function (event) {
+const setSelected = function (event: CustomEvent<number>) {
   const slideElementIndex = event.detail
   const slideElement = slides[slideElementIndex]
 
@@ -60,25 +61,25 @@ next.addEventListener('click', function () {
 sliderSimple.addEventListener('slide-pass', setSelected)
 sliderSimple.addEventListener('slide-stop', setSelected)
 
-const autoPlayInput = document.querySelector('#autoplay')
-const loopInput = document.querySelector('#loop')
-const draggableInput = document.querySelector('#draggable')
+const autoPlayInput = document.querySelector<HTMLInputElement>('#autoplay')
+const loopInput = document.querySelector<HTMLInputElement>('#loop')
+const draggableInput = document.querySelector<HTMLInputElement>('#draggable')
 
 autoPlayInput.addEventListener('change', () => togglePlugin(autoPlayInput, autoplayPlugin))
-loopInput.addEventListener('change', () => togglePlugin(autoPlayInput, loopPlugin))
-draggableInput.addEventListener('change', () => togglePlugin(autoPlayInput, draggablePlugin))
+loopInput.addEventListener('change', () => togglePlugin(loopInput, loopPlugin))
+draggableInput.addEventListener('change', () => togglePlugin(draggableInput, draggablePlugin))
 
-function enablePlugin (plugin) {
+function enablePlugin(plugin: ScrollSnapPlugin) {
   plugin.enable()
   sliderSimple.plugins.set(plugin.id, plugin)
 }
 
-function disablePlugin (plugin) {
+function disablePlugin(plugin: ScrollSnapPlugin) {
   plugin.disable()
   sliderSimple.plugins.delete(plugin.id)
 }
 
-function togglePlugin (input, plugin) {
+function togglePlugin(input: HTMLInputElement, plugin: ScrollSnapPlugin) {
   input.checked
     ? enablePlugin(plugin)
     : disablePlugin(plugin)
