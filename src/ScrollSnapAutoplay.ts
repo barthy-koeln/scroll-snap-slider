@@ -50,8 +50,8 @@ export class ScrollSnapAutoplay extends ScrollSnapPlugin {
    * @override
    */
   public enable = () => {
-    this.debounceId && clearTimeout(this.debounceId);
-    this.debounceId = null;
+    this.disable()
+
     this.interval = setInterval(this.onInterval, this.intervalDuration);
 
     for (const event of this.events) {
