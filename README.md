@@ -27,6 +27,7 @@ Mostly CSS slider with great performance.
 - [Events](#events)
 - [Public Properties](#public-properties)
 - [Support](#support)
+- [Contributing](#contributing)
 
 ## Features
 
@@ -116,8 +117,8 @@ Prevents page navigation on horizontal scrolling, i.E. on macOS.
 
 ```css
 .scroll-snap-slider {
-    overscroll-behavior-x: none;
-    overscroll-behavior-y: auto;
+  overscroll-behavior-x: none;
+  overscroll-behavior-y: auto;
 }
 ```
 
@@ -126,7 +127,7 @@ Prevents scrolling past elements in the slider:
 
 ```css
 .scroll-snap-slide {
-    scroll-snap-stop: always;
+  scroll-snap-stop: always;
 }
 ```
 
@@ -276,3 +277,16 @@ You can use the proxy methods `addEventListener` and `removeEventListener` to li
 
 Check out the [support tables for CSS scroll snap](https://caniuse.com/css-snappoints).
 Note that it's up to you to inject or add vendor specific code.
+
+## Contributing
+
+Feel free to open issues and pull requests, but keep the minimalist approach of this project in mind. When in doubt,
+open an issue first and we can discuss.
+
+### Running locally
+
+```shell
+yarn # install deps
+yarn dev # run a local dev-server of the demo
+yarn build # build the module 
+```
