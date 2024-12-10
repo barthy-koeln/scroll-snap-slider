@@ -15,7 +15,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
           always-auth: true
       - run: yarn
-      - run: yarn build --mode=lib
+      - run: yarn build:lib
         env:
             NODE_ENV: production
       - run: yarn publish

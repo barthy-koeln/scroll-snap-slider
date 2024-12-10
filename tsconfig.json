@@ -30,7 +30,8 @@
       "node_modules"
     ],
     "entryPointStrategy": "expand",
-    "out": "demo/docs"
+    "out": "demo/docs",
+    "githubPages": true,
   },
   "references": [
     {

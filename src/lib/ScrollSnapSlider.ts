@@ -16,7 +16,7 @@ declare global {
 }
 
 /**
- * @classdesc Mostly CSS slider with great performance.
+ * Mostly CSS slider with great performance.
  */
 export class ScrollSnapSlider {
   /**

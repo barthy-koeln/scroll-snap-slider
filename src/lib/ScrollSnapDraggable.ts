@@ -1,7 +1,7 @@
 import { ScrollSnapPlugin } from './ScrollSnapPlugin'
 
 /**
- * @classdesc Plugin that enables mouse/pointer drag. Note, that touch interaction is enabled natively in all browsers.
+ * Plugin that enables mouse/pointer drag. Note, that touch interaction is enabled natively in all browsers.
  */
 export class ScrollSnapDraggable extends ScrollSnapPlugin {
 

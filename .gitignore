@@ -29,5 +29,5 @@ node_modules/
 ### IDE
 .idea
 
-demo
-dist
+/demo
+/dist

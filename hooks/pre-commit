@@ -20,9 +20,9 @@ if ! eslint --fix $(find "$DIRECTORIES" -type f -name '*.js'); then
   exit 1
 fi
 
-e_info "Linting & Fixing SCSS Code Style"
-if ! stylelint --fix $(find "$DIRECTORIES" -type f -name '*.scss'); then
-  e_error "Error in SCSS file. Run ${YELLOW}stylelint *.scss${RESET} to check."
+e_info "Linting & Fixing CSS Code Style"
+if ! stylelint --fix $(find "$DIRECTORIES" -type f -name '*.css'); then
+  e_error "Error in CSS file. Run ${YELLOW}stylelint *.css${RESET} to check."
   exit 1
 fi
 

@@ -37,21 +37,21 @@
     "eslint-plugin-promise": "6.1.1",
     "postcss": "^8.4.35",
     "postcss-scss": "^4.0.9",
-    "sass": "^1.71.1",
     "stylelint": "^16.2.1",
     "stylelint-config-standard": "^36.0.0",
     "stylelint-config-standard-scss": "^13.0.0",
     "stylelint-order": "^6.0.4",
     "terser": "^5.37.0",
-    "typedoc": "^0.25.9",
+    "typedoc": "^0.27.4",
     "typescript": "^5.3.3",
     "vite": "5.4.6",
     "vite-plugin-dts": "^3.7.3"
   },
   "scripts": {
-    "build:doc": "typedoc --options ./typedoc.json src",
+    "build:doc": "typedoc --tsconfig tsconfig.json --options ./typedoc.json src",
     "build:css": "mkdir -p dist && cp src/lib/scroll-snap-slider.css dist/scroll-snap-slider.css",
-    "build": "vite build && yarn build:doc && yarn build:css",
+    "build:demo": "vite build --mode demo --base scroll-snap-slider && yarn build:doc",
+    "build:lib": "vite build --mode lib && yarn build:css",
     "dev": "vite dev"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
