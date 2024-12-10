@@ -48,8 +48,7 @@ class ScrollSnapAutoplay extends ScrollSnapPlugin {
    * @override
    */
   enable = () => {
-    this.debounceId && clearTimeout(this.debounceId);
-    this.debounceId = null;
+    this.disable();
     this.interval = setInterval(this.onInterval, this.intervalDuration);
     for (const event of this.events) {
       this.slider.addEventListener(event, this.disableTemporarily, { passive: true });
@@ -85,7 +84,6 @@ class ScrollSnapAutoplay extends ScrollSnapPlugin {
    */
   onInterval = () => {
     if (this.slider.plugins.has("ScrollSnapLoop")) {
-      console.info("has scroll-snap");
       this.slider.slideTo(this.slider.slide + 1);
       return;
     }
@@ -93,10 +91,6 @@ class ScrollSnapAutoplay extends ScrollSnapPlugin {
       const { scrollLeft, offsetWidth, scrollWidth } = this.slider.element;
       const isLastSlide = scrollLeft + offsetWidth === scrollWidth;
       const target = isLastSlide ? 0 : this.slider.slide + 1;
-      console.info({
-        test: scrollLeft + offsetWidth,
-        compare: scrollWidth
-      });
       this.slider.slideTo(target);
     });
   };
