@@ -47,7 +47,6 @@
     "build:css": "mkdir -p dist && cp src/lib/scroll-snap-slider.css dist/scroll-snap-slider.css",
     "build:demo": "vite build --mode demo --base scroll-snap-slider && yarn build:doc",
     "build:lib": "vite build --mode lib && yarn build:css",
-    "publish": "npm publish",
     "dev": "vite dev"
   },
   "packageManager": "yarn@4.6.0"
