@@ -10,21 +10,24 @@ source "$DIR/../node_modules/.bin/echolorized"
 
 colored_output "$GREEN" "\n[EXECUTING PRE COMMIT HOOK]"
 
-e_info "Removing Console Usage"
-
 DIRECTORIES="src"
 
-e_info "Linting & Fixing JS Code Style"
-if ! eslint --fix $(find "$DIRECTORIES" -type f -name '*.js'); then
-  e_error "JavaScript Error in JavaScript file. Run ${YELLOW}eslint src/**/*.js${RESET} to check."
+if grep "console" $(find "$DIRECTORIES" -type f -name '*.ts') > /dev/null; then
+  e_error "Remove console.log from the code."
   exit 1
 fi
 
-e_info "Linting & Fixing CSS Code Style"
-if ! stylelint --fix $(find "$DIRECTORIES" -type f -name '*.css'); then
-  e_error "Error in CSS file. Run ${YELLOW}stylelint *.css${RESET} to check."
-  exit 1
-fi
+#e_info "Linting & Fixing JS Code Style"
+#if ! eslint --fix $(find "$DIRECTORIES" -type f -name '*.js'); then
+#  e_error "JavaScript Error in JavaScript file. Run ${YELLOW}eslint src/**/*.js${RESET} to check."
+#  exit 1
+#fi
+#
+#e_info "Linting & Fixing CSS Code Style"
+#if ! stylelint --fix $(find "$DIRECTORIES" -type f -name '*.css'); then
+#  e_error "Error in CSS file. Run ${YELLOW}stylelint *.css${RESET} to check."
+#  exit 1
+#fi
 
 e_info "All good, staging additional changes.\n"
 git update-index --again

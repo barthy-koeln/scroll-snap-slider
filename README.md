@@ -54,12 +54,10 @@ What this module contains:
 ## Sizes
 
 Here are the sizes of individual modules, using terser and gzip with default options.
-The size increase at [bundlephobia](https://bundlephobia.com/result?p=scroll-snap-slider) between v2 and v3 is due to
-the entrypoint changing from 'ScrollSnapSlider' to 'index'.
 
 | Item             | minified (terser) | minified + gzipped |
 |------------------|-------------------|--------------------|
-| complete exports | 8462 B            | 2140 B             |
+| complete exports | 8.4 kB            | 2.1 kB             |
 
 ## Restrictions
 

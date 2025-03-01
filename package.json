@@ -12,6 +12,14 @@
   "module": "dist/scroll-snap-slider.mjs",
   "types": "dist/scroll-snap-slider.d.ts",
   "style": "dist/scroll-snap-slider.css",
+  "exports": {
+    ".": {
+      "types": "./dist/scroll-snap-slider.d.ts",
+      "import": "./dist/scroll-snap-slider.mjs",
+      "require": "./dist/scroll-snap-slider.js"
+    },
+    "./dist/scroll-snap-slider.css": "./dist/scroll-snap-slider.css"
+  },
   "files": [
     "dist"
   ],
@@ -22,30 +30,17 @@
   "repository": "https://github.com/barthy-koeln/scroll-snap-slider",
   "author": "Barthy Bonhomme <post@barthy.koeln>",
   "license": "MIT",
-  "private": false,
   "devDependencies": {
-    "@types/node": "^20.11.20",
-    "@typescript-eslint/eslint-plugin": "^7.0.2",
-    "@typescript-eslint/parser": "^7.0.2",
+    "@types/node": "^22.13.8",
+    "@typescript-eslint/eslint-plugin": "^8.25.0",
+    "@typescript-eslint/parser": "^8.25.0",
     "bash-echolorized": "^1.0.1",
-    "core-js": "^3.36.0",
-    "eslint": "^8.57.0",
-    "eslint-config-standard": "^17.1.0",
-    "eslint-plugin-compat": "^4.2.0",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-n": "^16.6.2",
-    "eslint-plugin-promise": "6.1.1",
-    "postcss": "^8.4.35",
-    "postcss-scss": "^4.0.9",
-    "stylelint": "^16.2.1",
-    "stylelint-config-standard": "^36.0.0",
-    "stylelint-config-standard-scss": "^13.0.0",
-    "stylelint-order": "^6.0.4",
-    "terser": "^5.37.0",
-    "typedoc": "^0.27.4",
-    "typescript": "^5.3.3",
+    "core-js": "^3.40.0",
+    "terser": "^5.39.0",
+    "typedoc": "^0.27.9",
+    "typescript": "^5.8.2",
     "vite": "5.4.6",
-    "vite-plugin-dts": "^3.7.3"
+    "vite-plugin-dts": "^4.5.1"
   },
   "scripts": {
     "build:doc": "typedoc --tsconfig tsconfig.json --options ./typedoc.json src",
@@ -54,5 +49,5 @@
     "build:lib": "vite build --mode lib && yarn build:css",
     "dev": "vite dev"
   },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "packageManager": "yarn@4.6.0"
 }
