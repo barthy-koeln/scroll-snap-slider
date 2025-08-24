@@ -7,14 +7,6 @@ export type ScrollSnapSliderOptions = Partial<ScrollSnapSlider> & {
   element: HTMLElement
 }
 
-declare global {
-  interface HTMLElementEventMap {
-    'slide-pass': CustomEvent<number>;
-    'slide-stop': CustomEvent<number>;
-    'slide-start': CustomEvent<number>;
-  }
-}
-
 /**
  * Mostly CSS slider with great performance.
  */

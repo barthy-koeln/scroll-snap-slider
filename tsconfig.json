@@ -9,7 +9,7 @@
     "outDir": "dist",
     "target": "ESNext",
     "declaration": true,
-    "moduleResolution": "Node",
+    "moduleResolution": "node",
     "types": [],
     "paths": {
       "@/*": ["./src/*"],

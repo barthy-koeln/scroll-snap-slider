@@ -1,4 +1,4 @@
-import { ScrollSnapSlider } from '../lib'
+import { ScrollSnapSlider } from 'scroll-snap-slider'
 
 const sliderMultiElement = document.querySelector<HTMLElement>('.scroll-snap-slider.-multi')
 const sliderMulti = new ScrollSnapSlider({ element: sliderMultiElement })

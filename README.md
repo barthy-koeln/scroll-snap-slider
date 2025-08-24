@@ -262,6 +262,20 @@ Events dispatched on the slider's `element`:
 
 You can use the proxy methods `addEventListener` and `removeEventListener` to listen to them.
 
+If you want proper typing for these events in TypeScript, you can augment the global `HTMLElementEventMap` interface:
+
+```ts
+declare global {
+  interface HTMLElementEventMap {
+    'slide-pass': CustomEvent<number>;
+    'slide-stop': CustomEvent<number>;
+    'slide-start': CustomEvent<number>;
+  }
+}
+```
+
+or copy/import them from `scroll-snap-slider/global.d.ts`.
+
 ## Public Properties
 
 | Property                                 | Description                                                           |

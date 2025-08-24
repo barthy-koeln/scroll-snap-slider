@@ -1,14 +1,18 @@
 import { resolve } from 'path'
+import dts from 'unplugin-dts/vite'
 import { defineConfig } from 'vite'
-import dts from 'vite-plugin-dts'
 
 
 export default defineConfig(({ mode }) => {
-  if(mode === 'lib') {
+  if (mode === 'lib') {
     return {
       base: './',
       plugins: [
-        dts({ rollupTypes: true })
+        dts({
+          include: ['src/lib/**/*'],
+          bundleTypes: true,
+          copyDtsFiles: true
+        }),
       ],
       build: {
         target: 'ESNext',
@@ -18,8 +22,8 @@ export default defineConfig(({ mode }) => {
           entry: resolve(__dirname, 'src/lib/index.ts'),
           name: 'ScrollSnapSlider',
           formats: ['es', 'cjs', 'umd', 'iife'],
-          fileName: 'scroll-snap-slider'
-        }
+          fileName: 'scroll-snap-slider',
+        },
       },
     }
   }
@@ -29,8 +33,8 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: {
         '@': resolve(__dirname, './src'),
-        'scroll-snap-slider': resolve(__dirname, './src/lib/index.ts')
-      }
+        'scroll-snap-slider': resolve(__dirname, './src/lib/index.ts'),
+      },
     },
     build: {
       emptyOutDir: true,
@@ -38,8 +42,8 @@ export default defineConfig(({ mode }) => {
       rollupOptions: {
         input: {
           main: resolve(__dirname, './src/demo/index.html'),
-        }
-      }
-    }
+        },
+      },
+    },
   }
 })
