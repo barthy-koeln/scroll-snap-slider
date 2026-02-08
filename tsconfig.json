@@ -8,8 +8,9 @@
     "rootDir": "src",
     "outDir": "dist",
     "target": "ESNext",
+    "module": "ESNext",
     "declaration": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "types": [],
     "paths": {
       "@/*": ["./src/*"],

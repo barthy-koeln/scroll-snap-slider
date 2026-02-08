@@ -8,16 +8,19 @@
     "scroll",
     "scroll-snap"
   ],
-  "main": "dist/scroll-snap-slider.js",
-  "module": "dist/scroll-snap-slider.mjs",
-  "types": "dist/scroll-snap-slider.d.ts",
-  "style": "dist/scroll-snap-slider.css",
+  "main": "./dist/scroll-snap-slider.js",
+  "module": "./dist/scroll-snap-slider.mjs",
+  "types": "./dist/scroll-snap-slider.d.ts",
+  "style": "./dist/scroll-snap-slider.css",
   "exports": {
     ".": {
       "types": "./dist/scroll-snap-slider.d.ts",
       "import": "./dist/scroll-snap-slider.mjs",
-      "require": "./dist/scroll-snap-slider.js"
+      "require": "./dist/scroll-snap-slider.js",
+      "default": "./dist/scroll-snap-slider.mjs"
     },
+    "./package.json": "./package.json",
+    "./scroll-snap-slider.css": "./dist/scroll-snap-slider.css",
     "./dist/scroll-snap-slider.css": "./dist/scroll-snap-slider.css"
   },
   "files": [
@@ -31,17 +34,17 @@
   "author": "Barthy Bonhomme <post@barthy.koeln>",
   "license": "MIT",
   "devDependencies": {
-    "@microsoft/api-extractor": "^7.52.11",
-    "@types/node": "^24.3.0",
-    "@typescript-eslint/eslint-plugin": "^8.40.0",
-    "@typescript-eslint/parser": "^8.40.0",
+    "@microsoft/api-extractor": "^7.56.3",
+    "@types/node": "^25.2.2",
+    "@typescript-eslint/eslint-plugin": "^8.54.0",
+    "@typescript-eslint/parser": "^8.54.0",
     "bash-echolorized": "^1.0.1",
-    "core-js": "^3.45.1",
-    "terser": "^5.43.1",
-    "typedoc": "^0.28.10",
-    "typescript": "^5.9.2",
+    "core-js": "^3.48.0",
+    "terser": "^5.46.0",
+    "typedoc": "^0.28.16",
+    "typescript": "^5.9.3",
     "unplugin-dts": "1.0.0-beta.0",
-    "vite": "5.4.19"
+    "vite": "7.1.11"
   },
   "scripts": {
     "build:doc": "typedoc --tsconfig tsconfig.json --options ./typedoc.json src",
@@ -50,5 +53,5 @@
     "build:lib": "vite build --mode lib && yarn build:css && cp src/lib/*.d.ts dist/",
     "dev": "vite dev"
   },
-  "packageManager": "yarn@4.9.3"
+  "packageManager": "yarn@4.12.0"
 }

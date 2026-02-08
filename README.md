@@ -302,3 +302,10 @@ yarn # install deps
 yarn dev # run a local dev-server of the demo
 yarn build # build the module 
 ```
+
+## Usage of AI / Coding Agents
+
+This project now uses GitHub Copilot with Claude Sonnet 4.5 for some specific tasks: creating test cases and build
+configuration.
+
+Like any code commited to my account, I read, understand, and approve every line of code, regardless of its source.

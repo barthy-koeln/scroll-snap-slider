@@ -2,7 +2,6 @@ import { resolve } from 'path'
 import dts from 'unplugin-dts/vite'
 import { defineConfig } from 'vite'
 
-
 export default defineConfig(({ mode }) => {
   if (mode === 'lib') {
     return {
@@ -22,7 +21,23 @@ export default defineConfig(({ mode }) => {
           entry: resolve(__dirname, 'src/lib/index.ts'),
           name: 'ScrollSnapSlider',
           formats: ['es', 'cjs', 'umd', 'iife'],
-          fileName: 'scroll-snap-slider',
+          fileName: (format) => {
+            if (format === 'es') {
+              return 'scroll-snap-slider.mjs'
+            }
+
+            if (format === 'cjs') {
+              return 'scroll-snap-slider.js'
+            }
+
+            return `scroll-snap-slider.${format}.js`
+          },
+        },
+        rollupOptions: {
+          output: {
+            exports: 'named',
+            interop: 'auto',
+          },
         },
       },
     }

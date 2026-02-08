@@ -51,6 +51,14 @@ body[data-theme="dark"] {
   --color-light: #2e2e2e;
 }
 
+body[data-motion="normal"] {
+  --transition-duration: 0.3s;
+}
+
+body[data-motion="normal"] .scroll-snap-slider {
+  scroll-behavior: smooth;
+}
+
 h1,
 h2,
 p {
@@ -129,9 +137,12 @@ details p {
   margin: 0 var(--spacer-half);
 }
 
-.feature-toggle.toggle-theme {
+.feature-toggles {
   position: fixed;
   right: var(--spacer-double);
   top: var(--spacer-double);
   z-index: 1030;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacer);
 }

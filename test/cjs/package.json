@@ -1,0 +1,9 @@
+{
+  "name": "test-cjs",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "private": true,
+  "dependencies": {
+    "scroll-snap-slider": "file:../.."
+  }
+}

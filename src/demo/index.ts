@@ -4,14 +4,23 @@ import '@/demo/slider-responsive'
 import './index.css'
 
 document.body.dataset.theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+document.body.dataset.motion = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'reduced' : 'normal'
 
 document.addEventListener('DOMContentLoaded', function () {
-  const button = document.querySelector<HTMLInputElement>('.toggle-theme input')
+  const themeButton = document.querySelector<HTMLInputElement>('.toggle-theme input')
+  const motionButton = document.querySelector<HTMLInputElement>('.toggle-motion input')
 
   if (document.body.dataset.theme === 'dark') {
-    button.setAttribute('checked', '')
+    themeButton.setAttribute('checked', '')
   }
-  button.addEventListener('change', function () {
-    document.body.dataset.theme = button.checked ? 'dark' : 'light'
+
+  if (document.body.dataset.motion === 'reduced') {
+    motionButton.setAttribute('checked', '')
+  }
+  themeButton.addEventListener('change', function () {
+    document.body.dataset.theme = themeButton.checked ? 'dark' : 'light'
+  })
+  motionButton.addEventListener('change', function () {
+    document.body.dataset.motion = motionButton.checked ? 'reduced' : 'normal'
   })
 })

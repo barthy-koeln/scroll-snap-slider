@@ -17,15 +17,27 @@
 </head>
 <body>
 <div class="container">
-  <label class="feature-toggle toggle-theme">
-    <span class="feature-toggle__label">Dark Theme:</span>
-    <input
-      class="feature-toggle__input"
-      id="theme"
-      type="checkbox"
-    />
-    <span class="feature-toggle__slider"></span>
-  </label>
+  <div class="feature-toggles">
+    <label class="feature-toggle toggle-theme">
+      <span class="feature-toggle__label">Dark Theme:</span>
+      <input
+        class="feature-toggle__input"
+        id="theme"
+        type="checkbox"
+      />
+      <span class="feature-toggle__slider"></span>
+    </label>
+
+    <label class="feature-toggle toggle-motion">
+      <span class="feature-toggle__label">Reduced Motion:</span>
+      <input
+        class="feature-toggle__input"
+        id="motion"
+        type="checkbox"
+      />
+      <span class="feature-toggle__slider"></span>
+    </label>
+  </div>
 
   <div class="column -intro">
     <h1>Scroll Snap Slider</h1>
@@ -456,7 +468,7 @@
           width="24"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <titl>Next slide</titl>
+          <title>Next slide</title>
           <path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/>
         </svg>
       </button>
