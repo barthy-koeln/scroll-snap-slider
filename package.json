@@ -30,7 +30,10 @@
   "browserslist": [
     "defaults"
   ],
-  "repository": "https://github.com/barthy-koeln/scroll-snap-slider",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/barthy-koeln/scroll-snap-slider.git"
+  },
   "author": "Barthy Bonhomme <post@barthy.koeln>",
   "license": "MIT",
   "devDependencies": {
