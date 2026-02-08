@@ -105,7 +105,7 @@ You can add whatever markup inside the slides.
 ### CSS
 
 ```css
-@import 'scroll-snap-slider';
+@import 'scroll-snap-slider/dist/scroll-snap-slider.css';
 ```
 
 ### Additional Styles
