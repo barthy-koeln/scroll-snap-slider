@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+rsync -avz demo/ barthy@barthy.koeln:/home/barthy/architecture-public/caddy/static/scroll-snap-slider --exclude=.DS_Store
