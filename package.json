@@ -38,13 +38,13 @@
   "license": "MIT",
   "devDependencies": {
     "@microsoft/api-extractor": "^7.56.3",
-    "@types/node": "^25.2.2",
-    "@typescript-eslint/eslint-plugin": "^8.54.0",
-    "@typescript-eslint/parser": "^8.54.0",
+    "@types/node": "^25.2.3",
+    "@typescript-eslint/eslint-plugin": "^8.56.0",
+    "@typescript-eslint/parser": "^8.56.0",
     "bash-echolorized": "^1.0.1",
     "core-js": "^3.48.0",
     "terser": "^5.46.0",
-    "typedoc": "^0.28.16",
+    "typedoc": "^0.28.17",
     "typescript": "^5.9.3",
     "unplugin-dts": "1.0.0-beta.0",
     "vite": "7.1.11"
@@ -52,7 +52,7 @@
   "scripts": {
     "build:doc": "typedoc --tsconfig tsconfig.json --options ./typedoc.json src",
     "build:css": "mkdir -p dist && cp src/lib/scroll-snap-slider.css dist/scroll-snap-slider.css",
-    "build:demo": "vite build --mode demo --base scroll-snap-slider && yarn build:doc",
+    "build:demo": "vite build --mode demo && yarn build:doc",
     "build:lib": "vite build --mode lib && yarn build:css && cp src/lib/*.d.ts dist/",
     "dev": "vite dev"
   },
